@@ -5,7 +5,7 @@ setTimeout(() => {
 },5000);
 
 
-const saveResearcher = async({studentID,fullName,faculty,mobileNo,email,doc,type})=>{
+const saveResearcher = async({fullName,mobileNo,email,doc,type})=>{
 
     const result = await user.insertOne({studentID,fullName,faculty,mobileNo,email,doc,type});
     return result.ops[0];
