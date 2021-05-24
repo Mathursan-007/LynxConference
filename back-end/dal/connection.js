@@ -1,8 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const uri = "mongodb+srv://admin:admin@first.yueye.mongodb.net/conferenceDB?retryWrites=true&w=majority";
+const {URI} = require('../config')
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(URI, {
     useNewUrlParser: true, useUnifiedTopology: true
 });
 
