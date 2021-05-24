@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const AdminRoutes = require('../back-end/routes/admin.router');
 const EditorRoutes = require('../back-end/routes/user.router');
-const ReviewerRoutes = require('../back-end/routes/reviewr.router');
+const ReviewerRoutes = require('../back-end/routes/reviewer.router');
 const UserRoutes = require('../back-end/routes/user.router');
 
 
