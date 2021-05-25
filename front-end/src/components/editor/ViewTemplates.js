@@ -7,7 +7,7 @@ class ViewTemplates extends React.Component {
             <div className="card border-primary rounded-0">
                 <div className="card-header p-0">
                     <div className="bg-info text-white text-center py-2">
-                        <h3>News</h3>
+                        <h3>Templates</h3>
                     </div>
                 </div>
                 <div className="card-body p-3">

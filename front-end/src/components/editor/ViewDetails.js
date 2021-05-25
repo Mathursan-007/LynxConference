@@ -20,13 +20,23 @@ class ViewDetails extends React.Component {
 
     displayDetail = () => {
         if(this.state.detail == 'keynote') {
-            return <ViewKeynoteSpeakers />
+            return <ViewKeynoteSpeakers statusColor = {this.statusColor} />
         } else if(this.state.detail == 'workshop') {
-            return <ViewWorkshops />
+            return <ViewWorkshops statusColor statusColor = {this.statusColor} />
         } else if(this.state.detail == 'news') {
-            return <ViewNews />
+            return <ViewNews statusColor statusColor = {this.statusColor} />
         } else if(this.state.detail == 'template') {
-            return <ViewTemplates />
+            return <ViewTemplates statusColor statusColor = {this.statusColor} />
+        }
+    }
+
+    statusColor = status => {
+        if(status == 'pending') {
+            return "bg-warning";
+        } else if(status == 'rejected') {
+            return "bg-danger";
+        } else if(status == 'approved') {
+            return "bg-success";
         }
     }
 

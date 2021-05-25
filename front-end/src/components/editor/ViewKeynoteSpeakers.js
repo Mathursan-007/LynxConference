@@ -1,7 +1,26 @@
 import React from 'react';
+import axios from 'axios';
 
 class ViewKeynoteSpeakers extends React.Component {
-    state = {  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            requests: []
+        };
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:5000/editor/requests')
+            .then(response => {
+                this.setState({ requests: response.data });
+                console.log(this.state.requests);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     render() {
         return (
 
@@ -25,36 +44,26 @@ class ViewKeynoteSpeakers extends React.Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td><img src={require('url:../../styles/content.jpg')} className="rounded" width={80} height={80} alt="..." /> </td>
-                                    <td>Frank</td>
-                                    <td><span className="bg-success p-1 text-light rounded">Approved</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src={require('url:../../styles/content.jpg')} className="rounded" width={80} height={80} alt="..." /> </td>
-                                    <td>Serrano</td>
-                                    <td><span className="bg-danger p-1 text-light rounded">Rejected</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src={require('url:../../styles/content.jpg')} className="rounded" width={80} height={80} alt="..." /> </td>
-                                    <td>Acosta</td>
-                                    <td><span className="bg-warning p-1 text-light rounded">Pending</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
+
+                                    {this.state.requests.map(request =>
+                                        <React.Fragment>
+                                            {(request.type === 'keynote') ?
+                                                <tr>
+                                                    <td><img src={request.details.photo} className="rounded" width={80} height={80} alt="..." /> </td>
+                                                    <td>{request.details.name}</td>
+                                                    <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
+                                                    <td>
+
+                                                        <button className="btn btn-primary">
+                                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            : ''}
+                                        </React.Fragment>
+
+                                    )}
+
                                 </tbody>
                             </table>
                         </div>
