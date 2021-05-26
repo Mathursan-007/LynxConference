@@ -2,14 +2,8 @@ import React from "react";
 import {render} from "react-dom";
 import axios from 'axios'
 import Request from './Request'
-import {Button, Modal, ModalBody, ModalFooter} from 'react-bootstrap'
+import 'react-bootstrap'
 
-const requests=[
-
-    {id:1,title:"keynote",status:"pending",content:"nothing"},
-    {id:2,title:"news",status:"pending",content:"something"}
-
-]
 
 class Requests extends React.Component{
 
@@ -23,15 +17,15 @@ class Requests extends React.Component{
 
     componentDidMount() {
 
-    //    axios.get("http://localhost:5000/admin/requests")
-    //        .then(response=>{
-    //            this.setState({requests:response.data})
-    //            console.log(response.data)
-    //        })
-    //        .catch(error=>{
-    //            console.log(error)
-    //        })
-    //
+       axios.get("http://localhost:5000/admin/requests")
+           .then(response=>{
+               this.setState({requests:response.data})
+               console.log(response.data)
+           })
+           .catch(error=>{
+               console.log(error)
+           })
+
      }
 
 
@@ -42,12 +36,12 @@ class Requests extends React.Component{
                    <tr>
                        <thead>
                        <th>ID</th>
-                       <th>Title</th>
+                       <th>Type</th>
                        <th>Status</th>
                        </thead>
                    </tr>
                    <tbody>
-                   {requests.map(request=>{
+                   {this.state.requests.map(request=>{
                        return <Request request={request} key={request.id}/>
                    })
 
