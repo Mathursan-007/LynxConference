@@ -23,7 +23,7 @@ const createWorkshop = async ({type,status,details}) => {
     return await saveWorkshop(workshop);
 }
 
-//retrieving the request details of all requests from the dal
+//retrieving the request details of all requests from the dal hi
 const getRequests = async ()=>{
     return await getAllRequests();
 }
