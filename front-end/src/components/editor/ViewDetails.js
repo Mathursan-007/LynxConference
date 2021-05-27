@@ -3,13 +3,14 @@ import ViewKeynoteSpeakers from "./ViewKeynoteSpeakers";
 import ViewNews from "./ViewNews";
 import ViewWorkshops from "./ViewWorkshops";
 import ViewTemplates from "./ViewTemplates";
+import ViewConference from "./ViewConference";
 import '../../styles/viewDetails.css';
 
 class ViewDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            detail: 'keynote'
+            detail: 'conference'
         };
     }
 
@@ -27,6 +28,8 @@ class ViewDetails extends React.Component {
             return <ViewNews statusColor statusColor = {this.statusColor} />
         } else if(this.state.detail == 'template') {
             return <ViewTemplates statusColor statusColor = {this.statusColor} />
+        } else if(this.state.detail == 'conference') {
+            return <ViewConference statusColor statusColor = {this.statusColor} />
         }
     }
 
@@ -50,6 +53,7 @@ class ViewDetails extends React.Component {
                                 <div className="text-white text-center py-2">
                                     <div className="form-group">
                                         <select className="form-control  border-info" value={this.state.detail} onChange={this.handleChange} >
+                                            <option value={'conference'}>View Conference</option>
                                             <option value={'keynote'}>View Keynote Speaker</option>
                                             <option value={'workshop'}>View Workshop</option>
                                             <option value={'news'}>View News</option>

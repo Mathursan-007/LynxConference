@@ -5,7 +5,11 @@ class AddKeynoteSpeaker extends Component {
     state = {
         name: '',
         description: '',
-        photo: ''
+        photo: '',
+        keynoteSpeakers: [],
+        buttonState: false,
+        buttonText: 'Add Keynote Speaker',
+        img:  ''
     }
 
     handleInput = e => {
@@ -13,8 +17,33 @@ class AddKeynoteSpeaker extends Component {
             this.setState({[name]: value});
     }
 
+    componentDidMount() {
+        axios.get('http://localhost:5000/editor/requests')
+            .then(response => {
+                    this.setState({ keynoteSpeakers: response.data.filter(request =>{
+                            return request.type === 'keynote';
+                    })
+
+                });
+
+                    if(this.state.keynoteSpeakers.length >= 4) {
+                        this.setState({
+                            buttonState: true,
+                            buttonText: 'Maximum speakers reached'
+                        })
+                    }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     handlePhoto = (e) => {
-        this.setState({photo: e.target.files[0]});
+        this.setState({
+            photo: e.target.files[0],
+            img: URL.createObjectURL(e.target.files[0])
+        });
         console.log(this.state.photo);
     }
 
@@ -27,9 +56,33 @@ class AddKeynoteSpeaker extends Component {
         formData.append('description', this.state.description);
         formData.append('photo', this.state.photo);
 
+        this.setState({
+            buttonState: true,
+            buttonText: 'uploading...'
+        })
+
         axios.post('http://localhost:5000/editor/addKeynote/', formData)
             .then(res => {
-                console.log(res);
+
+                this.setState({
+                    keynoteSpeakers: [...this.state.keynoteSpeakers,res.data],
+                    name: '',
+                    description: '',
+                    photo: ''
+
+                });
+
+                if(this.state.keynoteSpeakers.length >= 4) {
+                    this.setState({
+                        buttonState: true,
+                        buttonText: 'Maximum speakers reached'
+                    })
+                } else {
+                    this.setState({
+                        buttonState: false,
+                        buttonText: 'Add Keynote Speaker'
+                    })
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -61,6 +114,7 @@ class AddKeynoteSpeaker extends Component {
                                                     value={this.state.name}
                                                     onChange={this.handleInput}
                                                     placeholder="Enter name of keynote speaker"
+                                                    disabled={this.state.buttonState}
                                                     required />
                                             </div>
                                         </div>
@@ -77,9 +131,18 @@ class AddKeynoteSpeaker extends Component {
                                                     name="description"
                                                     value={this.state.description}
                                                     onChange={this.handleInput}
+                                                    disabled={this.state.buttonState}
                                                     required></textarea>
                                             </div>
                                         </div>
+
+                                        {this.state.img === '' ? '' :
+                                            <React.Fragment>
+                                            <img src={`${this.state.img}`} alt={'no image'} style={{width: "100%",height:"50vh"}} />
+                                            </React.Fragment>
+                                        }
+
+
 
                                         <div className="form-group">
                                             <div className="input-group mb-2">
@@ -92,13 +155,18 @@ class AddKeynoteSpeaker extends Component {
                                                     name="photo"
                                                     className="form-control"
                                                     onChange={this.handlePhoto}
+                                                    disabled={this.state.buttonState}
                                                     required
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="text-center">
-                                            <input type="submit" value="Add" className="btn btn-info btn-block rounded-0 py-2" />
+                                            <input
+                                                type="submit"
+                                                value={this.state.buttonText}
+                                                className="btn btn-info btn-block rounded-0 py-2"
+                                                disabled={this.state.buttonState} />
                                         </div>
                                     </div>
 

@@ -3,12 +3,13 @@ import AddKeynoteSpeaker from './AddKeynoteSpeaker';
 import AddWorkshop from './AddWorkshop';
 import AddNews from './AddNews';
 import AddTemplate from './AddTemplate';
+import AddConference from './AddConference';
 
 class AddDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            detail: 'keynote'
+            detail: 'conference'
         };
     }
 
@@ -26,6 +27,8 @@ class AddDetails extends Component {
             return <AddNews />
         } else if(this.state.detail == 'template') {
             return <AddTemplate />
+        } else if(this.state.detail == 'conference') {
+            return <AddConference />
         }
     }
 
@@ -39,6 +42,7 @@ class AddDetails extends Component {
                                 <div className="text-white text-center py-2">
                                     <div className="form-group">
                                         <select className="form-control  border-info" value={this.state.detail} onChange={this.handleChange} >
+                                            <option value={'conference'}>Add Conference</option>
                                             <option value={'keynote'}>Add Keynote Speaker</option>
                                             <option value={'workshop'}>Add Workshop</option>
                                             <option value={'news'}>Add News</option>

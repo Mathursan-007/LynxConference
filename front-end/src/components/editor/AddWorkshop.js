@@ -5,7 +5,10 @@ class AddWorkshop extends Component {
     state = {
         title: '',
         description: '',
-        workshopFile: ''
+        workshopFile: '',
+        buttonState: false,
+        buttonText: 'Add Workshop',
+        img:  ''
     }
 
     handleInput = e => {
@@ -14,7 +17,11 @@ class AddWorkshop extends Component {
     }
 
     handleFile = (e) => {
-        this.setState({workshopFile: e.target.files[0]});
+        this.setState({
+            workshopFile: e.target.files[0],
+            img: URL.createObjectURL(e.target.files[0])
+
+        });
         console.log(this.state.workshopFile);
     }
 
@@ -27,9 +34,20 @@ class AddWorkshop extends Component {
         formData.append('description', this.state.description);
         formData.append('workshopFile', this.state.workshopFile);
 
+        this.setState({
+            buttonState: true,
+            buttonText: 'uploading...'
+        })
+
         axios.post('http://localhost:5000/editor/addWorkshop/', formData)
             .then(res => {
-                console.log(res);
+                this.setState({
+                    title: '',
+                    description: '',
+                    workshopFile: '',
+                    buttonState: false,
+                    buttonText: 'Add Workshop'
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -62,6 +80,7 @@ class AddWorkshop extends Component {
                                                 value={this.state.title}
                                                 onChange={this.handleInput}
                                                 placeholder="Enter title of workshop"
+                                                disabled={this.state.buttonState}
                                                 required />
                                         </div>
                                     </div>
@@ -78,27 +97,40 @@ class AddWorkshop extends Component {
                                                 onChange={this.handleInput}
                                                 rows="4"
                                                 cols="50"
+                                                disabled={this.state.buttonState}
                                                 required></textarea>
                                         </div>
                                     </div>
 
+                                    {this.state.img === '' ? '' :
+                                        <React.Fragment>
+                                            <img src={`${this.state.img}`} alt={'no image'} style={{width: "100%",height:"50vh"}} />
+                                        </React.Fragment>
+                                    }
+
                                     <div className="form-group">
                                         <div className="input-group mb-2">
                                             <div className="input-group-prepend">
-                                                <div className="input-group-text"><i className="fa fa-file-text text-info"></i></div>
+                                                <div className="input-group-text"><i className="fa fa-picture-o text-info"></i></div>
                                             </div>
                                             <input
-                                                type="file"name="file"
-                                                accept="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                                type="file"
+                                                name="file"
+                                                accept=".png, .jpg, .jpeg"
                                                 className="form-control"
                                                 onChange={this.handleFile}
+                                                disabled={this.state.buttonState}
                                                 required
                                             />
                                         </div>
                                     </div>
 
                                     <div className="text-center">
-                                        <input type="submit" value="Add" className="btn btn-info btn-block rounded-0 py-2" />
+                                        <input
+                                            type="submit"
+                                            value={this.state.buttonText}
+                                            className="btn btn-info btn-block rounded-0 py-2"
+                                            disabled={this.state.buttonState}/>
                                     </div>
                                 </div>
 

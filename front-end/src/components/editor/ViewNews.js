@@ -1,7 +1,116 @@
 import React from 'react';
+import axios from "axios";
+import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
+import ModalHeader from "react-bootstrap/ModalHeader";
 
 class ViewNews extends React.Component {
-    state = {  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            requests: [],
+            name: '',
+            description: '',
+            show:false,
+            request:''
+        };
+    }
+
+    handleInput = e => {
+        const {name, value} = e.target;
+        this.setState({[name]: value});
+    }
+
+    handleSubmit = e => {
+
+        e.preventDefault();
+
+        const news = {
+            name: this.state.name,
+            description: this.state.description
+        }
+
+        axios.put('http://localhost:5000/editor/updateNews/'+this.state.request._id, news)
+            .then(res => {
+
+                axios.get('http://localhost:5000/editor/requests')
+                    .then(response => {
+                        this.setState({ requests: response.data });
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+
+                this.setState({
+                    name: '',
+                    description: '',
+                    show: false
+                });
+
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }
+
+    showView = () => {
+        if(this.state.request) {
+
+            return(
+
+                <Modal show={this.state.show} centered={true} >
+                    <ModalHeader>
+                        <ModalTitle>
+
+                        </ModalTitle>
+                    </ModalHeader>
+                    <ModalBody>
+
+                        <input
+                            type="text"
+                            className="form-control w-100 mb-5"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleInput}
+                            placeholder="Enter name of keynote speaker"
+                            required />
+
+                        <textarea
+                            className="form-control"
+                            placeholder="Enter description about speaker"
+                            rows="4"
+                            cols="50"
+                            name="description"
+                            value={this.state.description}
+                            onChange={this.handleInput}
+                            required></textarea>
+
+                        <p>{this.state.request.details.date}</p>
+
+                    </ModalBody>
+                    <Modal.Footer>
+                        <Button onClick={this.handleSubmit}>Update</Button>
+                        <Button className="btn-danger" onClick={()=>this.setState({show:false})}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+            )
+        }
+
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:5000/editor/requests')
+            .then(response => {
+                this.setState({ requests: response.data });
+                console.log(this.state.requests);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     render() {
         return (
                 <div className="card border-primary rounded-0">
@@ -24,36 +133,36 @@ class ViewNews extends React.Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>News 1 </td>
-                                    <td>10/4/2021</td>
-                                    <td><span className="bg-success p-1 text-light rounded">Approved</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>News 2 </td>
-                                    <td>10/3/2021</td>
-                                    <td><span className="bg-danger p-1 text-light rounded">Rejected</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>News 3 </td>
-                                    <td>10/6/2021</td>
-                                    <td><span className="bg-warning p-1 text-light rounded">Pending</span></td>
-                                    <td>
-                                        <button className="btn btn-primary">
-                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                        </button>
-                                    </td>
-                                </tr>
+
+                                {this.state.requests.map(request =>
+                                    <React.Fragment>
+                                        {(request.type === 'news') ?
+                                            <tr>
+                                                <td>{request.details.name}</td>
+                                                <td>{request.details.date}</td>
+                                                <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
+                                                <td>
+
+                                                    <button
+                                                        className="btn btn-primary"
+                                                        disabled={request.status === 'rejected' || request.status === 'pending' ? false : true}
+                                                        onClick={() => this.setState({
+                                                            show: true,
+                                                            request:request,
+                                                            name: request.details.name,
+                                                            description: request.details.description
+                                                        })}
+                                                    >
+                                                        <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
+                                                    </button>
+                                                </td>
+                                                {this.showView()}
+                                            </tr>
+                                            : ''}
+                                    </React.Fragment>
+
+                                )}
+
                                 </tbody>
                             </table>
                         </div>

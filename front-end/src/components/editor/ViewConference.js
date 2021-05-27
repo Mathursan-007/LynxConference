@@ -3,16 +3,19 @@ import axios from "axios";
 import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 
-class ViewTemplates extends React.Component {
+class ViewConference extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             requests: [],
+            name: '',
+            institute: '',
+            faculty: '',
+            start_date: '',
+            end_date: '',
+            description: '',
             show:false,
-            request:'',
-            title: '',
-            file: '',
-            fileUrl: ''
+            request:''
         };
     }
 
@@ -21,25 +24,20 @@ class ViewTemplates extends React.Component {
         this.setState({[name]: value});
     }
 
-    handleFile = (e) => {
-        this.setState({
-            file: e.target.files[0],
-            fileUrl: URL.createObjectURL(e.target.files[0])
-        });
-
-        console.log(this.state.file);
-    }
-
     handleSubmit = e => {
 
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('title', this.state.title);
-        formData.append('file', this.state.file);
-        formData.append('fileUrl', this.state.request.details.file);
+        const conference = {
+            name: this.state.name,
+            institute: this.state.institute,
+            faculty: this.state.faculty,
+            start_date: this.state.start_date,
+            end_date: this.state.end_date,
+            description: this.state.description
+        }
 
-        axios.put('http://localhost:5000/editor/updateTemplate/'+this.state.request._id, formData)
+        axios.put('http://localhost:5000/editor/updateConference/'+this.state.request._id, conference)
             .then(res => {
 
                 axios.get('http://localhost:5000/editor/requests')
@@ -52,9 +50,8 @@ class ViewTemplates extends React.Component {
                     })
 
                 this.setState({
-                    title: '',
-                    file: '',
-                    fileUrl: '',
+                    name: '',
+                    description: '',
                     show: false
                 });
 
@@ -78,38 +75,67 @@ class ViewTemplates extends React.Component {
                     </ModalHeader>
                     <ModalBody>
 
+                        <input
+                            type="text"
+                            className="form-control w-100 mb-5"
+                            name="name"
+                            value={this.state.name}
+                            onChange={this.handleInput}
+                            placeholder="Enter name of keynote speaker"
+                            required />
 
                         <input
                             type="text"
                             className="form-control w-100 mb-5"
-                            name="title"
-                            value={this.state.title}
+                            name="institute"
+                            value={this.state.institute}
                             onChange={this.handleInput}
-                            style={{width:"100vh"}}
                             placeholder="Enter name of keynote speaker"
                             required />
-                        {this.state.fileUrl ?
-
-                            <a href={`${this.state.fileUrl}`}>{this.state.file.name}</a>
-
-                            :
-
-                            <a href={`${this.state.file}`}>{this.state.request.details.name}</a>
-                        }
 
                         <input
-                            type="file"
-                            name="file"
-                            accept = "application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                            type="text"
+                            className="form-control w-100 mb-5"
+                            name="faculty"
+                            value={this.state.faculty}
+                            onChange={this.handleInput}
+                            placeholder="Enter name of keynote speaker"
+                            required />
+
+                        <input
+                            type="date"
+                            className="form-control w-100 mb-5"
+                            name="start_date"
+                            value={this.state.start_date}
+                            onChange={this.handleInput}
+                            placeholder="Enter name of keynote speaker"
+                            required />
+
+                        <input
+                            type="date"
+                            className="form-control w-100 mb-5"
+                            name="end_date"
+                            value={this.state.end_date}
+                            onChange={this.handleInput}
+                            placeholder="Enter name of keynote speaker"
+                            required />
+
+                        <textarea
                             className="form-control"
-                            onChange={this.handleFile}
-                            required
-                        />
+                            placeholder="Enter description about speaker"
+                            rows="4"
+                            cols="50"
+                            name="description"
+                            value={this.state.description}
+                            onChange={this.handleInput}
+                            required></textarea>
+
+                        <p>{this.state.request.details.date}</p>
 
                     </ModalBody>
                     <Modal.Footer>
                         <Button onClick={this.handleSubmit}>Update</Button>
-                        <Button className="btn-danger" onClick={()=>this.setState({show:false,img:''})}>Close</Button>
+                        <Button className="btn-danger" onClick={()=>this.setState({show:false})}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             )
@@ -121,6 +147,8 @@ class ViewTemplates extends React.Component {
         axios.get('http://localhost:5000/editor/requests')
             .then(response => {
                 this.setState({ requests: response.data });
+                console.log(this.state.requests);
+
             })
             .catch((error) => {
                 console.log(error);
@@ -132,7 +160,7 @@ class ViewTemplates extends React.Component {
             <div className="card border-primary rounded-0">
                 <div className="card-header p-0">
                     <div className="bg-info text-white text-center py-2">
-                        <h3>Templates</h3>
+                        <h3>Conference</h3>
                     </div>
                 </div>
                 <div className="card-body p-3">
@@ -143,7 +171,7 @@ class ViewTemplates extends React.Component {
                             <thead className="tablehead">
                             <tr>
                                 <th>Title</th>
-                                <th>file</th>
+                                <th>Institute</th>
                                 <th>status</th>
                                 <th>Action</th>
                             </tr>
@@ -152,10 +180,10 @@ class ViewTemplates extends React.Component {
 
                             {this.state.requests.map(request =>
                                 <React.Fragment>
-                                    {(request.type === 'template') ?
+                                    {(request.type === 'conference') ?
                                         <tr>
                                             <td>{request.details.name}</td>
-                                            <td><a href={`${request.details.file}`}>Download Template</a></td>
+                                            <td>{request.details.institute}</td>
                                             <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
                                             <td>
 
@@ -165,8 +193,12 @@ class ViewTemplates extends React.Component {
                                                     onClick={() => this.setState({
                                                         show: true,
                                                         request:request,
-                                                        title: request.details.name,
-                                                        file: request.details.file
+                                                        name: request.details.name,
+                                                        institute: request.details.institute,
+                                                        faculty: request.details.faculty,
+                                                        start_date: request.details.start_date,
+                                                        end_date: request.details.end_date,
+                                                        description: request.details.description
                                                     })}
                                                 >
                                                     <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
@@ -190,4 +222,4 @@ class ViewTemplates extends React.Component {
     }
 }
 
-export default ViewTemplates;
+export default ViewConference;
