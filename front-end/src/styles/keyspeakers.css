@@ -1,56 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-*, html,body{
-    padding:0px;
-    margin:0px;
-    box-sizing:border-box;
-    font-family:'Poppins', sans-serif;
-    perspective:800px;
-}
-body{
-    background-color:#fff;
-}
 
-.container{
+.cont{
     position:relative;
     width:100%;
     height:100vh;
     overflow:hidden;
 }
-.container .Slider{
+.cont .Slider{
     position:absolute;
     width:100%;
     height:400vh;
     transition:all 1s ease-in-out;
     top:0vh;
 }
-.container .Slider .slide{
+.cont .Slider .slide{
     position:relative;
     width:100%;
     height:25%;
     display:flex;
     flex-wrap:wrap;
 }
-.container .Slider .slide:nth-child(even){
+.cont .Slider .slide:nth-child(even){
     flex-direction:row-reverse;
 }
-.container .Slider .slide .Content{
+.cont .Slider .slide .Content{
     width:50%;
     height:100%;
     display:table;
 }
-.container .Slider .slide .Content div{
+.cont .Slider .slide .Content div{
     display:table-cell;
     vertical-align:middle;
     padding:50px;
     text-align:center;
     color:#222;
 }
-.container .Slider .slide .Content div h2{
+.cont .Slider .slide .Content div h2{
     font-size:40px;
     margin:20px;
 }
-.container .Slider .slide .Content div a{
+.cont .Slider .slide .Content div a{
     display:inline-block;
     margin:20px;
     width:180px;
@@ -63,35 +53,35 @@ body{
     transition-property:background-color,color;
     transition-duration:.5s,.5s;
 }
-.container .Slider .slide .Content div a:hover{
+.cont .Slider .slide .Content div a:hover{
     background-color:#fff;
     border:2px solid #262626;
     color:#262626;
     line-height:46px;
 }
-.container .Slider .slide .ImageContent{
+.cont .Slider .slide .ImageContent{
     width:50%;
     height:100%;
 }
-.container .Slider .slide .ImageContent img{
+.cont .Slider .slide .ImageContent img{
     width:100%;
     height:100%;
     cursor:pointer;
     transition:1s;
 }
-.container .Slider .slide .ImageContent img:hover{
+.cont .Slider .slide .ImageContent img:hover{
     filter:brightness(.3);
 }
-.container input{
+.cont input{
     display:none;
 }
-.container .Navigation{
+.cont .Navigation{
     position:absolute;
     top:50%;
     right:10px;
     transform:translateY(-50%);
 }
-.container .Navigation label{
+.cont .Navigation label{
     position:relative;
     display:block;
     width:18px;
@@ -101,7 +91,7 @@ body{
     cursor:pointer;
     transition:.5s;
 }
-.container .Navigation label span{
+.cont .Navigation label span{
     position:absolute;
     display:inline-block;
     width:50%;
@@ -112,85 +102,85 @@ body{
     transform:translate(-50%,-50%);
     transition:.5s;
 }
-.container #r1:checked ~ .Slider{
+.cont #r1:checked ~ .Slider{
     top:0vh;
 }
-.container #r2:checked ~ .Slider{
+.cont #r2:checked ~ .Slider{
     top:-100vh;
 }
-.container #r3:checked ~ .Slider{
+.cont #r3:checked ~ .Slider{
     top:-200vh;
 }
-.container #r4:checked ~ .Slider{
+.cont #r4:checked ~ .Slider{
     top:-300vh;
 }
 
-.container #r1:checked ~ .Navigation label:first-child span{
+.cont #r1:checked ~ .Navigation label:first-child span{
     background:#fff;
 }
-.container #r1:checked ~ .Navigation label{
+.cont #r1:checked ~ .Navigation label{
     border:2px solid #fff;
 }
-.container #r2:checked ~ .Navigation label:nth-child(2) span{
+.cont #r2:checked ~ .Navigation label:nth-child(2) span{
     background:#222;
 }
-.container #r2:checked ~ .Navigation label{
+.cont #r2:checked ~ .Navigation label{
     border:2px solid #222;
 }
-.container #r3:checked ~ .Navigation label:nth-child(3) span{
+.cont #r3:checked ~ .Navigation label:nth-child(3) span{
     background:#fff;
 }
-.container #r3:checked ~ .Navigation label{
+.cont #r3:checked ~ .Navigation label{
     border:2px solid #fff;
 }
-.container #r4:checked ~ .Navigation label:last-child span{
+.cont #r4:checked ~ .Navigation label:last-child span{
     background:#222;
 }
-.container #r4:checked ~ .Navigation label{
+.cont #r4:checked ~ .Navigation label{
     border:2px solid #222;
 }
 
 @media (max-width:762px){
-    .container{
+    .cont{
         height:100vh;
     }
-    .container .Slider .slide .Content div{
+    .cont .Slider .slide .Content div{
         padding:10px;
     }
-    .container .Slider .slide .Content div h2{
+    .cont .Slider .slide .Content div h2{
         font-size:25px;
         margin:10px;
     }
-    .container .Slider .slide{
+    .cont .Slider .slide{
         flex-direction:column-reverse;
     }
-    .container .Slider .slide:nth-child(even){
+    .cont .Slider .slide:nth-child(even){
         flex-direction:column-reverse;
     }
-    .container .Slider .slide .Content{
+    .cont .Slider .slide .Content{
         width:100%;
         height:50%;
         display:table;
     }
-    .container .Slider .slide .ImageContent{
+    .cont .Slider .slide .ImageContent{
         width:100%;
         height:50%;
     }
-    .container .Navigation{
+    .cont .Navigation{
         position:absolute;
         top:20%;
         right:5px;
     }
-    .container .Navigation label{
+    .cont .Navigation label{
         border:2px solid #fff !important;
     }
-    .container #r1:checked ~ .Navigation label:first-child span,
-    .container #r2:checked ~ .Navigation label:nth-child(2) span,
-    .container #r3:checked ~ .Navigation label:nth-child(3) span,
-    .container #r4:checked ~ .Navigation label:last-child span{
+    .cont #r1:checked ~ .Navigation label:first-child span,
+    .cont #r2:checked ~ .Navigation label:nth-child(2) span,
+    .cont #r3:checked ~ .Navigation label:nth-child(3) span,
+    .cont #r4:checked ~ .Navigation label:last-child span{
         background:#fff !important;
     }
-    .container .Slider .slide .Content div a{
+    .cont .Slider .slide .Content div a{
         margin:5px;
         width:120px;
         height:50px;
@@ -198,22 +188,22 @@ body{
     }
 }
 @media (max-width:315px){
-    .container .Slider .slide .Content div{
+    .cont .Slider .slide .Content div{
         padding:5px;
     }
-    .container .Slider .slide .Content div{
+    .cont .Slider .slide .Content div{
         padding:5px;
     }
-    .container .Slider .slide .Content div h2{
+    .cont .Slider .slide .Content div h2{
         font-size:20px;
         margin:5px;
     }
-    .container .Slider .slide .Content{
+    .cont .Slider .slide .Content{
         width:100%;
         height:60%;
         display:block;
     }
-    .container .Slider .slide .ImageContent{
+    .cont .Slider .slide .ImageContent{
         width:100%;
         height:40%;
     }
