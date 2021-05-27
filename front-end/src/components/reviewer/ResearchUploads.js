@@ -4,28 +4,46 @@ import axios from "axios";
 import ResearchUpload from './ResearchUpload';
 import '../../styles/ReviewerResearchUploads.css';
 
-
+//
 // const researchUploads = [
 //     {
 //         id: 1,
 //         title: 'AI in Face Detection',
 //         category: 'Artificial Intelligence',
 //         url: 'https://www.google.com/',
-//         status: 'Pending'
+//         status: 'Pending',
+//         details: {
+//             id: '100',
+//             name: 'Krishna',
+//             email: 'krishna@gmail.com',
+//             phoneNumber: '0784512697'
+//         }
 //     },
 //     {
 //         id: 2,
 //         title: 'ML in IoT Security',
 //         category: 'Machine Learning',
 //         url: 'https://www.google.com/',
-//         status: 'Pending'
+//         status: 'Pending',
+//         details: {
+//             id: '101',
+//             name: 'Arjunan',
+//             email: 'arjunan@gmail.com',
+//             phoneNumber: '0724589412'
+//         }
 //     },
 //     {
 //         id: 3,
 //         title: 'AI in IoT Security',
 //         category: 'Artificial Intelligence',
 //         url: 'https://www.google.com/',
-//         status: 'Pending'
+//         status: 'Pending',
+//         details: {
+//             id: '102',
+//             name: 'Hanumaan',
+//             email: 'hanumaan@gmail.com',
+//             phoneNumber: '0754896312'
+//         }
 //     }
 // ]
 
@@ -60,7 +78,7 @@ export default class ResearchUploads extends React.Component {
                 <table class="rev-table">
                     <thead>
                     <tr class="rev-tr">
-                        <th class="rev-th">ID</th>
+                        <th class="rev-th"> </th>
                         <th class="rev-th">Title</th>
                         <th class="rev-th">Category</th>
                         <th class="rev-th">Status</th>
@@ -73,6 +91,7 @@ export default class ResearchUploads extends React.Component {
                                 <ResearchUpload upload={upload} key={upload._id} />
                         );
                     })}
+
                     </tbody>
                 </table>
             </div>

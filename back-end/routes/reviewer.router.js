@@ -5,8 +5,7 @@ const jwt = require('jsonwebtoken');
 const {CLOUD_NAME, API_KEY, API_SECRET} = require('../config');
 
 
-// -------------------------- Research Paper -------------------------------
-// Retrieving all the requests of Research Paper Submissions
+// Retrieving all the requests of Submitted Documents
 router.get("/uploads", async (req, res) => {
 
     let requests = await getUploadRequest();
@@ -18,25 +17,20 @@ router.get("/uploads", async (req, res) => {
     }
 });
 
-// Retrieving a specific Research Paper Submission
-// TODO:
 
-// ---------------------------- Workshop Proposal ---------------------------
-// Retrieving all the requests of Workshop Proposals
-router.get("/reply/:id", async (req, res) => {
-    let requests = await updateStatus(req.params.id, req.body);
+// Updating Status of Submitted Documents
+router.patch("/upload/:id", async (req, res) => {
+    console.log(req.body);
+    let requests = await updateStatus(req.params.id, req.body.status);
+
 
     if(requests) {
         res.status(201).send(requests);
+        console.log('Success : ' + req.body.status);
     }
     else {
         res.status(502).send("Error");
     }
 });
-
-// Retrieving a specific Workshop Proposal Submission
-// TODO:
-
-
 
 module.exports = router;

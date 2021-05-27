@@ -34,7 +34,7 @@ export default class WorkshopUploads extends React.Component {
         super(props);
 
         this.state = {
-            workshopUploads: []
+            workshopUploads: [],
         };
     }
 
@@ -54,12 +54,13 @@ export default class WorkshopUploads extends React.Component {
     }
 
     render() {
+
         return (
             <div class="rev-table_container">
                 <table class="rev-table">
                     <thead>
                     <tr class="rev-tr">
-                        <th class="rev-th">ID</th>
+                        <th class="rev-th"> </th>
                         <th class="rev-th">Title</th>
                         <th class="rev-th">Category</th>
                         <th class="rev-th">Status</th>

@@ -1,4 +1,4 @@
-const {getAllUploads, updateUploadStatus} = require("../dal/reviewer.dao");
+const {getAllUploads, updateUploadStatus} = require("../dal/upload.dao");
 
 
 // --------------------- Research Paper -----------------------
@@ -10,7 +10,7 @@ const getUploadRequest = async () => {
 // --------------------- Workshop Proposals ---------------------
 // Retrieving all the request details of all the Workshop Proposlas submitted from dal
 const updateStatus = async (id, status) => {
-    return await updateUploadStatus();
+    return await updateUploadStatus(id, status);
 }
 
 module.exports = { getUploadRequest, updateStatus}
