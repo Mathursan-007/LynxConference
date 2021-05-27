@@ -5,23 +5,26 @@ setTimeout(() => {
     request = require('./connection').db('conferenceDB').collection('request');
 },5000);
 
-//Adding a new keynote speaker to the database
-const saveKeynoteSpeaker = async({type,status,details})=>{
+const saveRequest = async({type,status,last_modified,details})=>{
 
-    const result = await request.insertOne({type,status,details});
+    const result = await request.insertOne({type,status,last_modified,details});
     return result.ops[0];
 
 }
 
-//Adding a new workshop speaker to the database
-const saveWorkshop = async({type,status,details})=>{
+const retrieveConference = async ()=>{
 
-    const result = await request.insertOne({type,status,details});
-    return result.ops[0];
+    const result = await request.findOne({type:'conference'});
+    return result;
 
 }
 
-//retrieving all the requests records from the db hi
+const updateRequest = async (id,{type,status,last_modified,details})=>{
+    const result = await request.replaceOne({"_id":ObjectID(id)},{type,status,last_modified,details});
+    return result.ops[0];
+}
+
+//retrieving all the requests records from the db
 const getAllRequests =async ()=>{
 
     const results = await request.find({});
@@ -33,4 +36,4 @@ const updateStatus = async (id,status)=>{
     return await request.updateOne({"_id":ObjectID(id)},{$set:{status:status}})
 }
 
-module.exports = { saveKeynoteSpeaker , getAllRequests , saveWorkshop , updateStatus };
+module.exports = { saveRequest , getAllRequests , updateRequest , updateStatus , retrieveConference };

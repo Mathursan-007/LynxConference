@@ -1,31 +1,36 @@
-const { saveKeynoteSpeaker , getAllRequests , saveWorkshop } = require('../dal/request.dao');
+const { saveRequest , getAllRequests , updateRequest , retrieveConference } = require('../dal/request.dao');
 
+const createRequest = async ({type,status,last_modified,details}) => {
 
-const createKeynoteSpeaker = async ({type,status,details}) => {
-
-    const keynoteSpeaker = {
+    const request = {
         type,
         status,
+        last_modified,
         details
     }
 
-    return await saveKeynoteSpeaker(keynoteSpeaker);
+    return await saveRequest(request);
 }
 
-const createWorkshop = async ({type,status,details}) => {
+const modifyRequest = async (id,{type,status,last_modified,details}) => {
 
-    const workshop = {
+    const request = {
         type,
         status,
+        last_modified,
         details
     }
 
-    return await saveWorkshop(workshop);
+    return await updateRequest(id,request);
 }
 
-//retrieving the request details of all requests from the dal hi
+const getConference = async ()=>{
+    return await retrieveConference();
+}
+
+//retrieving the request details of all requests from the dal
 const getRequests = async ()=>{
     return await getAllRequests();
 }
 
-module.exports = { createKeynoteSpeaker , getRequests , createWorkshop };
+module.exports = { createRequest , getRequests , modifyRequest , getConference  };

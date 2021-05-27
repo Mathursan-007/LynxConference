@@ -1,6 +1,6 @@
-const CLOUD_NAME="lynxcloud"
-const API_KEY="829654995463379"
-const API_SECRET="YmeDCN3qgEo-rHLX8DXAV6-tKhs"
+const CLOUD_NAME="dl4psqagn"
+const API_KEY="587545497235784"
+const API_SECRET="94aSZhVknWE_fcJFcqDzZ43FnR8"
 const URI="mongodb+srv://admin:admin@first.yueye.mongodb.net/conferenceDB?retryWrites=true&w=majority"
 
 
