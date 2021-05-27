@@ -8,7 +8,7 @@ class Header extends Component {
         return (
             <div>
 
-                <div className="containerHeader">
+                <div className="containerHeader s">
                     <img className="imgHeader" src="https://wallpaperaccess.com/full/334549.jpg" alt="Snow"/>
                     <div className="centeredHeader">LYNX CONFERENCE</div>
                 </div>

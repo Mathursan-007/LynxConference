@@ -26,7 +26,7 @@ export default class Workshops extends React.Component{
 
     render() {
         return(
-            <div className="body" style={{minHeight: "100vh"}}>
+            <div className="body s" style={{minHeight: "100vh"}}>
                 <div className="container">
                     <div className="row">
 

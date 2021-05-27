@@ -27,7 +27,7 @@ export default class News extends React.Component{
     render() {
         return(
             <div className="body" style={{minHeight: "100vh"}}>
-                <div className="container">
+                <div className="container s">
                         <div className="row">
 
                             {this.state.news.map(req =>

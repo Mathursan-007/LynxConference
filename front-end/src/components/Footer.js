@@ -3,7 +3,7 @@ import '../styles/footer.css'
 class Footer extends React.Component {
     render() {
         return (
-            <div className="footer-basic">
+            <div className="footer-basic s">
                 <footer>
                     <div className="social">
                         <a href="#"><i className="fa fa-facebook text-light"></i></a>
