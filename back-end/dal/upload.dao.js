@@ -20,4 +20,19 @@ const updateUploadStatus = async (id, status) => {
     return await upload.updateOne({"_id":ObjectID(id)}, {$set: {status:status}})
 }
 
-module.exports = { getAllUploads, updateUploadStatus };
+const saveResearcherUploads = async({type,status,details,date})=>{
+
+
+    const result = await upload.insertOne({type,status,details,date});
+    return result.ops[0];
+
+}
+const savePresenterUploads = async({type,status,details,date})=>{
+
+
+    const result = await upload.insertOne({type,status,details,date});
+    return result.ops[0];
+
+}
+
+module.exports = { getAllUploads, updateUploadStatus ,savePresenterUploads,saveResearcherUploads};
