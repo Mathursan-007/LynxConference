@@ -42,7 +42,7 @@ class Requests extends React.Component{
                    </tr>
                    <tbody>
                    {this.state.requests.map(request=>{
-                       return <Request request={request} key={request.id}/>
+                       return <Request request={request} key={request._id}/>
                    })
 
                    }

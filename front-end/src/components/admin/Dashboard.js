@@ -4,6 +4,7 @@ import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Requests from "./Requests";
+import Uploads from "./Uploads";
 
 class Dashboard extends React.Component{
 
@@ -30,7 +31,7 @@ class Dashboard extends React.Component{
             <div>
                 <div className={"sidebar"}>
                         <Link to={"/admin/requests"}>Publish Requests</Link>
-                        <Link to={"/admin/workshops"}>WorkShops</Link>
+                        <Link to={"/admin/uploads"}>Uploads</Link>
                         <Link to={"/admin/submissions"}>Research Submissions</Link>
                         <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
                 </div>
@@ -38,6 +39,9 @@ class Dashboard extends React.Component{
                     <Switch>
                         <Route exact path={"/admin/requests"}>
                             <Requests/>
+                        </Route>
+                        <Route exact path={"/admin/uploads"}>
+                            <Uploads/>
                         </Route>
                     </Switch>
                 </div>

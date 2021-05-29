@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
 
-export default class Workshops extends React.Component{
+export default class ListWorkshops extends React.Component{
 
     state = {
         workshops: []

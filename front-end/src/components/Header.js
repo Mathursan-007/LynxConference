@@ -45,13 +45,16 @@ class Header extends Component {
                                     Registration
                                 </Link>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <Link className="dropdown-item" to="/researcher">Researcher</Link>
-                                    <Link className="dropdown-item" to="/presenter">Workshop Presenter</Link>
-                                    <Link className="dropdown-item" to="/attendee">Attendee</Link>
+                                    <Link className="dropdown-item" to="/researcherReg">Researcher</Link>
+                                    <Link className="dropdown-item" to="/presenterReg">Workshop Presenter</Link>
+                                    <Link className="dropdown-item" to="/attendeeReg">Attendee</Link>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/downloads">Download</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link text-light" to="/login">Login</Link>
                             </li>
                         </ul>
                     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
-import WorkshopRequest from "./WorkshopRequest";
+import WorkShopRequest from "./WorkShopRequest";
 import KeynoteRequest from "./KeynoteRequest";
 import axios from "axios";
 import NewsRequest from "./NewsRequest";
@@ -26,13 +26,13 @@ class Request extends React.Component {
         if(this.props.request.type === 'keynote') {
             return (<KeynoteRequest request={this.props.request} />)
         } else if(this.props.request.type === 'news') {
-            return (<div><NewsRequest/></div>)
+            return (<div><NewsRequest request={this.props.request} /></div>)
         } else if(this.props.request.type === 'template') {
-            return (<div><TemplateRequest/></div>)
+            return (<div><TemplateRequest request={this.props.request}/></div>)
         } else if(this.props.request.type === 'workshop') {
-            return (<WorkshopRequest request={this.props.request} />)
+            return (<WorkShopRequest request={this.props.request} />)
         } else if(this.props.request.type === 'conference') {
-            return (<div><ConferenceDetailsRequest/></div>)
+            return (<div><ConferenceDetailsRequest request={this.props.request}/></div>)
         }
     }
 

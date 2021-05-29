@@ -1,26 +1,33 @@
 import React from 'react'
-import '../../styles/register.css'
+
 import 'bootstrap/dist/css/bootstrap.css';
+
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
 
 
-class Researcheruploads extends React.Component{
-state={
-    username:'',
-    email:'',
-    phoneNumber:'',
-    paper:''
-}
-handleInput=(event)=>{
-    const {name, value} = event.target;
-    this.setState({[name]: value});
-}
-    handlePaper = (e) => {
-        this.setState({paper: e.target.files[0]});
+class UploadProposal extends React.Component{
 
+   constructor(props) {
+       super(props);
+       this.state={
+           username:'',
+           email:'',
+           phoneNumber:'',
+           proposal:''
+       }
+   }
+
+
+    handleInput=(event)=>{
+        this.setState({[event.target.name]: event.target.value});
     }
-    formSubmit=(e)=>{
+
+    handleProposal = (e) => {
+        this.setState({proposal: e.target.files[0]});
+    }
+
+    handleSubmit=(e)=>{
         e.preventDefault();
 
         const formData = new FormData();
@@ -28,10 +35,10 @@ handleInput=(event)=>{
         formData.append('username', this.state.username);
         formData.append('email', this.state.email);
         formData.append('phoneNumber', this.state.phoneNumber);
-        formData.append('paper', this.state.paper);
+        formData.append('proposal', this.state.proposal);
 
 
-        axios.post('http://localhost:5000/user/addResearcheruploads', formData)
+        axios.post('http://localhost:5000/user/addPresenteruploads', formData)
             .then(res => {
                 console.log(res);
             })
@@ -59,24 +66,24 @@ handleInput=(event)=>{
                                                 <h2 className="title">Sign Up</h2>
 
                                                 <div className="sign-up-form-area">
-                                                    <form className="signup-form"  onSubmit={this.formSubmit}  >
+                                                    <form className="signup-form" encType='multipart/form-data' onSubmit={this.handleSubmit}>
                                                         <div className="row">
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="text" name='username' value={this.state.username} onChange={this.handleInput} placeholder="Your name"required/>
+                                                                <input type="text" name="username" value={this.state.username} onChange={this.handleInput} placeholder="Your Full Name"/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="email" name="email" value={this.state.email} onChange={this.handleInput}  placeholder="Your Email" required/>
+                                                                <input type="email" name="email" value={this.state.email} onChange={this.handleInput} placeholder="Your Email"/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="number" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleInput}  placeholder="Your Phone Number" required/>
+                                                                <input type="text" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleInput} placeholder="Your Phone Number"/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="file" accept = "application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation" onChange={this.handlePaper} name="paper" required/>
+                                                                <input type="file" name="proposal"  onChange={this.handleProposal}/>
                                                             </div>
 
 
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="submit" className="cmn-btn"   value="Submit"/>
+                                                                <input type="submit" className="cmn-btn" value="Next"/>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -100,4 +107,4 @@ handleInput=(event)=>{
     }
 
 }
-export default Researcheruploads;
+export default UploadProposal;

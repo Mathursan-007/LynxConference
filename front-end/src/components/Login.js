@@ -2,45 +2,71 @@ import React from 'react'
 import '../styles/login.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
+import axios from 'axios'
 
 
 class Login extends React.Component{
 
-state={
-    username:'',
-    password:''
-}
-handleInput=(event) =>{
-    let n=event.target.name;
-
-    if(n == 'username'){
-        this.setState({username: event.target.value})
-
+    constructor(props) {
+        super(props);
+        this.state={
+            username:"",
+            password:"",
+        }
     }
-    else{
-        this.setState({password: event.target.value})
+
+    handleInput=(event) =>{
+        this.setState({[event.target.name]:event.target.value});
     }
-    console.log(this.state.username);
-    console.log(this.state.password);
 
-}
-formSubmit= () =>{
+    handleSubmit=(event)=> {
 
-}
-render(){
+        event.preventDefault();
+
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        axios.post('http://localhost:5000/user/login',user)
+            .then(res =>{
+
+                sessionStorage.setItem("token",res.data);
+
+                this.setState({
+                    username: '',
+                    password: ''
+                })
+
+                window.location="/"
+            })
+            .catch(e=>{
+                alert(e.response.data.error); //model
+                this.setState({
+                    username: '',
+                    password: ''
+                })
+            })
+    }
+
+
+
+
+
+    render(){
         return (
             <div>
                 <div className="c">
                     <div className="s">
                         <div className="screen__c">
-                            <form className="login" onSubmit={this.formSubmit}>
+                            <form className="login" onSubmit={this.handleSubmit}>
                                 <div className="login__field">
                                     <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" name="username" onChange={this.handleInput} placeholder="User name" required/>
+                                    <input type="text" className="login__input" name="username" value={this.state.username} onChange={this.handleInput} placeholder="User name" required/>
                                 </div>
                                 <div className="login__field">
                                     <i className="login__icon fas fa-lock"></i>
-                                    <input type="password" className="login__input" name="password" onChange={this.handleInput} placeholder="Password" required/>
+                                    <input type="password" className="login__input" name="password" value={this.state.password} onChange={this.handleInput} placeholder="Password" required/>
                                 </div>
                                 <button className="button login__submit" type="submit" >
                                     <span className="button__text">Log In Now</span>

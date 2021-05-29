@@ -3,67 +3,51 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 
 class AttendeeRegistration extends React.Component{
-    state={
-        username:'',
-        email:'',
-        phoneNumber:'',
-        plan:'',
-        price:5000
 
+
+    constructor(props) {
+        super(props);
+        this.state={
+            fullName:'',
+            email:'',
+            phoneNumber:'',
+            plan:'',
+            price:''
+
+        }
     }
+
+
+
+
     handleInput=(event)=>{
-        const {name, value} = event.target;
-        this.setState({[name]: value});
+        this.setState({[event.target.name]: event.target.value});
     }
-    handleChange=(event)=>{
-        this.setState({plan: event.target.value});
-        if(this.state.plan=="Basic"){
+
+    handlePrice=(event)=>{
+
+console.log(this.state.plan)
+        if(event.target.value=="Basic"){
             this.setState({price: 5000})
         }
-        else if(this.state.plan=="Standard"){
+        else if(event.target.value=="Standard"){
             this.setState({price: 10000})
         }
-        else{
+        else if(event.target.value=="Premium"){
             this.setState({price:20000})
         }
-        console.log(this.state.plan);
-    }
-    formSubmit=(e)=>{
-        e.preventDefault();
-        alert("hi")
-        const attendee ={
-            username: this.state.username,
-            email: this.state.email,
-            phoneNumber: this.state.phoneNumber,
-            plan: this.state.plan
-
-        };
-
-
-
-
-
-
-        axios.post('http://localhost:5000/user/addAttendee', attendee)
-            .then(res => {
-                console.log(res);
-                window.location="/payment"
-            })
-            .catch(err => {
-                console.log(err);
-            });
 
     }
-changePrice=()=>{
 
-    console.log(this.state.price);
 
-}
-render() {
+
+
+  render() {
 
     return(
         <div>
@@ -80,13 +64,13 @@ render() {
                                 <div className="row">
                                     <div className="col-lg-6">
                                         <div className="signup-left-area">
-                                            <h2 className="title">Sign Up</h2>
+                                            <h2 className="title">Book for Conference</h2>
 
                                             <div className="sign-up-form-area">
                                                 <form className="signup-form"   onSubmit={this.formSubmit}  >
                                                     <div className="row">
                                                         <div className="col-lg-12 form-group">
-                                                            <input type="text" name='username' value={this.state.username} onChange={this.handleInput} placeholder="Your name"required/>
+                                                            <input type="text" name='fullName' value={this.state.username} onChange={this.handleInput} placeholder="Your Full Name"required/>
                                                         </div>
                                                         <div className="col-lg-12 form-group">
                                                             <input type="email" name="email" value={this.state.email} onChange={this.handleInput}  placeholder="Your Email" required/>
@@ -95,24 +79,22 @@ render() {
                                                             <input type="number" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleInput}  placeholder="Your Phone Number" required/>
                                                         </div>
                                                         <div className="col-lg-12 form-group">
-                                                            <input placeholder="Choose Your Plan" disabled/>
 
-                                                            <select value={this.state.plan} className="input" onChange={this.handleChange}  >
+                                                            <select name="plan" className="input" onChange={this.handleInput} onInput={this.handlePrice}>
+                                                                <option value={""}>Choose Your Plan</option>
                                                                 <option value="Basic">Basic</option>
                                                                 <option value="Standard">Standard</option>
                                                                 <option value= "Premium">Premium</option>
-
                                                             </select>
+
+                                                            <input type="number" name="price" value={this.state.price} onChange={this.handleInput}  placeholder="Amount" disabled={true}/>
+
                                                         </div>
-
-
-
                                                         <div className="col-lg-12 form-group">
-
-
-                                                                     <button type="submit"> Next {this.state.price}</button>
-
-
+                                                            <Link to={{pathname:"/payment",
+                                                                      state:{name:this.state.fullName,email:this.state.email,phoneNo:this.state.phoneNumber,plan:this.state.plan,price:this.state.price}}}>
+                                                                <button type="submit"> Next</button>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -135,7 +117,7 @@ render() {
 
 
 
-    )
-}
+        )
+    }
 }
 export default AttendeeRegistration;

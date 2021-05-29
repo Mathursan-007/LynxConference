@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
 
-export default class KeySpeakers extends React.Component{
+export default class KeynoteSpeakers extends React.Component{
 
     state = {
         keynoteSpeakers: []

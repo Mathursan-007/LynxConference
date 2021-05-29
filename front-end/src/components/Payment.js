@@ -1,6 +1,40 @@
 import React from "react";
-import '../../styles/payment.css'
+import '../styles/payment.css'
+import axios from "axios";
 class Payment extends React.Component{
+
+
+
+    handleSubmit=(e)=>{
+
+        e.preventDefault();
+
+        const attendee ={
+
+            fullName: this.props.location.state.name,
+            email: this.props.location.state.email,
+            phoneNumber: this.props.location.state.phoneNo,
+            plan: this.props.location.state.plan,
+            price:this.props.location.state.price
+
+        };
+
+
+
+        axios.post('http://localhost:5000/user/addAttendee', attendee)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }
+
+
+
+
+
 
     render() {
         return(
@@ -11,11 +45,11 @@ class Payment extends React.Component{
                             <div className="col-sm-12">
                                 <div className="card mx-auto">
                                     <p className="heading">PAYMENT DETAILS</p>
-                                    <form className="card-details ">
+                                    <form className="card-details " onSubmit={this.handleSubmit}>
                                         <div className="form-group mb-0">
                                             <p className="text-warning mb-0">Card Number</p><br/>
                                             <input type="text" name="card-num" placeholder="1234 5678 9012 3457"
-                                                   size="17" id="cno" minLength="19" maxLength="19"/>
+                                                   size="17" id="cno" minLength="16" maxLength="16"/>
 
                                         </div>
                                         <div className="form-group">
@@ -35,11 +69,14 @@ class Payment extends React.Component{
                                                            placeholder="&#9679;&#9679;&#9679;" size="1" minLength="3"
                                                            maxLength="3"/>
                                                 </div>
-                                                <div className="col-sm-5 pt-0">
-                                                    <button type="button" className="btn btn-primary"><i
-                                                        className="fa fa-arrow-right px-3 py-2"></i></button>
-                                                </div>
                                             </div>
+                                            <div className="form-group">
+                                                <p className="text-warning mb-0">Cardholder's Name</p>
+                                                <input type="text" name="amount" value={this.props.location.state.price}  size="17" disabled={true}/>
+                                            </div>
+                                                <div className="col-sm-5 pt-0">
+                                                    <button type="submit" className="btn btn-primary"><i>Confirm Payment</i></button>
+                                                </div>
                                         </div>
                                     </form>
                                 </div>

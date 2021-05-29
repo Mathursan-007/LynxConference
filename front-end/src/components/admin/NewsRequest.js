@@ -7,8 +7,9 @@ function NewsRequest(props){
 
 
         <div>
-            <h1>Subject</h1>
-            <p>matter</p>
+            <h3>{props.request.details.name}</h3>
+            <p>{props.request.details.description}</p>
+            <p>{props.request.last_modified}</p>
         </div>
 
 
