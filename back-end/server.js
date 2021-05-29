@@ -2,7 +2,7 @@ const Express = require('express');
 const cors = require('cors');
 
 const AdminRoutes = require('../back-end/routes/admin.router');
-const EditorRoutes = require('../back-end/routes/user.router');
+const EditorRoutes = require('../back-end/routes/editor.router');
 const ReviewerRoutes = require('../back-end/routes/reviewer.router');
 const UserRoutes = require('../back-end/routes/user.router');
 
@@ -14,6 +14,9 @@ app.use(cors());
 app.use(Express.json());
 
 app.use("/admin",AdminRoutes);
+app.use("/editor",EditorRoutes);
+app.use("/reviewer",ReviewerRoutes);
+app.use("/user",UserRoutes);
 
 
 app.listen(5000, err => {
