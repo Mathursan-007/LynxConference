@@ -1,16 +1,85 @@
 const router = require('express').Router();
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
-const { createResearcherupoloads,createPresenteruploads,createAttendee,createResearcher,createPresenter } = require('../api/user.api');
+const { createResearcherUploads,createPresenterUploads,createAttendee,createUser,loginUser,checkUser } = require('../api/user.api');
 const jwt =require('jsonwebtoken');
-const {CLOUD_NAME,API_KEY,API_SECRET}=require('../config');
+const {auth}=require('../middleware/auth')
 
-router.post("/addResearcheruploads",upload.single('paper'),async (req,res)=>{
+
+router.post("/login",async(req,res)=>{
+
+
+    let user = req.body;
+    let login=await loginUser(user);
+    if(login==true){
+        const accessToken=jwt.sign({email:user.email},"secret");
+        res.status(201).send(accessToken);
+    }else{
+        res.status(502).json({error:"Wrong Email or Password"})
+    }
+
+})
+
+
+
+
+router.post("/addAttendee",async (req,res)=>{
+
+
+        let Attendee = await createAttendee(req.body)
+
+        if(Attendee) {
+            res.status(201).send("Attendee added");
+        } else {
+            res.status(400).json({error:"Attendee wasn't added"});
+        }
+
+    }
+);
+
+
+router.post("/addUser",async (req,res)=>{
+
+
+        let check = await checkUser(req.body.id,req.body.type);
+
+        if(check) {
+            res.status(400).json({error:"Already registered"});
+        } else {
+            let user = await createUser(req.body)
+            if(user){
+                const accessToken =jwt.sign({email:req.body.email},"secret")
+                res.status(201).send(accessToken);
+            }else{
+                res.status(400).json({error:"error"});
+            }
+
+        }
+
+    }
+);
+
+
+// router.post("/addPresenter",async (req,res)=>{
+//
+//         let Presenter = await createPresenter(req.body);
+//
+//         if(Presenter) {
+//             res.status(201).send("Presenter added");
+//         } else {
+//             res.status(502).json({error:"Presenter wasn't added"});
+//         }
+//
+//     }
+// );
+
+
+router.post("/addResearcherUploads",upload.single('paper'),async (req,res)=>{
 
     try{
         let result = await cloudinary.uploader.upload(req.file.path,{ public_id: req.file.originalname,resource_type: "raw" });
 
-        let Researcher = await createResearcherupoloads({
+        let Upload = await createResearcherUploads({
             type: 'research',
             status: 'pending',
             details: {
@@ -23,8 +92,8 @@ router.post("/addResearcheruploads",upload.single('paper'),async (req,res)=>{
 
 
 
-        if(Researcher) {
-            res.status(201).send("Researcher added");
+        if(Upload) {
+            res.status(201).send(Upload);
         } else {
             res.status(502).json({error:"Researcher wasn't added"});
         }
@@ -33,12 +102,14 @@ router.post("/addResearcheruploads",upload.single('paper'),async (req,res)=>{
     }
 
 });
-router.post("/addPresenteruploads",upload.single('proposal'),async (req,res)=>{
+
+
+router.post("/addPresenterUploads",upload.single('proposal'),async (req,res)=>{
 
     try{
         let result = await cloudinary.uploader.upload(req.file.path,{ public_id: req.file.originalname,resource_type: "raw" });
 
-        let Presenter = await createPresenteruploads({
+        let Presenter = await createPresenterUploads({
             type: 'workshop',
             status: 'pending',
             details: {
@@ -50,86 +121,16 @@ router.post("/addPresenteruploads",upload.single('proposal'),async (req,res)=>{
         });
 
 
-
-            if(Presenter) {
-            res.status(201).send("Presenter added");
-        } else {
-            res.status(502).json({error:"Presenter wasn't added"});
-        }
-    } catch (err) {
-        console.log(err);
-    }
-
-});
-
-router.post("/addAttendee",async (req,res)=>{
-    console.log("hello")
-    let Attendee = await createAttendee({
-        username:req.body.username,
-        email:req.body.email,
-        phoneNumber:req.body.phoneNumber,
-        plan:req.body.plan
-
-    });
-
-
-
-    if(Attendee) {
-        res.status(201).send("Attendee added");
-    } else {
-        res.status(502).json({error:"Attendee wasn't added"});
-    }
-
-}
-);
-router.post("/addResearcher",async (req,res)=>{
-
-        let Researcher = await createResearcher({
-            title:req.body.title,
-            fullName: req.body.fullName,
-            status: req.body.status,
-            currentAffilation:req.body.currentAffilation,
-            jobTitle: req.body.jobTitle,
-            address: req.body.address,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.email,
-            password: req.body.password
-
-        });
-
-
-
-        if(Researcher ) {
-            res.status(201).send("Researcher added");
-        } else {
-            res.status(502).json({error:"Researcher wasn't added"});
-        }
-
-    }
-);
-router.post("/addPresenter",async (req,res)=>{
-
-        let Presenter = await createPresenter({
-            title:req.body.title,
-            fullName: req.body.fullName,
-            status: req.body.status,
-            currentAffilation:req.body.currentAffilation,
-            jobTitle: req.body.jobTitle,
-            address: req.body.address,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.email,
-            password: req.body.password
-
-        });
-
-
-
         if(Presenter) {
             res.status(201).send("Presenter added");
         } else {
             res.status(502).json({error:"Presenter wasn't added"});
         }
 
+    } catch (err) {
+        console.log(err);
     }
-);
+
+});
+
 module.exports=router;
