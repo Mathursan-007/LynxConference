@@ -20,17 +20,17 @@ const updateUploadStatus = async (id, status) => {
     return await upload.updateOne({"_id":ObjectID(id)}, {$set: {status:status}})
 }
 
-const saveResearcherUploads = async({type,status,details,date})=>{
+const saveResearcherUploads = async({type,status,details,stacks,date,user})=>{
 
 
-    const result = await upload.insertOne({type,status,details,date});
+    const result = await upload.insertOne({type,status,details,stacks,date,user});
     return result.ops[0];
 
 }
-const savePresenterUploads = async({type,status,details,date})=>{
+const savePresenterUploads = async({type,status,details,date,user})=>{
 
 
-    const result = await upload.insertOne({type,status,details,date});
+    const result = await upload.insertOne({type,status,details,date,user});
     return result.ops[0];
 
 }
