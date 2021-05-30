@@ -60,21 +60,21 @@ const createUser = async({title, fullName,nic,passportNumber, status, currentAff
 }
 
 
-const loginUser = async ({email,password})=>{
+const loginUser = async ({username,password})=>{
 
-    let pwd=await loginPresenter(email);
+    let pwd=await loginPresenter(username);
     if(pwd){
         if(bcrypt.compareSync(password,pwd)){   //comparing the plain text of the password given at the login and the hashed password saved in the db.
-            return true;
+            return "presenter";
         }else{
             return false;
         }
     }else{
 
-        pwd=await loginResearcher(email);
+        pwd=await loginResearcher(username);
         if(pwd){
             if(bcrypt.compareSync(password,pwd)){   //comparing the plain text of the password given at the login and the hashed password saved in the db.
-                return true;
+                return "researcher";
             }else{
                 return false;
             }
@@ -86,26 +86,29 @@ const loginUser = async ({email,password})=>{
 }
 
 
-const createResearcherUploads = async ({type,status,details}) => {
+const createResearcherUploads = async ({type,status,details,stacks,user}) => {
 
     const ResearcherFile = {
         type,
         status,
         details,
-        date:new Date().toDateString()
+        stacks,
+        date:new Date().toDateString(),
+        user
     }
 
     return await saveResearcherUploads(ResearcherFile);
 }
 
 
-const createPresenterUploads = async({type,status,details}) =>{
+const createPresenterUploads = async({type,status,details,user}) =>{
 
     const PresenterFile = {
         type,
         status,
         details,
-        date:new Date().toDateString()
+        date:new Date().toDateString(),
+        user
     }
 
     return await savePresenterUploads(PresenterFile);

@@ -1,6 +1,5 @@
 const {getAllUploads, updateUploadStatus} = require("../dal/upload.dao");
 
-
 // --------------------- Research Paper -----------------------
 // Retrieving request details of all the Research Papers Submitted from dal
 const getUploadRequest = async () => {
