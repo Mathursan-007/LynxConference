@@ -2,13 +2,12 @@ const router = require('express').Router();
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { createRequest , modifyRequest , getRequests , getConference } = require('../api/editor.api');
-const jwt =require('jsonwebtoken');
-const {CLOUD_NAME,API_KEY,API_SECRET}=require('../config');
+const {auth}=require('../middleware/auth')
 
 
 
 //create a keynote speaker using the keynote speaker details that has been provided by the editor
-router.post("/addKeynote",upload.single('photo'),async (req,res)=>{
+router.post("/addKeynote",auth,upload.single('photo'),async (req,res)=>{
 
     try{
         const result = await cloudinary.uploader.upload(req.file.path);
@@ -38,7 +37,7 @@ router.post("/addKeynote",upload.single('photo'),async (req,res)=>{
 });
 
 //create a workshop using the keynote speaker details that has been provided by the editor
-router.post("/addWorkshop",upload.single('workshopFile'),async (req,res)=>{
+router.post("/addWorkshop",auth,upload.single('workshopFile'),async (req,res)=>{
 
 
     try{
@@ -69,7 +68,7 @@ router.post("/addWorkshop",upload.single('workshopFile'),async (req,res)=>{
 });
 
 //create a news using the news details that has been provided by the editor
-router.post("/addNews", async (req,res)=>{
+router.post("/addNews",auth, async (req,res)=>{
 
 
     try{
@@ -99,7 +98,7 @@ router.post("/addNews", async (req,res)=>{
 });
 
 //create a workshop using the keynote speaker details that has been provided by the editor
-router.post("/addTemplate",upload.single('file'),async (req,res)=>{
+router.post("/addTemplate",auth,upload.single('file'),async (req,res)=>{
 
 
     try{
@@ -129,7 +128,7 @@ router.post("/addTemplate",upload.single('file'),async (req,res)=>{
 });
 
 //create a news using the news details that has been provided by the editor
-router.post("/addConference", async (req,res)=>{
+router.post("/addConference", auth,async (req,res)=>{
 
 
     try{
@@ -160,7 +159,7 @@ router.post("/addConference", async (req,res)=>{
 });
 
 //retrieve all the requests created by a particular editor and pass as response
-router.get("/requests",async (req,res)=>{
+router.get("/requests",auth,async (req,res)=>{
 
     let requests=await getRequests();
     if(requests){
@@ -174,7 +173,7 @@ router.get("/requests",async (req,res)=>{
 })
 
 //retrieve all the requests created by a particular editor and pass as response
-router.get("/conference",async (req,res)=>{
+router.get("/conference",auth,async (req,res)=>{
 
     let conference=await getConference();
 
@@ -189,7 +188,7 @@ router.get("/conference",async (req,res)=>{
 })
 
 //create a workshop using the keynote speaker details that has been provided by the editor
-router.put("/updateKeynote/:id",upload.single('photo'),async (req,res)=>{
+router.put("/updateKeynote/:id",auth,upload.single('photo'),async (req,res)=>{
 
     let photo;
 
@@ -225,7 +224,7 @@ router.put("/updateKeynote/:id",upload.single('photo'),async (req,res)=>{
 
 });
 
-router.put("/updateWorkshop/:id",upload.single('photo'),async (req,res)=>{
+router.put("/updateWorkshop/:id",auth,upload.single('photo'),async (req,res)=>{
 
     let photo;
 
@@ -261,7 +260,7 @@ router.put("/updateWorkshop/:id",upload.single('photo'),async (req,res)=>{
 
 });
 
-router.put("/updateTemplate/:id",upload.single('file'),async (req,res)=>{
+router.put("/updateTemplate/:id",auth,upload.single('file'),async (req,res)=>{
 
     let file;
 
@@ -296,7 +295,7 @@ router.put("/updateTemplate/:id",upload.single('file'),async (req,res)=>{
 
 });
 
-router.put("/updateNews/:id", async (req,res)=>{
+router.put("/updateNews/:id", auth,async (req,res)=>{
 
 
     try{
@@ -326,7 +325,7 @@ router.put("/updateNews/:id", async (req,res)=>{
 
 });
 
-router.put("/updateConference/:id", async (req,res)=>{
+router.put("/updateConference/:id",auth, async (req,res)=>{
 
 
     try{

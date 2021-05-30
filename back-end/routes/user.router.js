@@ -10,20 +10,41 @@ router.post("/login",async(req,res)=>{
 
 
     let user = req.body;
-    let login=await loginUser(user);
-    if(login==true){
-        const accessToken=jwt.sign({email:user.email},"secret");
-        res.status(201).send(accessToken);
-    }else{
-        res.status(502).json({error:"Wrong Email or Password"})
+
+    if(user.username==="admin" && user.password==="admin"){
+
+        const accessToken=jwt.sign({username:user.password},"secret");
+        res.status(201).json({accessToken:accessToken,user:"admin"})
+
+    }else if(user.username==="admin" && user.password==="editor"){
+
+        const accessToken=jwt.sign({username:user.password},"secret");
+        res.status(201).json({accessToken:accessToken,user:"editor"})
+
+    }else if(user.username==="admin" && user.password==="reviewer"){
+
+        const accessToken=jwt.sign({username:user.password},"secret");
+        res.status(201).json({accessToken:accessToken,user:"reviewer"})
+
+    } else{
+
+        let login=await loginUser(user);
+        if(login){
+            const accessToken=jwt.sign({username:user.username},"secret");
+            res.status(201).json({accessToken:accessToken,user:login})
+        }else{
+            res.status(502).json({error:"Wrong Email or Password"})
+        }
     }
+
+
 
 })
 
 
 
 
-router.post("/addAttendee",async (req,res)=>{
+router.post("/addAttendee",auth,async (req,res)=>{
 
 
         let Attendee = await createAttendee(req.body)
@@ -38,7 +59,7 @@ router.post("/addAttendee",async (req,res)=>{
 );
 
 
-router.post("/addUser",async (req,res)=>{
+router.post("/addUser",auth,async (req,res)=>{
 
 
         let check = await checkUser(req.body.id,req.body.type);
@@ -60,21 +81,8 @@ router.post("/addUser",async (req,res)=>{
 );
 
 
-// router.post("/addPresenter",async (req,res)=>{
-//
-//         let Presenter = await createPresenter(req.body);
-//
-//         if(Presenter) {
-//             res.status(201).send("Presenter added");
-//         } else {
-//             res.status(502).json({error:"Presenter wasn't added"});
-//         }
-//
-//     }
-// );
 
-
-router.post("/addResearcherUploads",upload.single('paper'),async (req,res)=>{
+router.post("/addResearcherUploads",auth,upload.single('paper'),async (req,res)=>{
 
     try{
         let result = await cloudinary.uploader.upload(req.file.path,{ public_id: req.file.originalname,resource_type: "raw" });
@@ -83,11 +91,13 @@ router.post("/addResearcherUploads",upload.single('paper'),async (req,res)=>{
             type: 'research',
             status: 'pending',
             details: {
-                name: req.body.username,
+                name: req.body.name,
                 email: req.body.email,
                 phoneNumber:req.body.phoneNumber,
                 paper:result.secure_url
-            }
+            },
+            stacks:req.body.stacks,
+            user:req.id.username
         });
 
 
@@ -113,11 +123,12 @@ router.post("/addPresenterUploads",upload.single('proposal'),async (req,res)=>{
             type: 'workshop',
             status: 'pending',
             details: {
-                name: req.body.username,
+                name: req.body.name,
                 email: req.body.email,
                 phoneNumber:req.body.phoneNumber,
                 proposal:result.secure_url
-            }
+            },
+            user:req.id.username
         });
 
 
