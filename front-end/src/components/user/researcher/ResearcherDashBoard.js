@@ -13,14 +13,15 @@ class ResearcherDashBoard extends React.Component{
     doLogout=()=>{
 
         sessionStorage.clear();
-        window.location="/"
+        window.location="/login"
 
     }
 
     componentDidMount() {
 
-
-        //userlogincheck
+        if(!sessionStorage.getItem("token")){
+            window.location="/login"
+        }
 
     }
 

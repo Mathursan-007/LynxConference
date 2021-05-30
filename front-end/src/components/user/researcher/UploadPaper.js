@@ -10,7 +10,7 @@ class UploadPaper extends React.Component{
     constructor(props) {
         super(props);
         this.state= {
-            username: '',
+            name: '',
             email: '',
             phoneNumber: '',
             paper: '',
@@ -32,21 +32,26 @@ class UploadPaper extends React.Component{
 
         const formData = new FormData();
 
-        formData.append('username', this.state.username);
+        formData.append('name', this.state.name);
         formData.append('email', this.state.email);
         formData.append('phoneNumber', this.state.phoneNumber);
         formData.append('paper', this.state.paper);
+        formData.append('stacks', this.state.stacks);
 
 
-        axios.post('http://localhost:5000/user/addResearcherUploads', formData)
+        axios.post('http://localhost:5000/user/addResearcherUploads', formData,{
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res);
                 this.setState({
-                    username: '',
+                    name: '',
                     email: '',
                     phoneNumber: '',
                     paper: '',
-                    select:false
+                    stacks:[]
                 })
             })
             .catch(err => {
@@ -57,16 +62,17 @@ class UploadPaper extends React.Component{
     
     addStack=(e)=>{
 
-        let stacks =[...this.state.stacks,e.target.value]
-        if(this.state.stacks.includes(e.target.value)){
-            
-        }
-         stacks = this.state.stacks.filter(stack=>{
-            return stack==e.target.value
-        })
 
-        this.setState({stacks:[...stacks,e.target.value]})
-        console.log(this.state.stacks)
+        let stacks =[...this.state.stacks,e.target.value]
+
+        if(this.state.stacks.includes(e.target.value)){
+            stacks = stacks.filter(stack=>{
+                return stack!==e.target.value
+            })
+        }
+
+        this.setState({stacks:stacks})
+
     }
     
     render() {
@@ -91,7 +97,7 @@ class UploadPaper extends React.Component{
                                                     <form className="signup-form"  onSubmit={this.handleSubmit}  >
                                                         <div className="row">
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="text" name='username' value={this.state.username} onChange={this.handleInput} placeholder="Your name"required/>
+                                                                <input type="text" name='name' value={this.state.name} onChange={this.handleInput} placeholder="Your name"required/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
                                                                 <input type="email" name="email" value={this.state.email} onChange={this.handleInput}  placeholder="Your Email" required/>
@@ -101,7 +107,7 @@ class UploadPaper extends React.Component{
                                                             </div>
                                                             <div>
                                                                 Stacks Used:<br></br>
-                                                                <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="Java" onInput={this.addStack} checked={this.state}/>Java</label></div>
+                                                                <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="Java" onInput={this.addStack} />Java</label></div>
                                                                 <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="Python" onInput={this.addStack}/>Python</label></div>
                                                                 <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="C++" onInput={this.addStack}/>C++</label></div>
                                                                 <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="C#"onInput={this.addStack}/>C#</label></div>

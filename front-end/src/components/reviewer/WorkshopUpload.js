@@ -9,16 +9,21 @@ export default class WorkshopUpload extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state={
+            status: this.props.workshopUpload.status,
+            show:false
+        }
     }
 
-    state={
-        status: this.props.workshopUpload.status,
-        show:false
-    }
+
 
     changeStatus=(_id, msg) => {
 
-        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg} )
+        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,email:this.props.upload.details.email,type:"research"},{
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        } )
             .then(response => {
                 this.setState({status: msg});
                 this.setState({show:false});
@@ -31,9 +36,9 @@ export default class WorkshopUpload extends React.Component {
 
     clickEvent=()=>{
 
-        if(this.props.workshopUpload.status=="approved"||this.props.workshopUpload.status=="rejected"){
+        if(this.state.status=="approved"||this.state.status=="rejected"){
             return true;
-        }else if(this.props.workshopUpload.status=="pending"){
+        }else if(this.state.status=="pending"){
             return false;
         }
 
@@ -73,12 +78,12 @@ export default class WorkshopUpload extends React.Component {
 
         return (
             <tr>
-                <td class="rev-td"></td>
+                <td class="rev-td">{this.props.num}</td>
 
                 {/*TODO: Add the category and title*/}
 
-                <td class="rev-td">{"Workshop Title..."}</td>
-                <td class="rev-td">{"Workshop Category..."}</td>
+                <td class="rev-td">{workshopUpload.details.email}</td>
+                <td class="rev-td">{workshopUpload.details.phoneNumber}</td>
 
                 <td class="rev-td">{workshopUpload.status}</td>
 

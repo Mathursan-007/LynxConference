@@ -60,9 +60,9 @@ export default class WorkshopUploads extends React.Component {
                 <table class="rev-table">
                     <thead>
                     <tr class="rev-tr">
-                        <th class="rev-th"> </th>
-                        <th class="rev-th">Title</th>
-                        <th class="rev-th">Category</th>
+                        <th class="rev-th"></th>
+                        <th class="rev-th">Email</th>
+                        <th class="rev-th">Phone No.</th>
                         <th class="rev-th">Status</th>
                         <th class="rev-th">View Submission</th>
                     </tr>
@@ -70,7 +70,7 @@ export default class WorkshopUploads extends React.Component {
                     <tbody>
                     {this.state.workshopUploads.map(upload => {
                         return (
-                            <WorkshopUpload workshopUpload={upload} key={upload._id} />
+                            <WorkshopUpload workshopUpload={upload} key={upload._id} num={this.state.workshopUploads.indexOf(upload)+1} />
                         );
                     })}
                     </tbody>

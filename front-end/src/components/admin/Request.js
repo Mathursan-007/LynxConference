@@ -38,8 +38,11 @@ class Request extends React.Component {
 
 
     reply=(reply)=>{
-        axios.patch(`http://localhost:5000/admin/reply/${this.props.request._id}`,{
-            status:reply
+
+        axios.patch(`http://localhost:5000/admin/reply/${this.props.request._id}`,reply,{
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
         })
             .then(response=>{
 

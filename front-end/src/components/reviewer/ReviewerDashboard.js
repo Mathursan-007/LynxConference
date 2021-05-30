@@ -7,7 +7,8 @@ import 'bootstrap/dist/js/bootstrap.js';
 import WorkshopUploads from "./WorkshopUploads";
 
 
-export default class Dashboard extends React.Component {
+export default class ReviewerDashboard extends React.Component {
+
 
     doLogout=()=>{
 
@@ -19,7 +20,9 @@ export default class Dashboard extends React.Component {
     componentDidMount() {
 
 
-        //userlogincheck
+        if(!sessionStorage.getItem("token")){
+            window.location="/login"
+        }
 
     }
 
@@ -48,11 +51,4 @@ export default class Dashboard extends React.Component {
         )
     }
 
-    // render() {
-    //     return (
-    //         <div>
-    //             <h1>Reviewer Dashboard</h1>
-    //         </div>
-    //     );
-    // }
 }

@@ -3,10 +3,10 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
 import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import AddDetails from './AddDetails';
-import ViewDetails from "./ViewDetails";
+import Requests from "./Requests";
+import Uploads from "./Uploads";
 
-class Dashboard extends React.Component{
+class AdminDashboard extends React.Component{
 
 
 
@@ -20,7 +20,9 @@ class Dashboard extends React.Component{
     componentDidMount() {
 
 
-        //userlogincheck
+        if(!sessionStorage.getItem("token")){
+            window.location="/login"
+        }
 
     }
 
@@ -30,18 +32,18 @@ class Dashboard extends React.Component{
         return(
             <div>
                 <div className={"sidebar"}>
-                        <Link to={"/editor/addDetails"}>Add Details</Link>
-                        <Link to={"/editor/viewDetails"}>View Details</Link>
-                        <Link to={"/editor/submissions"}>Research Submissions</Link>
+                        <Link to={"/admin/requests"}>Publish Requests</Link>
+                        <Link to={"/admin/uploads"}>Uploads</Link>
+                        <Link to={"/admin/submissions"}>Research Submissions</Link>
                         <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
                 </div>
                 <div className={"content"}>
                     <Switch>
-                        <Route exact path={"/editor/addDetails"}>
-                            <AddDetails />
+                        <Route exact path={"/admin/requests"}>
+                            <Requests/>
                         </Route>
-                        <Route path={"/editor/viewDetails"}>
-                            <ViewDetails />
+                        <Route exact path={"/admin/uploads"}>
+                            <Uploads/>
                         </Route>
                     </Switch>
                 </div>
@@ -54,4 +56,4 @@ class Dashboard extends React.Component{
 
 }
 
-export default Dashboard;
+export default AdminDashboard;

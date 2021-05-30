@@ -11,7 +11,7 @@ class UploadProposal extends React.Component{
    constructor(props) {
        super(props);
        this.state={
-           username:'',
+           name:'',
            email:'',
            phoneNumber:'',
            proposal:''
@@ -32,15 +32,25 @@ class UploadProposal extends React.Component{
 
         const formData = new FormData();
 
-        formData.append('username', this.state.username);
+        formData.append('name', this.state.name);
         formData.append('email', this.state.email);
         formData.append('phoneNumber', this.state.phoneNumber);
         formData.append('proposal', this.state.proposal);
 
 
-        axios.post('http://localhost:5000/user/addPresenteruploads', formData)
+        axios.post('http://localhost:5000/user/addPresenterUploads', formData,{
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
                 console.log(res);
+                this.setState({
+                    name:'',
+                    email:'',
+                    phoneNumber:'',
+                    proposal:''
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -69,7 +79,7 @@ class UploadProposal extends React.Component{
                                                     <form className="signup-form" encType='multipart/form-data' onSubmit={this.handleSubmit}>
                                                         <div className="row">
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="text" name="username" value={this.state.username} onChange={this.handleInput} placeholder="Your Full Name"/>
+                                                                <input type="text" name="name" value={this.state.name} onChange={this.handleInput} placeholder="Your Full Name"/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
                                                                 <input type="email" name="email" value={this.state.email} onChange={this.handleInput} placeholder="Your Email"/>
@@ -78,12 +88,12 @@ class UploadProposal extends React.Component{
                                                                 <input type="text" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleInput} placeholder="Your Phone Number"/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="file" name="proposal"  onChange={this.handleProposal}/>
+                                                                <input type="file" name="proposal" accept={"application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"} onChange={this.handleProposal}/>
                                                             </div>
 
 
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="submit" className="cmn-btn" value="Next"/>
+                                                                <input type="submit" className="cmn-btn" value="Submit"/>
                                                             </div>
                                                         </div>
                                                     </form>

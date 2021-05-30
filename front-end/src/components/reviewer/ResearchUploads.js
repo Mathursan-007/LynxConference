@@ -58,13 +58,13 @@ export default class ResearchUploads extends React.Component {
     }
 
     componentDidMount() {
+
         axios.get('http://localhost:5000/reviewer/uploads')
             .then(response => {
+
                 this.setState({ researchUploads:  response.data.filter(upload => {
                         return upload.type == "research"
                     }) });
-
-                console.log(this.state.researchUploads);
 
             })
             .catch((error) => {
@@ -79,8 +79,9 @@ export default class ResearchUploads extends React.Component {
                     <thead>
                     <tr class="rev-tr">
                         <th class="rev-th"> </th>
-                        <th class="rev-th">Title</th>
-                        <th class="rev-th">Category</th>
+                        <th class="rev-th">Email</th>
+                        <th class="rev-th">Phone No.</th>
+                        <th className="rev-th">Stacks</th>
                         <th class="rev-th">Status</th>
                         <th class="rev-th">View Submission</th>
                     </tr>
@@ -88,7 +89,7 @@ export default class ResearchUploads extends React.Component {
                     <tbody>
                     {this.state.researchUploads.map(upload => {
                         return (
-                                <ResearchUpload upload={upload} key={upload._id} />
+                                <ResearchUpload upload={upload} key={upload._id} num={this.state.researchUploads.indexOf(upload)+1}/>
                         );
                     })}
 

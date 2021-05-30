@@ -75,7 +75,11 @@ class AddConference extends Component {
 
         console.log(conference);
 
-        axios.post('http://localhost:5000/editor/addConference/', conference)
+        axios.post('http://localhost:5000/editor/addConference/', conference,{
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
 
                 this.setState({

@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from './components/admin/Dashboard'
+import AdminDashboard from './components/admin/AdminDashboard'
 import Requests from './components/admin/Requests'
 import {BrowserRouter as Router, Switch,Route,Redirect} from "react-router-dom";
 import Login from "./components/Login";
@@ -16,6 +16,8 @@ import PresenterRegistration from "./components/PresenterRegistration";
 import Payment from "./components/Payment";
 import ResearcherDashBoard from "./components/user/researcher/ResearcherDashBoard";
 import PresenterDashBoard from "./components/user/presenter/PresenterDashboard";
+import EditorDashboard from "./components/editor/EditorDashboard";
+import ReviewerDashboard from "./components/reviewer/ReviewerDashboard";
 
 
 class App extends React.Component{
@@ -67,6 +69,15 @@ class App extends React.Component{
                         </Route>
                         <Route path={"/presenter"}>
                             <PresenterDashBoard/>
+                        </Route>
+                        <Route path={"/admin"}>
+                            <AdminDashboard/>
+                        </Route>
+                        <Route path={"/editor"}>
+                            <EditorDashboard/>
+                        </Route>
+                        <Route path={"/reviewer"}>
+                            <ReviewerDashboard/>
                         </Route>
                         <Route path={"/payment"} component={Payment}/>
                     </Switch>

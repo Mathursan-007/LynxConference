@@ -23,22 +23,54 @@ class Login extends React.Component{
 
         event.preventDefault();
 
+
+
         const user = {
             username: this.state.username,
             password: this.state.password
         }
 
+        console.log(user)
+
         axios.post('http://localhost:5000/user/login',user)
             .then(res =>{
 
-                sessionStorage.setItem("token",res.data);
+                console.log(res.data)
+
+                if(res.data.user=="admin"){
+
+                    sessionStorage.setItem("token",res.data.accessToken);
+                    window.location="/admin"
+
+                }else if(res.data.user =="editor"){
+
+                    sessionStorage.setItem("token",res.data.accessToken);
+                    window.location="/editor"
+
+                }
+                else if(res.data.user =="reviewer"){
+
+                    sessionStorage.setItem("token",res.data.accessToken);
+                    window.location="/reviewer"
+
+                }else if(res.data.user=="researcher"){
+
+                    sessionStorage.setItem("token",res.data.accessToken);
+                    window.location="/researcher"
+
+                }else if(res.data.user=="presenter"){
+
+                    sessionStorage.setItem("token",res.data.accessToken);
+                    window.location="/presenter"
+
+                }
+
 
                 this.setState({
                     username: '',
                     password: ''
                 })
 
-                window.location="/"
             })
             .catch(e=>{
                 alert(e.response.data.error); //model
