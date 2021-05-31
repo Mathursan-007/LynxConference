@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {getUploadRequest, updateStatus} = require("../api/reviewer.api");
 const {auth}=require('../middleware/auth')
 const {transporter}=require('../utils/mail')
+const {addLog}=require('../api/admin.api')
 
 
 // Retrieving all the requests of Submitted Documents
@@ -33,14 +34,16 @@ router.patch("/upload/:id",auth, async (req, res) => {
                     text: 'This mail is to ensure that your research paper has been approved.'
                 }
 
-                transporter.sendMail(mailOptions,(err,info)=>{
+                await transporter.sendMail(mailOptions,async (err,info)=>{
                     if(err){
                         console.log(err)
                     }else{
                         console.log(info.response)
+                        await addLog("Reviewer","Research paper accepted and notified to "+req.body.email)
                     }
                 })
 
+                await addLog("Reviewer","Research paper accepted and notified to "+req.body.email)
 
             }else if(req.body.type=="workshop"){
 
@@ -52,11 +55,12 @@ router.patch("/upload/:id",auth, async (req, res) => {
 
                 }
 
-                transporter.sendMail(mailOptions,(err,info)=>{
+                await transporter.sendMail(mailOptions,async (err,info)=>{
                     if(err){
                         console.log(err)
                     }else{
                         console.log(info.response)
+                        await addLog("Reviewer","Workshop proposal accepted and notified to "+req.body.email)
                     }
                 })
 
@@ -64,6 +68,7 @@ router.patch("/upload/:id",auth, async (req, res) => {
             }
 
         }
+
         res.status(201).send(requests);
     }
     else {

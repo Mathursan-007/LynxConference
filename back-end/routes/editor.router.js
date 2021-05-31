@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
+const {addLog}=require('../api/admin.api')
 const { createRequest , modifyRequest , getRequests , getConference } = require('../api/editor.api');
 const {auth}=require('../middleware/auth')
 
@@ -26,9 +27,10 @@ router.post("/addKeynote",auth,upload.single('photo'),async (req,res)=>{
         console.log(keynoteSpeaker);
 
         if(keynoteSpeaker) {
+            await addLog("Editor","Keynote speaker page edit request sent")
             res.status(201).send(keynoteSpeaker);
         } else {
-            res.status(502).json({error:"Keynote peaker wasn't added"});
+            res.status(502).json({error:"Keynote speaker wasn't added"});
         }
     } catch (err) {
         console.log(err);
@@ -56,6 +58,7 @@ router.post("/addWorkshop",auth,upload.single('workshopFile'),async (req,res)=>{
         });
 
         if(workshop) {
+            await addLog("Editor","Workshop page edit request sent")
             res.status(201).send(workshop);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -86,6 +89,7 @@ router.post("/addNews",auth, async (req,res)=>{
         });
 
         if(news) {
+            await addLog("Editor","News page edit request sent")
             res.status(201).send(news);
         } else {
             res.status(502).json({error:"News wasn't added"});
@@ -117,6 +121,7 @@ router.post("/addTemplate",auth,upload.single('file'),async (req,res)=>{
 
         if(template) {
             res.status(201).send(template);
+            await addLog("Editor","Template page edit request sent")
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
         }
@@ -147,6 +152,7 @@ router.post("/addConference", auth,async (req,res)=>{
         });
 
         if(conference) {
+            await addLog("Editor","Conference details page edit request sent")
             res.status(201).send(conference);
         } else {
             res.status(502).json({error:"Conference wasn't added"});
@@ -213,6 +219,7 @@ router.put("/updateKeynote/:id",auth,upload.single('photo'),async (req,res)=>{
         });
 
         if(keynote) {
+            await addLog("Editor","Keynote page edit request sent")
             res.status(201).send(keynote);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
