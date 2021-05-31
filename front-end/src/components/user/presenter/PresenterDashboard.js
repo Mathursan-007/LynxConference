@@ -12,14 +12,15 @@ class PresenterDashBoard extends React.Component{
     doLogout=()=>{
 
         sessionStorage.clear();
-        window.location="/"
+        window.location="/login"
 
     }
 
     componentDidMount() {
 
-
-        //userlogincheck
+        if(!sessionStorage.getItem("token")){
+            window.location="/login"
+        }
 
     }
 
@@ -30,18 +31,18 @@ class PresenterDashBoard extends React.Component{
             <div>
                 <div className={"sidebar"}>
 
-                    <Link to={"/user/uploadProposal"}>Proposal Submissions</Link>
-                    <Link to={"/user/viewWorkshop"}>View Workshop</Link>
+                    <Link to={"/presenter/uploadProposal"}>Proposal Submissions</Link>
+                    <Link to={"/presenter/viewWorkshop"}>View Workshop</Link>
 
                     <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
                 </div>
 
                 <div className={"content"}>
                     <Switch>
-                        <Route path={"/user/uploadProposal"}>
+                        <Route path={"/presenter/uploadProposal"}>
                             <UploadProposal/>
                         </Route>
-                        <Route path={"/user/viewWorkshop"}>
+                        <Route path={"/presenter/viewWorkshop"}>
                         </Route>
                     </Switch>
                 </div>
