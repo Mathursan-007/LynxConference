@@ -16,13 +16,15 @@ const checkUser = async (id,type)=>{
 }
 
 
+
 const createAttendee = async({fullName,email,phoneNumber,plan}) =>{
 
     const Attendee = {
         fullName,
         email,
         phoneNumber,
-        plan
+        plan,
+        date:new Date().toDateString(),
     }
 
     return await saveAttendee(Attendee);
@@ -48,7 +50,8 @@ const createUser = async({title, fullName,nic,passportNumber, status, currentAff
         phoneNumber,
         email,
         id,
-        password:bcrypt.hashSync(password,10)
+        password:bcrypt.hashSync(password,10),
+        date:new Date().toDateString(),
     }
 
     if(type=="presenter"){
@@ -101,18 +104,20 @@ const createResearcherUploads = async ({type,status,details,stacks,user}) => {
 }
 
 
+
 const createPresenterUploads = async({type,status,details,user}) =>{
 
     const PresenterFile = {
         type,
         status,
         details,
-        date:new Date().toDateString(),
+        date:new Date(),
         user
     }
 
     return await savePresenterUploads(PresenterFile);
 }
+
 
 
 
