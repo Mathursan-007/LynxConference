@@ -4,7 +4,8 @@ import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import Requests from "./Requests";
-import Uploads from "./Uploads";
+import Logs from "./Logs";
+import Analytics from "./Analytics";
 
 class AdminDashboard extends React.Component{
 
@@ -32,18 +33,21 @@ class AdminDashboard extends React.Component{
         return(
             <div>
                 <div className={"sidebar"}>
-                        <Link to={"/admin/requests"}>Publish Requests</Link>
-                        <Link to={"/admin/uploads"}>Uploads</Link>
-                        <Link to={"/admin/submissions"}>Research Submissions</Link>
+                        <Link to={"/admin/analytics"}>Analytics</Link>
+                        <Link to={"/admin/requests"}>Page Edit Requests</Link>
+                        <Link to={"/admin/logs"}>Activity Log</Link>
                         <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
                 </div>
                 <div className={"content"}>
                     <Switch>
+                        <Route exact path={"/admin/analytics"}>
+                            <Analytics/>
+                        </Route>
                         <Route exact path={"/admin/requests"}>
                             <Requests/>
                         </Route>
-                        <Route exact path={"/admin/uploads"}>
-                            <Uploads/>
+                        <Route exact path={"/admin/logs"}>
+                            <Logs/>
                         </Route>
                     </Switch>
                 </div>

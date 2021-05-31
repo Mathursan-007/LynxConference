@@ -39,7 +39,7 @@ class Request extends React.Component {
 
     reply=(reply)=>{
 
-        axios.patch(`http://localhost:5000/admin/reply/${this.props.request._id}`,reply,{
+        axios.patch(`http://localhost:5000/admin/reply/${this.props.request._id}`,{reply},{
             headers:{
                 Authorization:sessionStorage.getItem("token")
             }
@@ -92,7 +92,7 @@ class Request extends React.Component {
         return(
             <div>
                 <tr>
-                    <td>{this.props.request._id}</td>
+                    <td>{this.props.num}</td>
                     <td>{this.props.request.type}</td>
                     <td>{this.state.status}</td>
                     <td><button onClick={()=>this.setState({show:true})}>View</button></td>

@@ -17,6 +17,8 @@ class Requests extends React.Component{
 
     componentDidMount() {
 
+
+
        axios.get("http://localhost:5000/admin/requests")
            .then(response=>{
                this.setState({requests:response.data})
@@ -35,14 +37,13 @@ class Requests extends React.Component{
                <table>
                    <tr>
                        <thead>
-                       <th>ID</th>
                        <th>Type</th>
                        <th>Status</th>
                        </thead>
                    </tr>
                    <tbody>
                    {this.state.requests.map(request=>{
-                       return <Request request={request} key={request._id}/>
+                       return <Request request={request} key={request._id} num={this.state.requests.indexOf(request)+1}/>
                    })
 
                    }

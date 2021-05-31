@@ -3,7 +3,7 @@ import {Modal,Button} from 'react-bootstrap'
 
 import React from 'react'
 
-class Upload extends React.Component {
+class Attendee extends React.Component {
 
    constructor(props) {
        super(props);
@@ -25,4 +25,4 @@ class Upload extends React.Component {
     }
 }
 
-export default Upload;
+export default Attendee;
