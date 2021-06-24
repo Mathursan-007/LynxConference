@@ -3,7 +3,7 @@ let attendee=null;
 const ObjectID = require('mongodb').ObjectId;
 
 setTimeout(() => {
-    attendee = require('./connection').db('conferenceDB').collection('attendee ');
+    attendee = require('./connection').db('conferenceDB').collection('attendee');
 },5000);
 
 

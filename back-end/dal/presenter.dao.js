@@ -26,9 +26,9 @@ const loginPresenter = async (email)=>{
 }
 
 
-const savePresenter = async({title, fullName, id,status, currentAffiliation, jobTitle, address, phoneNumber, email, password})=>{
+const savePresenter = async({title, fullName, id,status, currentAffiliation, jobTitle, address, phoneNumber, email, password,date})=>{
 
-    const result = await presenter.insertOne({title, fullName,id, status, currentAffiliation, jobTitle, address, phoneNumber, email,password});
+    const result = await presenter.insertOne({title, fullName,id, status, currentAffiliation, jobTitle, address, phoneNumber, email,password,date});
     return result.ops[0];
 
 }
