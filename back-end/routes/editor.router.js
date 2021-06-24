@@ -165,7 +165,7 @@ router.post("/addConference", auth,async (req,res)=>{
 });
 
 //retrieve all the requests created by a particular editor and pass as response
-router.get("/requests",auth,async (req,res)=>{
+router.get("/requests",async (req,res)=>{
 
     let requests=await getRequests();
     if(requests){
@@ -179,7 +179,7 @@ router.get("/requests",auth,async (req,res)=>{
 })
 
 //retrieve all the requests created by a particular editor and pass as response
-router.get("/conference",auth,async (req,res)=>{
+router.get("/conference",async (req,res)=>{
 
     let conference=await getConference();
 
