@@ -15,6 +15,7 @@ class AddConference extends Component {
         img:  ''
     }
 
+
     handleInput = e => {
         const {name, value} = e.target;
         this.setState({[name]: value});

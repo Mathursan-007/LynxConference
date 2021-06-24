@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../styles/home.css';
 
 class Home extends Component {
+
     state = {
         institute: '',
         faculty: '',
@@ -16,12 +17,14 @@ class Home extends Component {
         axios.get('http://localhost:5000/editor/conference')
             .then(response => {
                 this.setState({
+
                     name: response.data.details.name,
                     institute: response.data.details.institute,
                     faculty: response.data.details.faculty,
                     start_date: response.data.details.start_date,
                     end_date: response.data.details.end_date,
                     description: response.data.details.description
+
                 });
             })
             .catch((error) => {
@@ -30,6 +33,7 @@ class Home extends Component {
     }
 
     render() {
+
         return (
                 <div class="bg-cover bg-dark text-white">
                     <div class="container py-5 text-center height">

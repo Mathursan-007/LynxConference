@@ -1,4 +1,4 @@
-.body {
+.payment-body {
     background: linear-gradient(to right, rgba(235, 224, 232, 1) 52%, rgba(254, 191, 1, 1) 53%, rgba(254, 191, 1, 1) 100%);
     font-family: 'Roboto', sans-serif
 }
@@ -52,12 +52,12 @@ input {
     padding-left: 90px
 }
 
-.btn {
+.paymenbtn {
     background: #F3A002 !important;
     border: none;
     border-radius: 30px
 }
 
-.btn:focus {
+.paymentbtn:focus {
     box-shadow: none
 }

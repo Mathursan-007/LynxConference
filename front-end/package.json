@@ -4,14 +4,26 @@
   "description": "front-end",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "parcel src/index.html"
   },
   "author": "lynx",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^2.0.0-beta.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.5.3",
+    "chart.js": "^3.3.0",
+    "jest": "^27.0.4",
+    "parcel": "^2.0.0-beta.3.1",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-bootstrap": "^1.6.0",
+    "react-chartjs-2": "^3.0.3",
+    "react-dom": "^17.0.2",
+    "react-modal": "^3.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-test-renderer": "^17.0.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-nightly.2335"
   }
 }

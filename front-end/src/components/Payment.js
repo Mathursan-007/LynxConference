@@ -39,7 +39,7 @@ class Payment extends React.Component{
     render() {
         return(
             <div>
-                <div className="body">
+                <div className={"payment-body"}>
                     <div className="container-fluid">
                         <div className="row d-flex justify-content-center">
                             <div className="col-sm-12">
@@ -75,7 +75,7 @@ class Payment extends React.Component{
                                                 <input type="text" name="amount" value={this.props.location.state.price}  size="17" disabled={true}/>
                                             </div>
                                                 <div className="col-sm-5 pt-0">
-                                                    <button type="submit" className="btn btn-primary"><i>Confirm Payment</i></button>
+                                                    <button className="paymenbtn" type="submit"><i>Confirm Payment</i></button>
                                                 </div>
                                         </div>
                                     </form>

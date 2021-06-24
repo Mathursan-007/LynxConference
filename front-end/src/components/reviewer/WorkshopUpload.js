@@ -19,7 +19,7 @@ export default class WorkshopUpload extends React.Component {
 
     changeStatus=(_id, msg) => {
 
-        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,email:this.props.upload.details.email,type:"research"},{
+        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,email:this.props.upload.details.email,type:"workshop"},{
             headers:{
                 Authorization:sessionStorage.getItem("token")
             }
@@ -85,7 +85,7 @@ export default class WorkshopUpload extends React.Component {
                 <td class="rev-td">{workshopUpload.details.email}</td>
                 <td class="rev-td">{workshopUpload.details.phoneNumber}</td>
 
-                <td class="rev-td">{workshopUpload.status}</td>
+                <td class="rev-td">{this.state.status}</td>
 
                 <td className="rev-td">
                     <button className="rev-btn-primary"

@@ -29,6 +29,7 @@ export default class KeynoteSpeakers extends React.Component{
 
                <div>
                    <div className='cont bg-light'>
+
                        {this.state.keynoteSpeakers.map((req,id) =>
                            <React.Fragment>
                                {req.status == 'approved' ?

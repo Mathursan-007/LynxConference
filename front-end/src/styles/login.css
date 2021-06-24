@@ -7,10 +7,6 @@
 
 }
 
-body {
-    background: linear-gradient(90deg, #eaeaea, #f5f4f4);
-}
-
 .c {
     display: flex;
     align-items: center;
@@ -19,7 +15,7 @@ body {
     margin-top: 50px;
 }
 
-.s {
+.sc {
     background: linear-gradient(90deg, #210de2, #0d044a);
     position: relative;
     height: 600px;

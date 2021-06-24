@@ -35,7 +35,7 @@ class App extends React.Component{
         return (
             <div>
                 <Router>
-
+                    <Header/>
                     <Switch>
                         <Route exact path={"/"}>
                             <Home/>
@@ -61,26 +61,27 @@ class App extends React.Component{
                         <Route path={"/downloads"}>
                             <Downloads/>
                         </Route>
-                        <Route path={"/login"}>
-                            <Login/>
-                        </Route>
-                        <Route path={"/researcher"}>
-                            <ResearcherDashBoard/>
-                        </Route>
-                        <Route path={"/presenter"}>
-                            <PresenterDashBoard/>
-                        </Route>
-                        <Route path={"/admin"}>
-                            <AdminDashboard/>
-                        </Route>
-                        <Route path={"/editor"}>
-                            <EditorDashboard/>
-                        </Route>
-                        <Route path={"/reviewer"}>
-                            <ReviewerDashboard/>
-                        </Route>
-                        <Route path={"/payment"} component={Payment}/>
+                        {/*<Route path={"/login"}>*/}
+                        {/*    <Login/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/researcher"}>*/}
+                        {/*    <ResearcherDashBoard/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/presenter"}>*/}
+                        {/*    <PresenterDashBoard/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/admin"}>*/}
+                        {/*    <AdminDashboard/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/editor"}>*/}
+                        {/*    <EditorDashboard/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/reviewer"}>*/}
+                        {/*    <ReviewerDashboard/>*/}
+                        {/*</Route>*/}
+                        {/*<Route path={"/payment"} component={Payment}/>*/}
                     </Switch>
+                    <Footer/>
                 </Router>
 
             </div>

@@ -89,12 +89,12 @@ class Login extends React.Component{
         return (
             <div>
                 <div className="c">
-                    <div className="s">
+                    <div className="sc">
                         <div className="screen__c">
                             <form className="login" onSubmit={this.handleSubmit}>
                                 <div className="login__field">
                                     <i className="login__icon fas fa-user"></i>
-                                    <input type="text" className="login__input" name="username" value={this.state.username} onChange={this.handleInput} placeholder="User name" required/>
+                                    <input type="text" className="" name="username" value={this.state.username} onChange={this.handleInput} placeholder="User name" required/>
                                 </div>
                                 <div className="login__field">
                                     <i className="login__icon fas fa-lock"></i>

@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import axios from "axios";
 import ResearchUpload from './ResearchUpload';
-import '../../styles/ReviewerResearchUploads.css';
+//import '../../styles/ReviewerResearchUploads.css';
 
 //
 // const researchUploads = [
