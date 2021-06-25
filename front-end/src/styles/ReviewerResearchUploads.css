@@ -53,7 +53,6 @@ html{
     background-color: #06357a;
     color: #ffffff;
     font-style: italic;
-
     cursor: pointer;
     padding: 10px 15px;
     margin-top: 20px;
@@ -62,11 +61,53 @@ html{
     transition: all 0.1s ease-in-out;
 }
 
-
 .rev-btn-primary:hover {
     background-color: #86b7fe;
     color: #ffffff;
     font-weight: bold;
     box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
     transform: translateY(-3px);
+}
+
+.rev-btn-payment {
+    border-radius: 25px;
+    border: none;
+    background-color: #06357a;
+    color: #ffffff;
+    font-style: italic;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin-top: 20px;
+    margin-left: 25px;
+    width: 200px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-payment:hover {
+    background-color: #86b7fe;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+}
+
+.rev-id {
+    width: 50%;
+    height: 20px;
+    color: #0dcaf0;
+}
+
+.rev-id::placeholder {
+    color: #49A09D;
+    font-weight: normal;
+}
+
+.rev-id:focus {
+    outline-color: #31d2f2;
+}
+
+.filterLabel {
+    font-size: 22px;
+    font-weight: bold;
+    color: #c9e2d1;
 }
