@@ -9,17 +9,18 @@ export default class ResearchUpload extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state={
             status: this.props.upload.status,
-            show:false
+            show:false,
+            reviewerID: this.props.upload.reviewerID
         }
     }
 
-
-
     changeStatus=(_id, msg) => {
 
-        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,email:this.props.upload.details.email,type:"research"},{
+        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,reviewerID:this.state.reviewerID,
+                                    email:this.props.upload.details.email,type:"research"},{
              headers:{
                  Authorization:sessionStorage.getItem("token")
              }
@@ -34,11 +35,22 @@ export default class ResearchUpload extends React.Component {
             })
     }
 
-    clickEvent=()=>{
+    handleInput=(event)=>{
+        this.setState({reviewerID: event.target.value});
+    }
 
-        if(this.state.status=="approved"||this.state.status=="rejected"){
+    clickEvent=(status, reviewerID)=>{
+
+        const str = reviewerID + "";
+        const length = str.length;
+        console.log("ID: " , length);
+       // const length = reviewerID+"".toString().length;
+
+
+        if( (status=="approved" || status=="rejected" || length<6) ) {
             return true;
-        }else if(this.state.status=="pending"){
+
+        }else if( status=="pending" ) {
             return false;
         }
 
@@ -53,18 +65,21 @@ export default class ResearchUpload extends React.Component {
                     <ModalTitle>
                         {this.props.upload.title}
                     </ModalTitle>
+                    <input type="text" name="reviewerID" placeholder="Reviewer, Please enter your ID" onChange={this.clickEvent(this.state.status, this.state.reviewerID)} />
                 </ModalHeader>
                 <ModalBody>
                     <p>Researcher Name : {this.props.upload.details.name}</p>
                     <p>Researcher Email : {this.props.upload.details.email}</p>
                     <p>Researcher Contact : {this.props.upload.details.phoneNumber}</p>
+                    <p>Reviewed By : <input type="text" name="reviewerID" className="rev-id" placeholder="Please enter your ID"
+                                    value={this.state.reviewerID} onChange={this.handleInput} /> </p>
                 </ModalBody>
                 <Modal.Footer>
                     <a href={url}><Button className="btn-dark">View Research Paper</Button></a>
-                    <Button className={"btn-success"} onClick={()=>this.changeStatus(this.props.upload._id, "approved")}
-                            disabled={this.clickEvent()}>Approve</Button>
-                    <Button className={"btn-danger"} onClick={()=>this.changeStatus(this.props.upload._id, "rejected")}
-                            disabled={this.clickEvent()}>Reject</Button>
+                    <Button className={"rev-btn-approve"} onClick={()=>this.changeStatus(this.props.upload._id, "approved")}
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</Button>
+                    <Button className={"rev-btn-reject"} onClick={()=>this.changeStatus(this.props.upload._id, "rejected")}
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</Button>
                     <Button onClick={()=>this.setState({show:false})}>Close</Button>
                 </Modal.Footer>
             </Modal>
@@ -75,6 +90,7 @@ export default class ResearchUpload extends React.Component {
 
     render() {
         const {upload} = this.props;
+
 
         return (
             <tr>

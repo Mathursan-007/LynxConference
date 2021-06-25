@@ -11,7 +11,8 @@ export default class WorkshopUpload extends React.Component {
         super(props);
         this.state={
             status: this.props.workshopUpload.status,
-            show:false
+            show:false,
+            reviewerID: ''
         }
     }
 
@@ -34,11 +35,25 @@ export default class WorkshopUpload extends React.Component {
             })
     }
 
-    clickEvent=()=>{
+    handleInput=(event)=>{
+        this.setState({reviewerID: event.target.value});
+    }
 
-        if(this.state.status=="approved"||this.state.status=="rejected"){
+    clickEvent=(status, reviewerID)=>{
+
+        // if(status=="approved"||status=="rejected"){
+        //     return true;
+        // }else if(status=="pending"){
+        //     return false;
+        // }
+
+        const length = reviewerID.toString().length;
+        console.log("length :", length);
+
+        if( (status=="approved"||status=="rejected" || length<5 ) ) {
             return true;
-        }else if(this.state.status=="pending"){
+
+        }else if( status=="pending" ) {
             return false;
         }
 
@@ -53,18 +68,27 @@ export default class WorkshopUpload extends React.Component {
                     <ModalTitle>
                         {this.props.workshopUpload.title}
                     </ModalTitle>
+
+                    <input type="text" name="reviewerID" placeholder="Reviewer, Please enter your ID" onChange={this.clickEvent(this.state.status, this.state.reviewerID)} />
+
                 </ModalHeader>
                 <ModalBody>
                     <p>Presenter Name : {this.props.workshopUpload.details.name}</p>
                     <p>Presenter Email : {this.props.workshopUpload.details.email}</p>
                     <p>Presenter Contact : {this.props.workshopUpload.details.phoneNumber}</p>
+
+                    <p>Reviewed By : <input type="text" name="reviewerID" className="rev-id" placeholder="Please enter your ID"
+                                            value={this.state.reviewerID} onChange={this.handleInput} /> </p>
                 </ModalBody>
                 <Modal.Footer>
                     <a href={url}><Button className="btn-dark">View Workshop Proposal</Button></a>
+
                     <Button className={"btn-success"} onClick={()=>this.changeStatus(this.props.workshopUpload._id, "approved")}
-                            disabled={this.clickEvent()}>Approve</Button>
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</Button>
+
                     <Button className={"btn-danger"} onClick={()=>this.changeStatus(this.props.workshopUpload._id, "rejected")}
-                            disabled={this.clickEvent()}>Reject</Button>
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</Button>
+
                     <Button onClick={()=>this.setState({show:false})}>Close</Button>
                 </Modal.Footer>
             </Modal>
@@ -84,7 +108,6 @@ export default class WorkshopUpload extends React.Component {
 
                 <td class="rev-td">{workshopUpload.details.email}</td>
                 <td class="rev-td">{workshopUpload.details.phoneNumber}</td>
-
                 <td class="rev-td">{this.state.status}</td>
 
                 <td className="rev-td">
