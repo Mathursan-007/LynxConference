@@ -1,6 +1,7 @@
 const { getAllRequests, updateStatus } = require('../dal/request.dao');
 const {getAllUploads} = require("../dal/upload.dao");
 const {getAllLogs,saveLog} = require("../dal/log.dao");
+const {getAllAttendees} = require("../dal/attendee.dao");
 
 //retrieving the request details of all requests from the dal
 
@@ -32,4 +33,8 @@ const getLogs =async ()=>{
     return await getAllLogs()
 }
 
-module.exports = { getRequests , requestReply,getUploads ,addLog,getLogs};
+const getAttendees =async ()=>{
+    return await getAllAttendees()
+}
+
+module.exports = { getRequests , requestReply,getUploads ,addLog,getLogs,getAttendees};

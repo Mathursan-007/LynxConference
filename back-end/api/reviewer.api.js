@@ -1,15 +1,26 @@
-const {getAllUploads, updateUploadStatus} = require("../dal/upload.dao");
+const {getAllUploads, getUploadsRequestByEmail, updateUploadStatus, updatePaymentStatus} = require("../dal/upload.dao");
 
-// --------------------- Research Paper -----------------------
-// Retrieving request details of all the Research Papers Submitted from dal
+
+// Retrieving all the research paper submissions and workshop proposal submissions
+// from the DB by calling methods from the dao
 const getUploadRequest = async () => {
     return await getAllUploads();
 }
 
-// --------------------- Workshop Proposals ---------------------
-// Retrieving all the request details of all the Workshop Proposlas submitted from dal
+// Retrieving research paper submissions and workshop proposal submission uploads using email id
+const getUploadsByEmail = async (email, type) => {
+    return await getUploadsRequestByEmail(email, type);
+}
+
+
+// Updating the status of research paper and workshop proposal submissions
 const updateStatus = async (id, status) => {
     return await updateUploadStatus(id, status);
 }
 
-module.exports = { getUploadRequest, updateStatus}
+const updatePayment = async (id, status) => {
+    return await updatePaymentStatus(id, status);
+}
+
+
+module.exports = { getUploadRequest, getUploadsByEmail, updateStatus, updatePayment };
