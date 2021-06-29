@@ -24,10 +24,9 @@ router.post("/addKeynote",auth,upload.single('photo'),async (req,res)=>{
             }
         });
 
-        console.log(keynoteSpeaker);
 
         if(keynoteSpeaker) {
-            await addLog("Editor","Keynote speaker page edit request sent")
+            await addLog("Editor","Keynote speaker add request sent")
             res.status(201).send(keynoteSpeaker);
         } else {
             res.status(502).json({error:"Keynote speaker wasn't added"});
@@ -58,7 +57,7 @@ router.post("/addWorkshop",auth,upload.single('workshopFile'),async (req,res)=>{
         });
 
         if(workshop) {
-            await addLog("Editor","Workshop page edit request sent")
+            await addLog("Editor","Workshop add request sent")
             res.status(201).send(workshop);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -89,7 +88,7 @@ router.post("/addNews",auth, async (req,res)=>{
         });
 
         if(news) {
-            await addLog("Editor","News page edit request sent")
+            await addLog("Editor","News add request sent")
             res.status(201).send(news);
         } else {
             res.status(502).json({error:"News wasn't added"});
@@ -121,7 +120,7 @@ router.post("/addTemplate",auth,upload.single('file'),async (req,res)=>{
 
         if(template) {
             res.status(201).send(template);
-            await addLog("Editor","Template page edit request sent")
+            await addLog("Editor","Template add request sent")
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
         }
@@ -152,7 +151,7 @@ router.post("/addConference", auth,async (req,res)=>{
         });
 
         if(conference) {
-            await addLog("Editor","Conference details page edit request sent")
+            await addLog("Editor","Conference details add request sent")
             res.status(201).send(conference);
         } else {
             res.status(502).json({error:"Conference wasn't added"});
@@ -163,6 +162,35 @@ router.post("/addConference", auth,async (req,res)=>{
     }
 
 });
+
+
+router.post("/addCallForPaper",async (req,res)=>{
+
+    console.log(req.body.title)
+    try{
+
+        let callForPaper = await createRequest({
+            type: 'call for paper',
+            status: 'pending',
+            last_modified: new Date(),
+            details: {
+                name: req.body.title
+            }
+        });
+
+        if(callForPaper) {
+            await addLog("Editor","Call for paper add request sent")
+            res.status(201).send(callForPaper);
+        } else {
+            res.status(502).json({error:"Workshop wasn't added"});
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+
+});
+
 
 //retrieve all the requests created by a particular editor and pass as response
 router.get("/requests",async (req,res)=>{
@@ -219,7 +247,7 @@ router.put("/updateKeynote/:id",auth,upload.single('photo'),async (req,res)=>{
         });
 
         if(keynote) {
-            await addLog("Editor","Keynote page edit request sent")
+            await addLog("Editor","Keynote edit request sent")
             res.status(201).send(keynote);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -256,6 +284,7 @@ router.put("/updateWorkshop/:id",auth,upload.single('photo'),async (req,res)=>{
         });
 
         if(workshop) {
+            await addLog("Editor","Workshop edit request sent")
             res.status(201).send(workshop);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -291,6 +320,7 @@ router.put("/updateTemplate/:id",auth,upload.single('file'),async (req,res)=>{
         });
 
         if(template) {
+            await addLog("Editor","Template edit request sent")
             res.status(201).send(template);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -320,8 +350,12 @@ router.put("/updateNews/:id", auth,async (req,res)=>{
             }
         });
 
+
         if(news) {
+
+            await addLog("Editor","News edit request sent")
             res.status(201).send(news);
+
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
         }
@@ -352,6 +386,7 @@ router.put("/updateConference/:id",auth, async (req,res)=>{
         });
 
         if(conference) {
+            await addLog("Editor","Conference edit request sent")
             res.status(201).send(conference);
         } else {
             res.status(502).json({error:"Workshop wasn't added"});
@@ -363,6 +398,35 @@ router.put("/updateConference/:id",auth, async (req,res)=>{
 
 });
 
+router.put("/updateCallForPaper/:id",auth,async (req,res)=>{
+
+
+    try{
+
+
+        let callForPaper = await modifyRequest(req.params.id,{
+            type: 'call for paper',
+            status: 'pending',
+            last_modified: new Date(),
+            details: {
+                name: req.body.title
+            }
+        });
+
+        if(callForPaper) {
+
+            await addLog("Editor","CallForPaper edit request sent")
+            res.status(201).send(callForPaper);
+
+        } else {
+            res.status(502).json({error:"Call for paper wasn't edited"});
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+
+});
 
 
 module.exports=router;

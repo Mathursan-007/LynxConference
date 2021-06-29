@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const {getUploadRequest, updateStatus} = require("../api/reviewer.api");
-const {auth}=require('../middleware/auth')
-const {transporter}=require('../utils/mail')
+const {getUploadRequest, getUploadsByEmail, updateStatus, updatePayment} = require("../api/reviewer.api");
+const {auth}=require('../middleware/auth');
+const {transporter}=require('../utils/mail');
 const {addLog}=require('../api/admin.api')
 
 
-// Retrieving all the requests of Submitted Documents
+// Retrieving all the research paper submissions and workshop proposal submissions
 router.get("/uploads", async (req, res) => {
 
     let requests = await getUploadRequest();
@@ -17,8 +17,23 @@ router.get("/uploads", async (req, res) => {
     }
 });
 
+// Retrieving the uploads of submissions using email ID separately for research uploads and workshop
+// uploads using the parameter type
+router.get("/uploads/notify/:email/:type", async (req, res) => {
 
-// Updating Status of Submitted Documents
+    let requests = await getUploadsByEmail(req.params.email, req.params.type);
+    if (requests) {
+        res.status(201).send(requests);
+    }
+    else {
+        res.status(502).send("Error");
+    }
+});
+
+
+// Updating Status of research and workshop submissions by passing the ID
+// For the update of status, an email notification is also sent for approved status only for
+// both research and workshop submissions
 router.patch("/upload/:id",auth, async (req, res) => {
 
     let requests = await updateStatus(req.params.id, req.body.status);
@@ -69,6 +84,20 @@ router.patch("/upload/:id",auth, async (req, res) => {
 
         }
 
+        res.status(201).send(requests);
+    }
+    else {
+        res.status(502).send("Error");
+    }
+});
+
+
+router.patch("/upload/payment/:id",auth, async (req, res) => {
+
+    let requests = await updatePayment(req.params.id, req.body.status);
+
+    if(requests) {
+        await addLog("Reviewer","Workshop proposal accepted and notified to "+req.body.email)
         res.status(201).send(requests);
     }
     else {
