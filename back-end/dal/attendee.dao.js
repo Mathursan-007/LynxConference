@@ -14,7 +14,15 @@ const saveAttendee = async({fullName,email,phoneNumber,plan})=>{
 
 }
 
-module.exports={saveAttendee};
+const getAllAttendees = async ()=>{
+
+    const result = await attendee.find({});
+    return result.toArray();
+
+}
+
+
+module.exports={saveAttendee,getAllAttendees};
 
 
 
