@@ -31,22 +31,21 @@ class Logs extends React.Component{
 
 render() {
     return(
-        <div>
-            <table>
+        <div class="table-responsive" style={{height:'80vh' ,overflow:'auto'}}>
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <thead>
-                    <th>User</th>
-                    <th>Activity</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    </thead>
+                    <th scope="col">No</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Activity</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
                 </tr>
+                </thead>
                 <tbody>
                 {this.state.logs.map(log=>{
                     return <Log log={log} key={log._id} num={this.state.logs.indexOf(log)+1}/>
-                })
-
-                }
+                })}
                 </tbody>
             </table>
         </div>

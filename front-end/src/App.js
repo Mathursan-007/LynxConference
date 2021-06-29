@@ -18,6 +18,7 @@ import ResearcherDashBoard from "./components/user/researcher/ResearcherDashBoar
 import PresenterDashBoard from "./components/user/presenter/PresenterDashboard";
 import EditorDashboard from "./components/editor/EditorDashboard";
 import ReviewerDashboard from "./components/reviewer/ReviewerDashboard";
+import CallForPapers from "./components/CallForPapers";
 
 
 class App extends React.Component{
@@ -31,14 +32,51 @@ class App extends React.Component{
 
     }
 
+
+    putHeader=()=>{
+        if(window.location.pathname.toString().startsWith('/admin') ||
+            window.location.pathname.toString().startsWith('/editor') ||
+            window.location.pathname.toString().startsWith('/reviewer') ||
+            window.location.pathname.toString().startsWith('/presenter') ||
+            window.location.pathname.toString().startsWith('/researcher'))
+        {
+          return ''
+        }else{
+            return(
+                <Header/>
+            )
+        }
+    }
+
+
+    putFooter =()=>{
+        if(window.location.pathname.toString().startsWith('/admin')||
+            window.location.pathname.toString().startsWith('/editor')||
+            window.location.pathname.toString().startsWith('/reviewer')||
+            window.location.pathname.toString().startsWith('/presenter')||
+            window.location.pathname.toString().startsWith('/researcher'))
+        {
+            return ''
+        }else{
+            return(
+                <Footer/>
+            )
+        }
+    }
+
+
     render() {
         return (
             <div>
                 <Router>
-                    <Header/>
+                    {
+                        this.putHeader()
+                    }
                     <Switch>
                         <Route exact path={"/"}>
                             <Home/>
+                            <News/>
+                            <KeynoteSpeakers/>
                         </Route>
                         <Route path={"/news"}>
                             <News/>
@@ -48,6 +86,9 @@ class App extends React.Component{
                         </Route>
                         <Route path={"/workshops"}>
                             <ListWorkShops/>
+                        </Route>
+                        <Route path={"/researchPapers"}>
+                            <CallForPapers/>
                         </Route>
                         <Route path={"/researcherReg"}>
                             <ResearcherRegistration/>
@@ -61,27 +102,29 @@ class App extends React.Component{
                         <Route path={"/downloads"}>
                             <Downloads/>
                         </Route>
-                        {/*<Route path={"/login"}>*/}
-                        {/*    <Login/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/researcher"}>*/}
-                        {/*    <ResearcherDashBoard/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/presenter"}>*/}
-                        {/*    <PresenterDashBoard/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/admin"}>*/}
-                        {/*    <AdminDashboard/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/editor"}>*/}
-                        {/*    <EditorDashboard/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/reviewer"}>*/}
-                        {/*    <ReviewerDashboard/>*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/payment"} component={Payment}/>*/}
+                        <Route path={"/login"}>
+                            <Login/>
+                        </Route>
+                        <Route path={"/researcher"}>
+                            <ResearcherDashBoard/>
+                        </Route>
+                        <Route path={"/presenter"}>
+                            <PresenterDashBoard/>
+                        </Route>
+                        <Route path={"/admin"}>
+                            <AdminDashboard/>
+                        </Route>
+                        <Route path={"/editor"}>
+                            <EditorDashboard/>
+                        </Route>
+                        <Route path={"/reviewer"}>
+                            <ReviewerDashboard/>
+                        </Route>
+                        <Route path={"/payment"} component={Payment}/>
                     </Switch>
-                    <Footer/>
+                    {
+                        this.putFooter()
+                    }
                 </Router>
 
             </div>

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import AddDetails from './AddDetails';
 import ViewDetails from "./ViewDetails";
+import decode from "jwt-decode";
 
 class EditorDashboard extends React.Component{
 
@@ -12,15 +13,19 @@ class EditorDashboard extends React.Component{
 
     doLogout=()=>{
 
-        sessionStorage.clear();
+        localStorage.clear();
         window.location="/login"
 
     }
 
     componentDidMount() {
 
-        if(!sessionStorage.getItem("token")){
-            window.location="/login"
+        if (localStorage.getItem('token')) {
+            if (decode(localStorage.getItem('token')).username !== 'Editor') {
+                window.location = "/login"
+            }
+        }else{
+            window.location = "/login"
         }
 
     }

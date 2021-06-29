@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import '../styles/home.css';
 
+
+
+
 class Home extends Component {
+
 
     state = {
         institute: '',
@@ -35,9 +39,10 @@ class Home extends Component {
     render() {
 
         return (
-                <div class="bg-cover bg-dark text-white">
-                    <div class="container py-5 text-center height">
-                        <div className="bee">
+            <div>
+                <div class="bg-cover text-white"  >
+                    <div class="container py-5 text-center height" >
+                        <div className="bee"  >
                             <h1 class="font-weight-bold">{this.state.name}</h1>
                             <p class="font-italic mb-0">{this.state.faculty}.</p>
                             <p class="font-italic mb-0">{this.state.description}</p>
@@ -47,10 +52,12 @@ class Home extends Component {
                             <p class="font-italic">
                                 <u>{this.state.institute}</u>
                             </p>
-                            <Link to="/news" role="button" class="btn btn-primary px-5">Latest News</Link>
+                            <Link to="/news" role="button" class="btn btn-primary px-5" style={{backgroundColor: "#040935"}}>Latest News</Link>
                         </div>
                     </div>
                 </div>
+
+            </div>
         );
     }
 }

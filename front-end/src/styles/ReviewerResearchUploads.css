@@ -2,48 +2,19 @@ html{
     height: 100%;
 }
 
-/*body {*/
-/*    margin: 0;*/
-/*    background: linear-gradient(45deg, #13653f, #49a09d, #084298, #31d2f2);*/
-/*    font-family: sans-serif;*/
-/*    font-weight: 100;*/
-/*}*/
-
-.rev-workshop-upload-body {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: 8%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-}
-.rev-table_container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.rev-table {
-    width: 800px;
-    border-collapse: collapse;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-}
-
-.rev-th, .rev-td {
+.table th, .table-td {
     padding: 15px;
     background-color: rgba(255,255,255,0.2);
     color: #fff;
 }
 
-.rev-th {
+.table th {
     text-align: left;
     background-color: #55608f;
 }
 
 
-.rev-tr {
+.table tr {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -110,4 +81,28 @@ html{
     font-size: 22px;
     font-weight: bold;
     color: #c9e2d1;
+}
+
+.notification {
+    color: white;
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    float: right;
+    margin-right: 60px;
+    margin-top: 20px;
+}
+.notification:hover {
+    color: #85dbe3;
+}
+.notification .count {
+    position: absolute;
+    top: -10px;
+    right: 2px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background: #d93b9f;
+    color: white;
 }

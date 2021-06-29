@@ -4,6 +4,8 @@ import AddWorkshop from './AddWorkshop';
 import AddNews from './AddNews';
 import AddTemplate from './AddTemplate';
 import AddConference from './AddConference';
+import AddCallForPaper from './AddCallForPaper';
+
 
 class AddDetails extends Component {
     constructor(props) {
@@ -29,6 +31,8 @@ class AddDetails extends Component {
             return <AddTemplate />
         } else if(this.state.detail == 'conference') {
             return <AddConference />
+        } else if(this.state.detail == 'callForPaper') {
+            return <AddCallForPaper/>
         }
     }
 
@@ -47,6 +51,7 @@ class AddDetails extends Component {
                                             <option value={'workshop'}>Add Workshop</option>
                                             <option value={'news'}>Add News</option>
                                             <option value={'template'}>Add Templates</option>
+                                            <option value={'callForPaper'}>Add Call for Paper</option>
                                         </select>
                                     </div>
                                 </div>

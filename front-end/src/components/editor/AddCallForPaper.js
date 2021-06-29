@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-class AddNews extends Component {
+class AddCallForPaper extends Component {
+
     state = {
         title: '',
-        description: '',
+        callForPaperFile: '',
         buttonState: false,
-        buttonText: 'Add News'
+        buttonText: 'Add Call for Paper'
     }
 
     handleInput = e => {
@@ -18,30 +19,27 @@ class AddNews extends Component {
 
         e.preventDefault();
 
-        const news = {
-            title: this.state.title,
-            description: this.state.description
+        const callForPaper = {
+            title: this.state.title
         }
 
         this.setState({
             buttonState: true,
-            buttonText: 'Adding news...'
+            buttonText: 'adding...'
         })
 
-        axios.post('http://localhost:5000/editor/addNews/', news, {
+
+        axios.post('http://localhost:5000/editor/addCallForPaper/', callForPaper , {
             headers:{
                 Authorization:sessionStorage.getItem("token")
             }
         })
             .then(res => {
-
                 console.log(res.data)
-
                 this.setState({
                     title: '',
-                    description: '',
                     buttonState: false,
-                    buttonText: 'Add News'
+                    buttonText: 'Add Call for Paper'
                 })
             })
             .catch(err => {
@@ -50,15 +48,15 @@ class AddNews extends Component {
 
     }
 
-
     render() {
         return (
+
             <form encType='multipart/form-data' onSubmit={this.handleSubmit} >
                 <div className="card border-primary rounded-0">
                     <div className="card-header p-0">
                         <div className="bg-info text-white text-center py-2">
-                            <h3>News</h3>
-                            <p className="m-0">Adding a latest news</p>
+                            <h3>Call for Paper</h3>
+                            <p className="m-0">Creating a call for paper</p>
                         </div>
                     </div>
                     <div className="card-body p-3">
@@ -74,26 +72,9 @@ class AddNews extends Component {
                                     name="title"
                                     value={this.state.title}
                                     onChange={this.handleInput}
-                                    placeholder="Enter title of news"
+                                    placeholder="Enter title of workshop"
                                     disabled={this.state.buttonState}
                                     required />
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input-group mb-2">
-                                <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fa fa-info-circle text-info"></i></div>
-                                </div>
-                                <textarea
-                                    className="form-control"
-                                    placeholder="Enter news details"
-                                    rows="4"
-                                    cols="50"
-                                    name="description"
-                                    value={this.state.description}
-                                    onChange={this.handleInput}
-                                    disabled={this.state.buttonState}
-                                    required></textarea>
                             </div>
                         </div>
 
@@ -102,7 +83,7 @@ class AddNews extends Component {
                                 type="submit"
                                 value={this.state.buttonText}
                                 className="btn btn-info btn-block rounded-0 py-2"
-                                disabled={this.state.buttonState} />
+                                disabled={this.state.buttonState}/>
                         </div>
                     </div>
 
@@ -112,4 +93,4 @@ class AddNews extends Component {
     }
 }
 
-export default AddNews;
+export default AddCallForPaper;

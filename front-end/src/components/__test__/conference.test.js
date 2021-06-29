@@ -1,10 +1,10 @@
 const { cleanup } =  require('@testing-library/react');
-const ChangeColour = require('../functions/ChangeColour');
+const ChangeColour = require('../../functions/ChangeColour');
 const Plan = require('../functions/PriceOfType')
 const Password = require('../functions/PasswordCheck')
-const CheckArrayCount = require('../functions/CheckArrayCount')
-const CheckStatus = require('../functions/CheckStatus')
-const CheckPath = require('../functions/CheckPath')
+const CheckArrayCount = require('../../functions/CheckArrayCount')
+const CheckStatus = require('../../functions/CheckStatus')
+const CheckPath = require('../../functions/CheckPath')
 const { configure } =  require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
 

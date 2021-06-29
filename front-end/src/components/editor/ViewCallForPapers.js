@@ -3,33 +3,33 @@ import axios from "axios";
 import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 
-class ViewNews extends React.Component {
+class ViewCallForPapers extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             requests: [],
-            name: '',
-            description: '',
             show:false,
-            request:''
+            request:'',
+            name: '',
         };
     }
 
     handleInput = e => {
         const {name, value} = e.target;
         this.setState({[name]: value});
+        console.log(this.state.name);
     }
 
     handleSubmit = e => {
 
         e.preventDefault();
 
-        const news = {
-            name: this.state.name,
-            description: this.state.description
+        const callForPaper = {
+            title: this.state.name
         }
 
-        axios.put('http://localhost:5000/editor/updateNews/'+this.state.request._id, news, {
+        axios.put('http://localhost:5000/editor/updateCallForPaper/'+this.state.request._id, callForPaper, {
             headers:{
                 Authorization:sessionStorage.getItem("token")
             }
@@ -47,7 +47,6 @@ class ViewNews extends React.Component {
 
                 this.setState({
                     name: '',
-                    description: '',
                     show: false
                 });
 
@@ -73,24 +72,14 @@ class ViewNews extends React.Component {
 
                         <input
                             type="text"
-                            className="form-control w-100 mb-5"
+                            className="form-control w-100 mb-2"
                             name="name"
                             value={this.state.name}
                             onChange={this.handleInput}
                             placeholder="Enter name of keynote speaker"
                             required />
 
-                        <textarea
-                            className="form-control"
-                            placeholder="Enter description about speaker"
-                            rows="4"
-                            cols="50"
-                            name="description"
-                            value={this.state.description}
-                            onChange={this.handleInput}
-                            required></textarea>
 
-                        <p>{this.state.request.details.date}</p>
 
                     </ModalBody>
                     <Modal.Footer>
@@ -107,7 +96,6 @@ class ViewNews extends React.Component {
         axios.get('http://localhost:5000/editor/requests')
             .then(response => {
                 this.setState({ requests: response.data });
-                console.log(this.state.requests);
 
             })
             .catch((error) => {
@@ -120,7 +108,7 @@ class ViewNews extends React.Component {
             <div className="card border-primary rounded-0">
                 <div className="card-header p-0">
                     <div className="bg-info text-white text-center py-2">
-                        <h3>News</h3>
+                        <h3>Workshops</h3>
                     </div>
                 </div>
                 <div className="card-body p-3">
@@ -131,8 +119,7 @@ class ViewNews extends React.Component {
                             <thead className="tablehead">
                             <tr>
                                 <th>Title</th>
-                                <th>Date</th>
-                                <th>status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -140,10 +127,9 @@ class ViewNews extends React.Component {
 
                             {this.state.requests.map(request =>
                                 <React.Fragment>
-                                    {(request.type === 'news') ?
+                                    {(request.type === 'call for paper') ?
                                         <tr>
                                             <td>{request.details.name}</td>
-                                            <td>{request.details.date}</td>
                                             <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
                                             <td>
 
@@ -153,10 +139,10 @@ class ViewNews extends React.Component {
                                                     onClick={() => this.setState({
                                                         show: true,
                                                         request:request,
-                                                        name: request.details.name,
-                                                        description: request.details.description
+                                                        name: request.details.name
                                                     })}
                                                 >
+
                                                     <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
                                                 </button>
                                             </td>
@@ -178,4 +164,4 @@ class ViewNews extends React.Component {
     }
 }
 
-export default ViewNews;
+export default ViewCallForPapers;

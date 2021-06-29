@@ -1,25 +1,22 @@
-import {Modal,Button} from 'react-bootstrap'
-
-
 import React from 'react'
 
 class Attendee extends React.Component {
 
    constructor(props) {
        super(props);
+
    }
 
    render() {
 
        return(
-           <div>
                <tr>
-                   <td>{this.props.upload._id}</td>
-                   <td>{this.props.upload.type}</td>
-                   <td>{this.upload.status}</td>
-                   <td><button onClick={()=>this.setState({show:true})}>View</button></td>
+                   <td>{this.props.num}</td>
+                   <td>{this.props.attendee.fullName}</td>
+                   <td>{this.props.attendee.email}</td>
+                   <td>{this.props.attendee.phoneNumber}</td>
+                   <td>{this.props.attendee.plan}</td>
                </tr>
-           </div>
        );
 
     }

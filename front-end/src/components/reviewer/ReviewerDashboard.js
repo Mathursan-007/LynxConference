@@ -4,8 +4,10 @@ import ResearchUploads from "./ResearchUploads";
 //import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-// import WorkshopUploads from "./WorkshopUploads";
-// import Notifications from "./Notifications";
+import WorkshopUploads from "./WorkshopUploads";
+import decode from "jwt-decode";
+
+
 
 
 export default class ReviewerDashboard extends React.Component {
@@ -13,7 +15,7 @@ export default class ReviewerDashboard extends React.Component {
 
     doLogout=()=>{
 
-        sessionStorage.clear();
+        localStorage.clear();
         window.location="/login"
 
     }
@@ -21,8 +23,12 @@ export default class ReviewerDashboard extends React.Component {
     componentDidMount() {
 
 
-        if(!sessionStorage.getItem("token")){
-            window.location="/login"
+        if (localStorage.getItem('token')) {
+            if (decode(localStorage.getItem('token')).username !== 'Reviewer') {
+                window.location = "/login"
+            }
+        }else{
+            window.location = "/login"
         }
 
     }
@@ -35,8 +41,6 @@ export default class ReviewerDashboard extends React.Component {
                 <div className={"sidebar"}>
                     <Link to={"/reviewer/researchUploads"}>Research Papers</Link>
                     <Link to={"/reviewer/workshopUploads"}>Workshop Proposals</Link>
-                    <Link to={"/reviewer/submissions"}>My Profile</Link>
-                    <Link to={"/reviewer/notifications"}>Notifications</Link>
                     <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
                 </div>
                 <div className={"content"}>
@@ -44,12 +48,9 @@ export default class ReviewerDashboard extends React.Component {
                         <Route exact path={"/reviewer/researchUploads"}>
                             <ResearchUploads />
                         </Route>
-                        {/*<Route path={"/reviewer/workshopUploads"}>*/}
-                        {/*    <WorkshopUploads />*/}
-                        {/*</Route>*/}
-                        {/*<Route path={"/reviewer/notifications"}>*/}
-                        {/*    <Notifications />*/}
-                        {/*</Route>*/}
+                        <Route path={"/reviewer/workshopUploads"}>
+                            <WorkshopUploads />
+                        </Route>
                     </Switch>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import React from 'react'
 
 import 'bootstrap/dist/css/bootstrap.css';
-
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
 
@@ -40,7 +39,7 @@ class UploadProposal extends React.Component{
 
         axios.post('http://localhost:5000/user/addPresenterUploads', formData,{
             headers:{
-                Authorization:sessionStorage.getItem("token")
+                Authorization:localStorage.getItem("token")
             }
         })
             .then(res => {

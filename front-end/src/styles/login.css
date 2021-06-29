@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 
-}
 
 .c {
     display: flex;
@@ -13,6 +8,8 @@
     justify-content: center;
     min-height: 100vh;
     margin-top: 50px;
+    margin-bottom: 50px;
+
 }
 
 .sc {
@@ -142,34 +139,12 @@
 }
 
 .button__icon {
-    font-size: 24px;
+    size: 50px;
     margin-left: auto;
     color: #0c0443;
+
 }
 
-.social-login {
-    position: absolute;
-    height: 140px;
-    width: 160px;
-    text-align: center;
-    bottom: 0px;
-    right: 0px;
-    color: #fff;
-}
 
-.social-icons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.social-login__icon {
-    padding: 20px 10px;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0px 0px 8px #0c0443;
-}
 
-.social-login__icon:hover {
-    transform: scale(1.5);
-}

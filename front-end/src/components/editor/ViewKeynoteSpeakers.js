@@ -41,7 +41,11 @@ class ViewKeynoteSpeakers extends React.Component {
         formData.append('photo', this.state.photo);
         formData.append('imgUrl', this.state.request.details.photo);
 
-        axios.put('http://localhost:5000/editor/updateKeynote/'+this.state.request._id, formData)
+        axios.put('http://localhost:5000/editor/updateKeynote/'+this.state.request._id, formData, {
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
 
                 axios.get('http://localhost:5000/editor/requests')
@@ -146,65 +150,65 @@ class ViewKeynoteSpeakers extends React.Component {
     render() {
         return (
 
-                <div className="card border-primary rounded-0">
-                    <div className="card-header p-0">
-                        <div className="bg-info text-white text-center py-2">
-                            <h3>Keynote Speakers</h3>
-                        </div>
+            <div className="card border-primary rounded-0">
+                <div className="card-header p-0">
+                    <div className="bg-info text-white text-center py-2">
+                        <h3>Keynote Speakers</h3>
                     </div>
-                    <div className="card-body p-3">
+                </div>
+                <div className="card-body p-3">
 
-                        <div className="table-responsive" id="sailorTableArea">
-                            <table id="sailorTable" className="table table-striped table-bordered table-condensed tablebody text-center" width="100%">
+                    <div className="table-responsive" id="sailorTableArea">
+                        <table id="sailorTable" className="table table-striped table-bordered table-condensed tablebody text-center" width="100%">
 
-                                <thead className="tablehead">
-                                <tr>
-                                    <th>Photo</th>
-                                    <th>Speaker Name</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <thead className="tablehead">
+                            <tr>
+                                <th>Photo</th>
+                                <th>Speaker Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                    {this.state.requests.map(request =>
-                                        <React.Fragment>
-                                            {(request.type === 'keynote') ?
-                                                <tr>
-                                                    <td><img src={request.details.photo} className="rounded" width={80} height={80} alt="..." /> </td>
-                                                    <td>{request.details.name}</td>
-                                                    <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
-                                                    <td>
+                            {this.state.requests.map(request =>
+                                <React.Fragment>
+                                    {(request.type === 'keynote') ?
+                                        <tr>
+                                            <td><img src={request.details.photo} className="rounded" width={80} height={80} alt="..." /> </td>
+                                            <td>{request.details.name}</td>
+                                            <td><span className={`${this.props.statusColor(request.status)} p-1 text-light rounded`}>{request.status}</span></td>
+                                            <td>
 
-                                                        <button
-                                                            className="btn btn-primary"
-                                                            disabled={request.status === 'rejected' || request.status === 'pending' ? false : true}
-                                                            onClick={() => this.setState({
-                                                                show: true,
-                                                                request:request,
-                                                                name: request.details.name,
-                                                                description: request.details.description,
-                                                                photo: request.details.photo
-                                                            })}
-                                                        >
+                                                <button
+                                                    className="btn btn-primary"
+                                                    disabled={request.status === 'rejected' || request.status === 'pending' ? false : true}
+                                                    onClick={() => this.setState({
+                                                        show: true,
+                                                        request:request,
+                                                        name: request.details.name,
+                                                        description: request.details.description,
+                                                        photo: request.details.photo
+                                                    })}
+                                                >
 
-                                                            <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
-                                                        </button>
-                                                    </td>
-                                                    {this.showView()}
-                                                </tr>
-                                            : ''}
-                                        </React.Fragment>
+                                                    <i className="fa fa-pencil-square-o text-light"></i><span style={{marginLeft:"8px"}}>Edit</span>
+                                                </button>
+                                            </td>
+                                            {this.showView()}
+                                        </tr>
+                                        : ''}
+                                </React.Fragment>
 
-                                    )}
+                            )}
 
-                                </tbody>
-                            </table>
-                        </div>
-
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
+
+            </div>
         );
     }
 }

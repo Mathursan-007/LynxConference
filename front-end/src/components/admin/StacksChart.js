@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import {Pie} from 'react-chartjs-2'
+import '../../styles/analytics.css'
 
 
 
@@ -26,11 +27,15 @@ class StacksChart extends React.Component{
 
                 let stacks=[]
 
-                papers.map(paper=>{
+
+                papers.map(paper=>{                                 //retrieving stacks from papers
+                    //console.log(paper.stacks.split(","))
                     paper.stacks.split(",").map(stack=>{
                         stacks.push(stack)
                     })
                 })
+
+
 
                 this.setState({stacks:stacks})
 
@@ -47,7 +52,7 @@ class StacksChart extends React.Component{
 
         const options={
 
-            maintainAspectRatio:true,
+            maintainAspectRatio:false,
             title:{
                 display:"Stacks",
                 text:'Different types of stacks used by researchers',
@@ -55,7 +60,7 @@ class StacksChart extends React.Component{
             },
             legend:{
                 display:"no",
-                position:"bottom"
+                position:"top"
             }
 
         }
@@ -63,7 +68,7 @@ class StacksChart extends React.Component{
 
         let labels=[]
         this.state.stacks.map(stack=>{
-            if(labels.includes(stack.toString())==false){
+            if(labels.includes(stack.toString())==false){     //graph labels
                 labels.push(stack)
             }
         })
@@ -83,7 +88,6 @@ class StacksChart extends React.Component{
             labels:labels,
             datasets:[
                 {
-                    label:"Stacks Used",
                     data:[
                         ...counts
                     ],
@@ -109,9 +113,12 @@ class StacksChart extends React.Component{
                         'rgba(255,3,3,0.6)',
                         'rgba(87,230,101,0.6)',
                         'rgba(6,237,204,0.6)'
-                    ]
+                    ],
+                    hoverBorderColor:'black'
+
                 }
-            ]
+            ],
+
 
         }
 
@@ -119,7 +126,9 @@ class StacksChart extends React.Component{
 
         return(
 
-            <div>
+
+
+            <div className="card back col-md-6 mt-5 ml-4 mr-4"  style={{height: "80vh",maxWidth: "80vh"}}>
                 <Pie options={options} data={data}/>
             </div>
 

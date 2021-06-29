@@ -5,31 +5,9 @@ import WorkshopUpload from './WorkshopUpload';
 import '../../styles/ReviewerResearchUploads.css';
 import {Button} from "react-bootstrap";
 
-// const workshopUploads = [
-//     {
-//         id: 1,
-//         title: 'Dive into AI',
-//         category: 'Artificial Intelligence',
-//         url: 'https://www.google.com/',
-//         status: 'Pending'
-//     },
-//     {
-//         id: 2,
-//         title: 'Microservices in IoT Security',
-//         category: 'Distributed Systems',
-//         url: 'https://www.google.com/',
-//         status: 'Pending'
-//     },
-//     {
-//         id: 3,
-//         title: 'AI in IoT Security',
-//         category: 'Artificial Intelligence',
-//         url: 'https://www.google.com/',
-//         status: 'Pending'
-//     }
-// ]
 
 export default class WorkshopUploads extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -39,7 +17,10 @@ export default class WorkshopUploads extends React.Component {
         };
     }
 
+
     componentDidMount() {
+
+
         axios.get('http://localhost:5000/reviewer/uploads')
             .then(response => {
                 this.setState({ workshopUploads:  response.data.filter(upload => {

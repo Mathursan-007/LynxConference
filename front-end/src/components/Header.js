@@ -8,18 +8,16 @@ class Header extends Component {
         return (
             <div>
 
-                <div className="containerHeader s imgHeader">
-                    <div className="centeredHeader">ICAF 2021</div>
-                </div>
 
 
-                <nav className="navbar navbar-expand-lg navbar-light bg-info">
+
+                <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{backgroundColor: "#040935"}}>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarText">
-                        <ul className="navbar-nav mr-auto">
+                        <ul className="navbar-nav mr-auto" >
                             <li className="nav-item active">
                                 <Link className="nav-link text-light" to="/">Home <span
                                     className="sr-only">(current)</span></Link>
@@ -33,7 +31,7 @@ class Header extends Component {
                                     Events
                                 </Link>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <Link className="dropdown-item" to="/research">Research Paper Presentation</Link>
+                                    <Link className="dropdown-item" to="/researchPapers">Research Paper Presentation</Link>
                                     <Link className="dropdown-item" to="/workshops">Workshops</Link>
                                     <Link className="dropdown-item" to="/keynote">Keynote</Link>
                                 </div>
@@ -50,10 +48,13 @@ class Header extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link text-light" to="/downloads">Download</Link>
+                                <Link className="nav-link text-light" to="/downloads">Templates</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link text-light" to="/login">Login</Link>
+                            </li>
+                            <li   className="nav-link text-light font-weight-bold h4" style={{marginLeft:"650px"}}>
+                                ICAF 2021
                             </li>
                         </ul>
                     </div>

@@ -39,7 +39,11 @@ class ViewTemplates extends React.Component {
         formData.append('file', this.state.file);
         formData.append('fileUrl', this.state.request.details.file);
 
-        axios.put('http://localhost:5000/editor/updateTemplate/'+this.state.request._id, formData)
+        axios.put('http://localhost:5000/editor/updateTemplate/'+this.state.request._id, formData, {
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
 
                 axios.get('http://localhost:5000/editor/requests')

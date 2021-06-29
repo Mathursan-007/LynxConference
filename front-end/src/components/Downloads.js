@@ -1,7 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default class Downloads extends React.Component{
@@ -26,24 +25,25 @@ export default class Downloads extends React.Component{
 
     render() {
         return(
-            <div className="body s" style={{minHeight: "100vh"}}>
+            <div className="body s" style={{minHeight: "100vh",marginTop:"100px"}}>
+                <h2 className="text-center"><u>DOWNLOADS</u></h2><br/>
                 <div className="container">
                     <div className="row">
 
                         {this.state.templates.map(req =>
                             <React.Fragment>
-                        {req.status == 'approved' ?
+                                {req.status == 'approved' ?
 
-                            <div className="card col-lg-12 mt-4 text-center bg-dark p-3">
-                                <a
-                                    href={`${req.details.file}`}
-                                    className="text-light"
-                                    download
-                                >
-                                    {req.details.name}
-                                </a>
-                            </div>
-                            : ''}
+                                    <div className="card col-lg-12 mt-4 text-center bg-dark p-3">
+                                        <a
+                                            href={`${req.details.file}`}
+                                            className="text-light"
+                                            download
+                                        >
+                                            {req.details.name}
+                                        </a>
+                                    </div>
+                                    : ''}
                             </React.Fragment>
                         )}
 

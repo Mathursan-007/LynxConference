@@ -7,6 +7,7 @@ import axios from "axios";
 import NewsRequest from "./NewsRequest";
 import TemplateRequest from "./TemplateRequest";
 import ConferenceDetailsRequest from "./ConferenceDetailsRequest";
+import CallForPaperDetailsRequest from "./CallForPaperDetailsRequest";
 
 
 class Request extends React.Component {
@@ -33,6 +34,8 @@ class Request extends React.Component {
             return (<WorkShopRequest request={this.props.request} />)
         } else if(this.props.request.type === 'conference') {
             return (<div><ConferenceDetailsRequest request={this.props.request}/></div>)
+        } else if(this.props.request.type === 'call for paper') {
+            return (<div><CallForPaperDetailsRequest request={this.props.request}/></div>)
         }
     }
 
@@ -57,9 +60,9 @@ class Request extends React.Component {
 
     checkStatus=()=>{
 
-        if(this.props.request.status=="approved"||this.props.request.status=="rejected"){
+        if(this.state.status=="approved"||this.state.status=="rejected"){
             return true;
-        }else if(this.props.request.status=="pending"){
+        }else if(this.state.status=="pending"){
             return false;
         }
 
@@ -90,15 +93,15 @@ class Request extends React.Component {
 
     render() {
         return(
-            <div>
                 <tr>
                     <td>{this.props.num}</td>
                     <td>{this.props.request.type}</td>
                     <td>{this.state.status}</td>
-                    <td><button onClick={()=>this.setState({show:true})}>View</button></td>
+                    <td><button class="btn btn-secondary" onClick={()=>this.setState({show:true})}>View</button></td>
+                    {this.showView()}
                 </tr>
-                {this.showView()}
-            </div>
+
+
         )
     }
 

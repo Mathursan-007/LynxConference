@@ -6,6 +6,7 @@
     width:100%;
     height:100vh;
     overflow:hidden;
+    margin-bottom:50px;
 }
 .cont .Slider{
     position:absolute;
@@ -28,6 +29,7 @@
     width:50%;
     height:100%;
     display:table;
+    background-color: #acabab;
 }
 .cont .Slider .slide .Content div{
     display:table-cell;
@@ -48,7 +50,7 @@
     text-align:center;
     line-height:50px;
     text-decoration:none;
-    background-color:#262626;
+    background-color: #040935;
     color:#fff;
     transition-property:background-color,color;
     transition-duration:.5s,.5s;
@@ -208,4 +210,3 @@
         height:40%;
     }
 }
-

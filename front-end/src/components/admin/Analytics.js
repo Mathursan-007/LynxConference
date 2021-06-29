@@ -18,8 +18,8 @@ class Analytics extends React.Component{
 
         return(
 
-            <div>
-                {/*<StacksChart/>*/}
+            <div className={"row"}>
+                <StacksChart/>
                 <SubmissionsChart/>
             </div>
 

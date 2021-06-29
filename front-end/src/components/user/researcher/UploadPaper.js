@@ -1,8 +1,9 @@
 import React from 'react'
-import '../../../styles/register.css'
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
+import decode from 'jwt-decode';
 
 
 class UploadPaper extends React.Component{
@@ -14,8 +15,34 @@ class UploadPaper extends React.Component{
             email: '',
             phoneNumber: '',
             paper: '',
-            stacks:[]
+            stacks:[],
+            progress:false,
+            buttonText:'Submit',
+            buttonState: false,
+            color:'#f7bdbd'   //color change
+
         }
+    }
+    componentDidMount() {
+
+        const email = decode(localStorage.token).username.split(' ')[0];
+
+        console.log(email)
+
+        axios.get('http://localhost:5000/user/researcherUpload/'+ email)
+            .then(response => {
+                if(response.data.count) {
+                    this.setState({
+                        buttonState: true,
+                        buttonText: 'Already submitted'
+                    });
+                }
+                console.log(response.data)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     handleInput=(event)=>{
@@ -38,10 +65,13 @@ class UploadPaper extends React.Component{
         formData.append('paper', this.state.paper);
         formData.append('stacks', this.state.stacks);
 
+        this.setState({
+            progress: true
+        })
 
         axios.post('http://localhost:5000/user/addResearcherUploads', formData,{
             headers:{
-                Authorization:sessionStorage.getItem("token")
+                Authorization:localStorage.getItem("token")
             }
         })
             .then(res => {
@@ -51,7 +81,10 @@ class UploadPaper extends React.Component{
                     email: '',
                     phoneNumber: '',
                     paper: '',
-                    stacks:[]
+                    stacks:[],
+                    progress:false,
+                    buttonState: true,
+                    buttonText: 'Already submitted'
                 })
             })
             .catch(err => {
@@ -59,7 +92,7 @@ class UploadPaper extends React.Component{
             });
 
     }
-    
+
     addStack=(e)=>{
 
 
@@ -74,7 +107,7 @@ class UploadPaper extends React.Component{
         this.setState({stacks:stacks})
 
     }
-    
+
     render() {
         return(
 
@@ -85,9 +118,6 @@ class UploadPaper extends React.Component{
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="signup-area">
-                                    <div className="signup-element">
-                                        <img src="https://i.ibb.co/bRJVsq5/contact-us-box-bg.png" alt="signup"/>
-                                    </div>
                                     <div className="row">
                                         <div className="col-lg-6">
                                             <div className="signup-left-area">
@@ -96,7 +126,7 @@ class UploadPaper extends React.Component{
                                                 <div className="sign-up-form-area">
                                                     <form className="signup-form"  onSubmit={this.handleSubmit}  >
                                                         <div className="row">
-                                                            <div className="col-lg-12 form-group">
+                                                            <div className="col-sm-12 form-group">
                                                                 <input type="text" name='name' value={this.state.name} onChange={this.handleInput} placeholder="Your name"required/>
                                                             </div>
                                                             <div className="col-lg-12 form-group">
@@ -132,8 +162,21 @@ class UploadPaper extends React.Component{
                                                             <div className="col-lg-12 form-group">
                                                                 <input type="file" accept = "application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation" onChange={this.handlePaper} name="paper" required/>
                                                             </div>
+                                                            {this.state.progress ?
+                                                                <div className="container p-4">
+                                                                    <ProgressBar style={{height: "4vh"}} animated now={100} variant={'primary'} label={'Uploading'} />
+                                                                </div>
+                                                                : ''
+
+                                                            }
                                                             <div className="col-lg-12 form-group">
-                                                                <input type="submit" className="cmn-btn"   value="Submit"/>
+                                                                <input
+                                                                    type="submit"
+                                                                    className="cmn-btn"
+                                                                    value={this.state.buttonText}
+                                                                    disabled={this.state.buttonState}
+                                                                    Style={{backgroundColor:this.state.color}}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </form>

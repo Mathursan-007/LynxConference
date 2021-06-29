@@ -33,22 +33,26 @@ class Requests extends React.Component{
 
     render() {
         return(
-            <div>
-               <table>
-                   <tr>
-                       <thead>
-                       <th>Type</th>
-                       <th>Status</th>
+            <div  className="container" style={{marginTop: "150px"}}>
+                <div className="table-responsive card border-primary rounded-0">
+                   <table className="table table-bordered table-condensed tablebody text-center">
+                       <thead className={"tablehead"}>
+                       <tr>
+                           <th scope="col">No</th>
+                           <th scope="col">Type</th>
+                           <th scope="col">Status</th>
+                           <th scope="col">Action</th>
+                       </tr>
                        </thead>
-                   </tr>
-                   <tbody>
-                   {this.state.requests.map(request=>{
-                       return <Request request={request} key={request._id} num={this.state.requests.indexOf(request)+1}/>
-                   })
+                       <tbody>
+                       {this.state.requests.map(request=>{
+                           return <Request request={request} key={request._id} num={this.state.requests.indexOf(request)+1}/>
+                       })
 
-                   }
-                   </tbody>
-               </table>
+                       }
+                       </tbody>
+                   </table>
+                </div>
             </div>
         )
     }
@@ -58,3 +62,4 @@ class Requests extends React.Component{
 
 export default Requests;
 
+//style={{height:'80vh',overflow:'auto'}}

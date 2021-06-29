@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 
 class AddConference extends Component {
+
     state = {
         name: '',
         institute: '',
@@ -144,7 +145,7 @@ class AddConference extends Component {
                         <div className="form-group">
                             <div className="input-group mb-2">
                                 <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fa fa-id-card text-info"></i></div>
+                                    <div className="input-group-text"><i className="fa fa-university text-info"></i></div>
                                 </div>
                                 <input
                                     type="text"
@@ -160,7 +161,7 @@ class AddConference extends Component {
                         <div className="form-group">
                             <div className="input-group mb-2">
                                 <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fa fa-id-card text-info"></i></div>
+                                    <div className="input-group-text"><i className="fa fa-list text-info"></i></div>
                                 </div>
                                 <input
                                     type="text"
@@ -176,7 +177,7 @@ class AddConference extends Component {
                         <div className="form-group">
                             <div className="input-group mb-2">
                                 <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fa fa-id-card text-info mr-4"></i> Start date </div>
+                                    <div className="input-group-text"><i className="fa fa-calendar text-info mr-4"></i> Start date </div>
                                 </div>
                                 <input
                                     type="date"
@@ -191,7 +192,7 @@ class AddConference extends Component {
                         <div className="form-group">
                             <div className="input-group mb-2">
                                 <div className="input-group-prepend">
-                                    <div className="input-group-text"><i className="fa fa-id-card text-info mr-4"></i> End date </div>
+                                    <div className="input-group-text"><i className="fa fa-calendar text-info mr-4"></i> End date </div>
                                 </div>
                                 <input
                                     type="date"

@@ -26,21 +26,23 @@ export default class News extends React.Component{
 
     render() {
         return(
-            <div className="body" style={{minHeight: "100vh"}}>
-                <div className="container s">
+            <div>
+                <div className="body" style={{minHeight: "100vh",marginTop:"100px"}} id="news">
+                    <h2 className="text-center font-weight-bold"><u>LATEST NEWS</u></h2><br/>
+                    <div className="container s">
                         <div className="row">
 
                             {this.state.news.map(req =>
 
                                 <React.Fragment>
                                     {req.status == 'approved' ?
-                                <div className="card col-lg-4 mt-4">
-                                    <div className="card-body m-1 rounded" style={{backgroundColor: "#0c0443"}}>
-                                        <h5 className="card-title text-light">{req.details.name}</h5>
-                                        <p className="card-text text-light">{req.details.description}</p>
-                                        <p className="card-text"><small className="text-muted">{req.details.date}</small></p>
-                                    </div>
-                                </div>
+                                        <div className="card back col-sm-4 mt-3 ml-2"  style={{minHeight: "40vh",maxWidth: "60vh"}}>
+                                            <div className="card-body m-1 rounded">
+                                                <h5 className="card-title text-white text-center">{req.details.name}</h5>
+                                                <p className="card-text text-light text-center">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</p>
+                                                <p className="card-text"><small className="text-light">{req.details.date}</small></p>
+                                            </div>
+                                        </div>
                                         : ''}
                                 </React.Fragment>
                             )}
@@ -48,6 +50,7 @@ export default class News extends React.Component{
                         </div>
                     </div>
 
+                </div>
             </div>
         )
     }

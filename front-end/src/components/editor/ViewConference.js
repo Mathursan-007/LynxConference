@@ -37,7 +37,11 @@ class ViewConference extends React.Component {
             description: this.state.description
         }
 
-        axios.put('http://localhost:5000/editor/updateConference/'+this.state.request._id, conference)
+        axios.put('http://localhost:5000/editor/updateConference/'+this.state.request._id, conference, {
+            headers:{
+                Authorization:sessionStorage.getItem("token")
+            }
+        })
             .then(res => {
 
                 axios.get('http://localhost:5000/editor/requests')

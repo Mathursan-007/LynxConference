@@ -9,7 +9,6 @@ class Log extends React.Component {
    render() {
 
        return(
-           <div>
                <tr>
                    <td>{this.props.num}</td>
                    <td>{this.props.log.user}</td>
@@ -17,8 +16,6 @@ class Log extends React.Component {
                    <td>{this.props.log.date}</td>
                    <td>{this.props.log.time}</td>
                </tr>
-
-           </div>
        )
 
     }

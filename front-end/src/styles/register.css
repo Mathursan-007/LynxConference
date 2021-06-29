@@ -19,14 +19,10 @@ ul{
     padding:0;
     list-style:none
 }
-img{
-    max-width:100%;
-    height:auto
-}
-input,textarea{
+input,select,textarea{
     padding:15px 25px;
-    width:100%;
-    text-transform:capitalize
+
+
 }
 input,select,textarea{
     border:none;
@@ -55,7 +51,7 @@ input,select,textarea{
     right:0;
     width:60%;
     height:100%;
-    background-color:#af1400;
+    background-color: #af1400;
     z-index:-1;
     clip-path:polygon(100% 0,0 0,100% 100%)}
 @media only screen and (max-width:991px){
@@ -85,11 +81,11 @@ input,select,textarea{
 .signup-form .form-group{
     position:relative
 }
-.signup-form input{
+.signup-form input,select{
     box-shadow:0 0 27px 3px rgba(0,0,0,.1);
     color:#777
 }
-.signup-form input::placeholder{
+.signup-form input,select::placeholder{
     color:#777
 }
 .signup-right-area{
@@ -162,10 +158,14 @@ input,select,textarea{
     font-weight:600;
     padding:8px 20px
 }
-.sign-up-option li a i{
-    margin-right:5px
+.Aregister-btn {
+    background: #af1400 !important;
+    border: none;
+    border-radius: 30px;
+    width:200px;
+    font-weight: 400;
+    font-size: 22px;
+    color: #ffffff;
+
+
 }
-.sign-up-option li a.google{
-    background:#af1400}
-.sign-up-option li a.facebook{
-    background:#3b5998}

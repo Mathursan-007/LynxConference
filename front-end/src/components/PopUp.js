@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from "react-bootstrap";
 import React, { Component } from 'react';
 
-function Popup(props) {
+function PopUp(props) {
     return (
         <Modal
             {...props}
@@ -22,4 +22,4 @@ function Popup(props) {
     );
 }
 
-export default Popup;
+export default PopUp;

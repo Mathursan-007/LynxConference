@@ -7,49 +7,6 @@ import {Button, Modal} from "react-bootstrap";
 import Select from 'react-select';
 
 
-//
-// const researchUploads = [
-//     {
-//         id: 1,
-//         title: 'AI in Face Detection',
-//         category: 'Artificial Intelligence',
-//         url: 'https://www.google.com/',
-//         status: 'Pending',
-//         details: {
-//             id: '100',
-//             name: 'Krishna',
-//             email: 'krishna@gmail.com',
-//             phoneNumber: '0784512697'
-//         }
-//     },
-//     {
-//         id: 2,
-//         title: 'ML in IoT Security',
-//         category: 'Machine Learning',
-//         url: 'https://www.google.com/',
-//         status: 'Pending',
-//         details: {
-//             id: '101',
-//             name: 'Arjunan',
-//             email: 'arjunan@gmail.com',
-//             phoneNumber: '0724589412'
-//         }
-//     },
-//     {
-//         id: 3,
-//         title: 'AI in IoT Security',
-//         category: 'Artificial Intelligence',
-//         url: 'https://www.google.com/',
-//         status: 'Pending',
-//         details: {
-//             id: '102',
-//             name: 'Hanumaan',
-//             email: 'hanumaan@gmail.com',
-//             phoneNumber: '0754896312'
-//         }
-//     }
-// ]
-
 export default class ResearchUploads extends React.Component {
 
     constructor(props) {
@@ -62,7 +19,6 @@ export default class ResearchUploads extends React.Component {
             uniqueStacks: [],
             allStacks: [],
             options: [],
-            //selectedStacks: [],
             selectedStack: ''
         };
     }
@@ -72,7 +28,7 @@ export default class ResearchUploads extends React.Component {
         axios.get('http://localhost:5000/reviewer/uploads')
             .then(response => {
                 this.setState({ researchUploads:  response.data.filter(upload => {
-                        return upload.type == "research"
+                        return upload.type === "research"
                     }) });
 
 
@@ -87,8 +43,8 @@ export default class ResearchUploads extends React.Component {
                 this.setState( {allStacks: stacks});
                 this.setState( {uniqueStacks: [...new Set(stacks)]});
 
-                console.log("All Stacks", this.state.allStacks);
-                console.log("Unique Stacks", this.state.uniqueStacks);
+                // console.log("All Stacks", this.state.allStacks);
+                // console.log("Unique Stacks", this.state.uniqueStacks);
 
                 let data = [ {
                     value: 'ALL',
@@ -104,7 +60,7 @@ export default class ResearchUploads extends React.Component {
                 })
 
                 this.setState( {options: data});
-                console.log('options: ', this.state.options);
+                // console.log('options: ', this.state.options);
 
             })
             .catch((error) => {
@@ -113,18 +69,18 @@ export default class ResearchUploads extends React.Component {
     }
 
     onStackSelect(e) {
-        //this.setState({selectedStacks : e ? e.map(item => item.value) : []})
         this.setState( {selectedStack: (e.value)});
 
     }
 
     display() {
 
-        console.log("choose : ", this.state.selectedStack);
+        //console.log("choose : ", this.state.selectedStack);
 
-        if(this.state.selectedStack == '' || this.state.selectedStack == 'ALL') {
+        if(this.state.selectedStack === '' || this.state.selectedStack === 'ALL') {
             return (
                 this.state.researchUploads.map(upload => {
+                    console.log("res: ", upload);
                     return (
                         <ResearchUpload upload={upload} key={upload._id} num={this.state.researchUploads.indexOf(upload)+1}/>
                     );
@@ -152,7 +108,7 @@ export default class ResearchUploads extends React.Component {
     render() {
         return (
 
-            <div class="rev-table_container">
+            <div className="rev-table-container">
 
                 <label className="filterLabel">Filter By Technology Stacks</label><br/><br/>
                 <Select
@@ -181,6 +137,7 @@ export default class ResearchUploads extends React.Component {
 
                     </tbody>
                 </table>
+                <br/>
 
             </div>
         )

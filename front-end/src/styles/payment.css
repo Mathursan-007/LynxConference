@@ -1,63 +1,62 @@
 .payment-body {
-    background: linear-gradient(to right, rgba(235, 224, 232, 1) 52%, rgba(254, 191, 1, 1) 53%, rgba(254, 191, 1, 1) 100%);
+    background: linear-gradient(to right, rgba(235, 224, 232, 1) 52%, rgb(255, 0, 0) 53%, rgb(255, 0, 0) 100%);
     font-family: 'Roboto', sans-serif
 }
 
-.card {
+.cards {
     border: none;
-    max-width: 440px;
+    max-width: 500px;
     border-radius: 15px;
     margin: 150px 0 150px;
     padding: 5px;
     padding-bottom: 20px !important
 }
 
-.heading {
-    color: #C1C1C1;
+.payment-heading {
+    color: #000000;
     font-size: 30px;
     font-weight: 500
 }
 
-img {
-    transform: translate(160px, -10px)
-}
-
-img:hover {
-    cursor: pointer
-}
-
-.text-warning {
-    font-size: 10px;
+.payment-text-warning {
+    font-size: 20px;
     font-weight: 500;
-    color: #edb537 !important
+    color: #000000 !important
 }
 
-#cno {
+#payment-cno {
     transform: translateY(-10px)
 }
 
-input {
+.payment-input {
     border-bottom: 1px solid #E8E5D2 !important;
     font-weight: bold;
     border-radius: 0;
     border: 0
+
 }
 
-.form-group input:focus {
+.payment-form-group input:focus {
     border: 0;
     outline: 0
 }
 
-.col-sm-5 {
+.payment-col-sm-5 {
     padding-left: 90px
 }
 
-.paymenbtn {
-    background: #F3A002 !important;
+.payment-btn {
+    background: #af1400 !important;
     border: none;
-    border-radius: 30px
+    border-radius: 30px;
+    width:200px;
+    font-weight: 100;
+    font-size: 20px;
+    color: #ffffff;
+
+
 }
 
-.paymentbtn:focus {
+.payment-btn:focus {
     box-shadow: none
 }
