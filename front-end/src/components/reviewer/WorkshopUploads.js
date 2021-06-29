@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 import axios from "axios";
 import WorkshopUpload from './WorkshopUpload';
 import '../../styles/ReviewerResearchUploads.css';
+import {Button} from "react-bootstrap";
 
 // const workshopUploads = [
 //     {
