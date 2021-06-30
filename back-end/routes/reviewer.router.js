@@ -36,7 +36,7 @@ router.get("/uploads/notify/:email/:type", async (req, res) => {
 // both research and workshop submissions
 router.patch("/upload/:id",auth, async (req, res) => {
 
-    let requests = await updateStatus(req.params.id, req.body.status);
+    let requests = await updateStatus(req.params.id, req.body.status, req.body.reviewerID);
 
     if(requests) {
         if(req.body.status=="approved"){

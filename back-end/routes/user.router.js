@@ -15,19 +15,19 @@ router.post("/login",async(req,res)=>{
     if(user.username==="admin" && user.password==="admin"){
 
         const accessToken=jwt.sign({username:'Admin'},"secret");
-        await addLog(user.username,"logged In")
+        await addLog("Admin","logged In")
         res.status(201).json({accessToken:accessToken,user:"admin"})
 
     }else if(user.username==="admin" && user.password==="editor"){
 
         const accessToken=jwt.sign({username:'Editor'},"secret");
-        await addLog(user.username,"logged In")
+        await addLog("Editor","logged In")
         res.status(201).json({accessToken:accessToken,user:"editor"})
 
     }else if(user.username==="admin" && user.password==="reviewer"){
 
         const accessToken=jwt.sign({username:'Reviewer'},"secret");
-        await addLog(user.username,"logged In")
+        await addLog("Reviewer","logged In")
         res.status(201).json({accessToken:accessToken,user:"reviewer"})
 
     } else{
@@ -67,15 +67,22 @@ router.post("/addAttendee",async (req,res)=>{
 router.post("/addUser",async (req,res)=>{
 
 
-        let check = await checkUser(req.body.id,req.body.type);
+    let id;
+    if(req.body.passportNo) {
+        id= req.body.passportNo;
+    } else if(req.body.nic) {
+        id= req.body.nic;
+    }
 
-        if(check) {
+    let check = await checkUser(id,req.body.type);
+
+    if(check) {
             res.status(400).json({error:"Already registered"});
         } else {
             let user = await createUser(req.body)
             if(user){
-                const accessToken =jwt.sign({email:req.body.email},"secret")
-                await addLog(req.body.type+`(${req.body.id})`,"Registered")
+                const accessToken =jwt.sign({username:req.body.email+' '+req.body.type},"secret")
+                await addLog(id,"Registered as "+req.body.type)
                 res.status(201).send(accessToken);
             }else{
                 res.status(400).json({error:"error"});
@@ -102,7 +109,8 @@ router.post("/addResearcherUploads",auth,upload.single('paper'),async (req,res)=
                 name: req.body.name,
                 email: req.body.email,
                 phoneNumber:req.body.phoneNumber,
-                paper:result.secure_url
+                paper:result.secure_url,
+                paymentStatus:'pending'
             },
             stacks:req.body.stacks,
             user:req.id.username.split(' ')[0]
@@ -202,7 +210,7 @@ router.get("/presenterUpload/:email",async (req,res)=>{
     let upload=await findUpload(req.params.email,'presenter');
 
     if(upload){
-        res.status(201).send(upload);
+        res.status(201).send({upload,count:true});
     }else{
 
         res.status(502).send("Error");
