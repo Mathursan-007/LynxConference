@@ -16,6 +16,7 @@ function auth(req,res,next){
         next();
 
     }catch (e){
+        console.log(req.id)
         res.status(401).json({error:"Invalid-token"});
     }
 
