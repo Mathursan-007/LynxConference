@@ -34,26 +34,28 @@ class Attendees extends React.Component{
 
         return(
 
-            <div className="table-responsive" style={{height: '80vh', overflow: 'auto'}}>
-                <table className="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone No</th>
-                        <th scope="col">Plan</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.attendees.map(attendee => {
-                        return <Attendee attendee={attendee} key={attendee._id}
-                                        num={this.state.attendees.indexOf(attendee) + 1}/>
-                    })
+            <div className="container" style={{marginTop: "120px"}}>
+                <div className="table-responsive border-dark">
+                    <table className="table table-hover table-dark  table-condensed tablebody text-center">
+                        <thead style={{position:'sticky',top:0}} className={"tablehead"}>
+                         <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone No</th>
+                            <th scope="col">Plan</th>
+                         </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.attendees.map(attendee => {
+                                return <Attendee attendee={attendee} key={attendee._id}
+                                                num={this.state.attendees.indexOf(attendee) + 1}/>
+                            })
 
-                    }
-                    </tbody>
-                </table>
+                            }
+                        </tbody>
+                  </table>
+              </div>
             </div>
 
         )

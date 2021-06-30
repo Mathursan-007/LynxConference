@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from "react-bootstrap";
 import '../../../styles/ReviewerResearchUploads.css';
+import PopUp from '../../PopUp'
 
 
 
@@ -16,6 +17,7 @@ export default class ResearchNotifications extends Component {
             paymentStatus: ''
         }
     }
+
 
     componentDidMount() {
         console.log("received research props: ", this.props.researchUploads);
@@ -61,7 +63,7 @@ export default class ResearchNotifications extends Component {
 
                         <h3>Proceed with making the payment to publish your research at the Conference</h3>
 
-                        <Button disabled={this.state.researchUploads.details.paymentStatus === "paid" ? true : false}
+                        <Button disabled={this.state.researchUploads.details.paymentStatus === "pending" ? true : false}
                                 onClick={() => this.navigateToPaymentPage(this.state.email, this.state._id)}
                                 className="rev-btn-payment">Proceed To Payment</Button>
 
@@ -88,7 +90,7 @@ export default class ResearchNotifications extends Component {
             )
         } else {
             return (
-                <h2>No notifications to show!</h2>
+                <PopUp description={"No notifications"} show={this.state.show} onHide={()=>this.setState({show:false})}/>
             )
 
         }

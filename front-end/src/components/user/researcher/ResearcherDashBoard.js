@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Redirect, Route, Switch} from 'react-router-dom'
 import '../../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -90,24 +90,26 @@ class ResearcherDashBoard extends React.Component{
 
                 <div className={"sidebar"}>
 
-                    <Link to={"/researcher/uploadPaper"}>Research paper Submissions</Link>
-                    <Link to={"/researcher/viewPaper"}>View Research</Link>
+                    <Link to={"/researcher/uploadPaper"}><i className="fa fa-cloud-upload  mr-2"></i>Paper Submissions</Link>
 
-                    <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
+                    <Link to={"/researcher/notifications"} className="notification" className="notifications">
+                        <span><i className="fa fa-bell mr-2" aria-hidden="true"></i></span>Notifications
+                    </Link>
+                    <Link to={"/login"} onClick={this.doLogout}><i className="fa fa-sign-out mr-2"></i>Logout</Link>
                 </div>
 
                 <div className={"content"}>
                     <Switch>
                         <Route exact path={"/researcher/uploadPaper"}>
-                             <UploadPaper/>
+                            <UploadPaper/>
                         </Route>
-                        <Route path={"/user/viewResearch"}></Route>
                         <Route path='/researcher/payment/:email/:id'
                                render = { props => <ResearchPayment {...props} /> } >
                         </Route>
                         <Route path="/researcher/notifications">
                             <ResearchNotifications researchUploads={this.state.researchUploads} key={this.state.researchUploads._id}/>
                         </Route>
+                        <Redirect to={"/researcher/uploadPaper"}/>
                     </Switch>
                 </div>
             </div>

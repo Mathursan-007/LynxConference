@@ -31,23 +31,27 @@ class Logs extends React.Component{
 
 render() {
     return(
-        <div class="table-responsive" style={{height:'80vh' ,overflow:'auto'}}>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Activity</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                </tr>
-                </thead>
-                <tbody>
-                {this.state.logs.map(log=>{
-                    return <Log log={log} key={log._id} num={this.state.logs.indexOf(log)+1}/>
-                })}
-                </tbody>
-            </table>
+        <div className="container" style={{marginTop: "120px"}}>
+            <div className="table-responsive border-dark">
+                <table className="table table-hover table-dark table-condensed tablebody text-center">
+
+                    <thead style={{position:'sticky',top:0}} className={"tablehead"}>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Activity</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.logs.map(log=>{
+                        return <Log log={log} key={log._id} num={this.state.logs.indexOf(log)+1}/>
+                    })}
+                    </tbody>
+
+                </table>
+         </div>
         </div>
     )
 }

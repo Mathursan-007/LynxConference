@@ -53,14 +53,20 @@ class StacksChart extends React.Component{
         const options={
 
             maintainAspectRatio:false,
-            title:{
-                display:"Stacks",
-                text:'Different types of stacks used by researchers',
-                fontSize:25
-            },
-            legend:{
-                display:"no",
-                position:"top"
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Stacks used by researchers',
+                    color:'#fff',
+                    font:{
+                        size:18
+                    }
+                },
+                legend: {
+                    labels: {
+                        color:'#fff'
+                    }
+                }
             }
 
         }
@@ -128,7 +134,7 @@ class StacksChart extends React.Component{
 
 
 
-            <div className="card back col-md-6 mt-5 ml-4 mr-4"  style={{height: "80vh",maxWidth: "80vh"}}>
+            <div className="card col-md-6 mt-5 ml-4 mr-4"  style={{height: "80vh",maxWidth: "80vh",backgroundColor:'#0b0b8a'}}>
                 <Pie options={options} data={data}/>
             </div>
 

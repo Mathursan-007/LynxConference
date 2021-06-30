@@ -3,11 +3,12 @@
 
     margin: 0;
     padding-top:25vh;
-    background: linear-gradient(45deg, #00002d, #000013, #000d3a);
+    background: linear-gradient(45deg, #afaff1, #393967, #000d3a);
     position: fixed;
     height: 100vh;
-    width: 250px;
+    width: 350px;
     overflow: hidden;
+
 }
 
 .sidebar a {
@@ -21,27 +22,29 @@
 
 
 .sidebar a:hover{
+
     border-left: 5px solid #5584ff;
     background: #122143;
     text-decoration: none;
 
-
 }
 
-.sidebar a:active{
+.sidebar a:focus{
     text-color: #cce5ff;
     border-left: 5px solid #f3eeed;
-    background: #e0e3ea;
+    background: #404040;
+    color:#fff;
 }
+
 
 .content{
 
     width: 180vh;
-    margin-left: 250px;
+    margin-left: 275px;
     padding: 1px 16px;
     height: 100vh;
     position: fixed;
-    background-color: #cdcbdd;
+    background: linear-gradient(45deg, #3d3d58, #000013, #3d3d58);
 
 }
 
@@ -77,20 +80,6 @@
         text-align: center;
         float: none;
     }
-}
-
-.table{
-
-    color: #38b715;
-}
-
-.table tr th {
-    text-align: center;
-
-}
-
-.table tr td {
-    text-align: center;
 }
 
 

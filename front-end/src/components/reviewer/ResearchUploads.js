@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import axios from "axios";
 import ResearchUpload from './ResearchUpload';
-//import '../../styles/ReviewerResearchUploads.css';
+import '../../styles/ReviewerResearchUploads.css';
 import {Button, Modal} from "react-bootstrap";
 import Select from 'react-select';
 
@@ -108,7 +108,7 @@ export default class ResearchUploads extends React.Component {
     render() {
         return (
 
-            <div className="rev-table-container">
+            <div class="container" style={{marginTop: "100px"}}>>
 
                 <label className="filterLabel">Filter By Technology Stacks</label><br/><br/>
                 <Select
@@ -116,14 +116,17 @@ export default class ResearchUploads extends React.Component {
                     options={this.state.options}
                     onChange={this.onStackSelect}
                     className="select"
+
                 />
                 <br/><br/>
 
 
-                <table class="rev-table">
-                    <thead>
+                    <div className="table-responsive border-dark">
+                        <table className="table table-hover table-dark table-condensed tablebody text-center">
+
+                            <thead style={{position:'sticky',top:0}} className={"tablehead"}>
                     <tr class="rev-tr">
-                        <th class="rev-th"> </th>
+                        <th class="rev-th">No </th>
                         <th class="rev-th">Email</th>
                         <th class="rev-th">Phone No.</th>
                         <th className="rev-th">Stacks</th>
@@ -136,7 +139,8 @@ export default class ResearchUploads extends React.Component {
                     {this.display()}
 
                     </tbody>
-                </table>
+                        </table>
+                    </div>
                 <br/>
 
             </div>

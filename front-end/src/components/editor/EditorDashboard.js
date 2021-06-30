@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, Switch,Redirect} from 'react-router-dom'
 import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -36,10 +36,10 @@ class EditorDashboard extends React.Component{
         return(
             <div>
                 <div className={"sidebar"}>
-                        <Link to={"/editor/addDetails"}>Add Details</Link>
-                        <Link to={"/editor/viewDetails"}>View Details</Link>
-                        <Link to={"/editor/submissions"}>Research Submissions</Link>
-                        <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
+                    <Link to={"/editor/addDetails"}><i className="fa fa-plus  mr-2"></i>Add Details</Link>
+                    <Link to={"/editor/viewDetails"}><i className="fa fa-eye  mr-2"></i>View Details</Link>
+
+                    <Link to={"/login"} onClick={this.doLogout}><i className="fa fa-sign-out mr-2"></i>Logout</Link>
                 </div>
                 <div className={"content"}>
                     <Switch>
@@ -49,11 +49,12 @@ class EditorDashboard extends React.Component{
                         <Route path={"/editor/viewDetails"}>
                             <ViewDetails />
                         </Route>
+                        <Redirect to={"/editor/addDetails"}/>
                     </Switch>
                 </div>
             </div>
         )
-}
+    }
 
 
 

@@ -1,0 +1,80 @@
+.payment-container {
+    margin-top: 5%;
+    padding: 16px;
+    background-color: white;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.py-heading {
+    margin-top: 0%;
+    color: #00009b;
+    text-align: center;
+    font-size: 34px;
+    font-style: italic;
+    font-weight: bold;
+    font-family: Times New Roman;
+}
+.hrStyles {
+    border-top: 2px solid #6cb6ff;
+    width: 100%;
+}
+.py-label {
+    font-style: italic;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Times New Roman;
+    color: #00009b;
+}
+.py-input {
+    width: 90%;
+    font-family: Arial, Helevetica, sans-serif;
+    padding: 15px;
+    display: inline-block;
+    border: none;
+    background: #e6e6ff;
+}
+.py-input:focus {
+    background-color: #d5eaff;
+    outline: none;
+}
+
+.py-input::placeholder
+{
+    font-family: Times New Roman;
+}
+
+.btn-payment {
+    background-color: #00009b;
+    color: white;
+    padding: 20px 75px;
+    border: none;
+    outline: #00009b;
+    font-size: 20px;
+    font-style: italic;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.btn-payment:hover {
+    background-color: #9999ff;
+}
+
+.rev-btn-view {
+    border-radius: 25px;
+    border: none;
+    background-color: #06357a;
+    color: #ffffff;
+    font-style: italic;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin-left: 25px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-view:hover {
+    background-color: #86b7fe;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+}

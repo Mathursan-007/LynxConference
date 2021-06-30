@@ -44,7 +44,7 @@ class Request extends React.Component {
 
         axios.patch(`http://localhost:5000/admin/reply/${this.props.request._id}`,{reply},{
             headers:{
-                Authorization:sessionStorage.getItem("token")
+                Authorization:localStorage.getItem("token")
             }
         })
             .then(response=>{
@@ -97,7 +97,7 @@ class Request extends React.Component {
                     <td>{this.props.num}</td>
                     <td>{this.props.request.type}</td>
                     <td>{this.state.status}</td>
-                    <td><button class="btn btn-secondary" onClick={()=>this.setState({show:true})}>View</button></td>
+                    <td><button class="rev-btn-primary" onClick={()=>this.setState({show:true})}>View</button></td>
                     {this.showView()}
                 </tr>
 

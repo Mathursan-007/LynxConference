@@ -11,12 +11,12 @@ function PopUp(props) {
             centered
         >
             <Modal.Body centered>
-                <p className={'text-center'}>
+                <p className={'text-center text-black'}>
                     {props.description}
                 </p>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Ok</Button>
+                <Button  style={{backgroundColor:"#040935",width:"20%"}} onClick={props.onHide}>Ok</Button>
             </Modal.Footer>
         </Modal>
     );

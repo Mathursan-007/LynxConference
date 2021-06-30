@@ -25,7 +25,8 @@ class PresenterRegistration extends React.Component{
             confirmPassword:'',
             agree:false,
             id:'',
-            errorMessage:false
+            errorMessage:false,
+            popMessage:''
 
         }
     }
@@ -65,7 +66,7 @@ class PresenterRegistration extends React.Component{
             axios.post('http://localhost:5000/user/addUser', presenter)
                 .then(res => {
 
-                    alert("success") //model
+                    this.setState({errorMessage:true,popMessage:'Successfully registered Welcome to ICAF'})
                     console.log(res);
                     this.setState({
                         title:'',
@@ -88,10 +89,11 @@ class PresenterRegistration extends React.Component{
 
                 })
                 .catch(e => {
-                    alert(e.response.data.error)
+
+                    this.setState({errorMessage:true,popMessage:e.response.data.error})
                 });
         }else{
-            this.setState({errorMessage:true})
+            this.setState({errorMessage:true,popMessage:'Password and Confirm Password did not match '})
         }
 
 
@@ -206,7 +208,7 @@ class PresenterRegistration extends React.Component{
                 </div>
                 <Popup
 
-                    description = {'Password and Confirm Password did not match '}
+                    description = {this.state.popMessage}
                     show={this.state.errorMessage}
                     onHide={() => this.setState({errorMessage: false})}
                 />

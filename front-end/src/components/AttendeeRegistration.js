@@ -40,8 +40,6 @@ class AttendeeRegistration extends React.Component{
 
 
 
-
-
     render() {
 
         return(
@@ -85,7 +83,7 @@ class AttendeeRegistration extends React.Component{
                                                             <div className="col-lg-12 form-group">
                                                                 <Link to={{pathname:"/payment",
                                                                     state:{name:this.state.fullName,email:this.state.email,phoneNo:this.state.phoneNumber,plan:this.state.plan,price:PriceCheck(this.state.type)}}}>
-                                                                    <button type="submit" className="Aregister-btn"> Next</button>
+                                                                    <button type="submit" className="Aregister-btn"> Next </button>
                                                                 </Link>
                                                             </div>
                                                         </div>

@@ -105,18 +105,12 @@ class ViewCallForPapers extends React.Component {
 
     render() {
         return (
-            <div className="card border-primary rounded-0">
-                <div className="card-header p-0">
-                    <div className="bg-info text-white text-center py-2">
-                        <h3>Workshops</h3>
-                    </div>
-                </div>
+
                 <div className="card-body p-3">
-
                     <div className="table-responsive" id="sailorTableArea">
-                        <table id="sailorTable" className="table table-striped table-bordered table-condensed tablebody text-center" width="100%">
+                        <table id="sailorTable" className="table table-hover table-dark table-condensed tablebody text-center" width="100%">
 
-                            <thead className="tablehead">
+                            <thead className="tablehead" style={{position:'sticky',top:0}}>
                             <tr>
                                 <th>Title</th>
                                 <th>Status</th>
@@ -156,10 +150,7 @@ class ViewCallForPapers extends React.Component {
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-
-            </div>
         );
     }
 }

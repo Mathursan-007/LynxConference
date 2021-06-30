@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from "react-bootstrap";
 import '../../../styles/ReviewerResearchUploads.css';
-
+import PopUp from '../../PopUp'
 
 export default class WorkshopNotifications extends Component {
 
@@ -12,6 +12,7 @@ export default class WorkshopNotifications extends Component {
             workshopUploads: {},
             email: '',
             _id: '',
+            show:true
         }
     }
 
@@ -45,7 +46,7 @@ export default class WorkshopNotifications extends Component {
         }
         else {
             return (
-                <h3>No notifications to Show!</h3>
+                <PopUp description={"No notifications"} show={this.state.show} onHide={()=>this.setState({show:false})}/>
             )
         }
     }

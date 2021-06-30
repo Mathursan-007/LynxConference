@@ -1,5 +1,5 @@
 #sailorTableArea{
-    min-height: 300px;
+    min-height: 400px;
     overflow-x: auto;
     overflow-y: auto;
 }
@@ -8,11 +8,13 @@
 }
 .tablebody {
     display:block;
-    height:300px;
-    overflow:auto;
+    max-height:450px;
+    overflow-x:hidden;
+    min-height: 0px;
 }
 .tablehead , .tablebody tr {
     display:table;
     width:100%;
     table-layout:fixed;
+
 }

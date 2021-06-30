@@ -1,9 +1,18 @@
 import React from "react";
 import '../styles/payment.css'
 import axios from "axios";
+import Popup from "./PopUp";
 class Payment extends React.Component{
 
+    constructor(props) {
+        super(props);
 
+        this.state={
+            errorMessage:false,
+            popMessage:''
+
+        }
+    }
 
     handleSubmit=(e)=>{
 
@@ -23,8 +32,10 @@ class Payment extends React.Component{
 
         axios.post('http://localhost:5000/user/addAttendee', attendee)
             .then(res => {
-                console.log(res);
+                this.setState({errorMessage:true,popMessage:'Payment Successful'})
+                window.location = "/"
             })
+
             .catch(err => {
                 console.log(err);
             });
@@ -61,7 +72,7 @@ class Payment extends React.Component{
                                                 <div className="col-sm-6">
                                                     <p className="payment-text-warning mb-0">Expiration</p>
                                                     <input type="text" className="payment-input" placeholder="04/2021" name="exp"size="17"
-                                                           id="exp" minLength="10" maxLength="10"/>
+                                                           id="exp" minLength="7" maxLength="7"/>
                                                 </div>
                                                 <div className="col-sm-3">
                                                     <p className="payment-text-warning mb-0">CVV</p>
@@ -84,7 +95,12 @@ class Payment extends React.Component{
                         </div>
                     </div>
                 </div>
+                <Popup
 
+                    description = {this.state.popMessage}
+                    show={this.state.errorMessage}
+                    onHide={() => this.setState({errorMessage: false})}
+                />
             </div>
 
         )

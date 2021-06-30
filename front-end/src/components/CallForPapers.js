@@ -52,7 +52,6 @@ export default class CallForPapers extends React.Component{
                                     <div className="card col-sm-4 mt-3 ml-2"  style={{minHeight: "40vh",maxWidth: "60vh",backgroundColor: "#0c0443"}}>
 
                                         <div className="card-body m-1 rounded">
-                                            <img className="card-img mb-4 rounded" src={req.details.photo} alt="Card image cap" />
                                             <h5 className="card-title text-light">{req.details.name}</h5>
                                         </div>
                                     </div>

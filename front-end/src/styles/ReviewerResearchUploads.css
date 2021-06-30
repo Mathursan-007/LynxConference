@@ -1,21 +1,9 @@
-html{
-    height: 100%;
-}
-
-.table th, .table-td {
-    padding: 15px;
-    background-color: rgba(255,255,255,0.2);
-    color: #fff;
-}
-
 .table th {
-    text-align: left;
-    background-color: #55608f;
-}
 
+    text-align: center;
+    background-image: linear-gradient(to right top, #7e8796, #0d1316, #010134, #010615, #c5cbb8);
+    background-image: radial-gradient(circle,#5a77a8, #697eab, #7785ae, #848db0, #9095b3);
 
-.table tr {
-    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .rev-btn-primary {
@@ -26,7 +14,6 @@ html{
     font-style: italic;
     cursor: pointer;
     padding: 10px 15px;
-    margin-top: 20px;
     margin-left: 25px;
     width: 100px;
     transition: all 0.1s ease-in-out;
@@ -39,6 +26,7 @@ html{
     box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
     transform: translateY(-3px);
 }
+
 
 .rev-btn-payment {
     border-radius: 25px;
@@ -53,6 +41,7 @@ html{
     width: 200px;
     transition: all 0.1s ease-in-out;
 }
+
 
 .rev-btn-payment:hover {
     background-color: #86b7fe;
@@ -105,4 +94,124 @@ html{
     border-radius: 50%;
     background: #d93b9f;
     color: white;
+}
+
+.rev-btn-status-approve {
+    border-radius: 12px;
+    border: none;
+    background-color: #32CD32;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 5px 5px;
+    margin-left: 25px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-status-reject {
+    border-radius: 12px;
+    border: none;
+    background-color: #FF0000;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 5px 5px;
+    margin-left: 25px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-status-pending {
+    border-radius: 12px;
+    border: none;
+    background-color: #FFFF00;
+    color: #000;
+    font-style: italic;
+    cursor: pointer;
+    padding: 5px 5px;
+    margin-left: 25px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-approve {
+    border-radius: 25px;
+    border: none;
+    background-color: #1ade1d;
+    color: #ffffff;
+    font-style: italic;
+    cursor: pointer;
+    padding: 10px 15px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-approve:hover {
+    background-color: #1de577;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+}
+
+.rev-btn-reject {
+    border-radius: 25px;
+    border: none;
+    background-color: #ca2f47;
+    color: #ffffff;
+    font-style: italic;
+    margin-left: 0;
+    cursor: pointer;
+    padding: 10px 15px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-reject:hover {
+    background-color: #c60e64;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+}
+
+.rev-btn-url {
+    border-radius: 25px;
+    border: none;
+    background-color: #1ea9d4;
+    color: #ffffff;
+    font-style: italic;
+    margin-left: 0;
+    cursor: pointer;
+    padding: 8px 8px;
+    width: 150px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-url:hover {
+    background-color: #47C1D6;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+}
+
+.rev-btn-close {
+    border-radius: 25px;
+    border: none;
+    background-color: #011c16;
+    color: #ffffff;
+    font-style: italic;
+    margin-left: 0;
+    cursor: pointer;
+    padding: 10px 15px;
+    width: 100px;
+    transition: all 0.1s ease-in-out;
+}
+
+.rev-btn-close:hover {
+    background-color: #818c88;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 2px 15px 0px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
 }

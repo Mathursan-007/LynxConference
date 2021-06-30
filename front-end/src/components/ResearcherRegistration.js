@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import axios from "axios";
 import {Link} from "react-router-dom";
+import Popup from "./PopUp"
 
 class ResearcherRegistration extends React.Component{
 
@@ -24,7 +25,9 @@ class ResearcherRegistration extends React.Component{
             password:'',
             confirmPassword:'',
             agree:false,
-            id:''
+            id:'',
+            errorMessage:false,
+            popMessage:''
 
         }
     }
@@ -61,7 +64,7 @@ class ResearcherRegistration extends React.Component{
 
             axios.post('http://localhost:5000/user/addUser', researcher)
                 .then(res => {
-                    alert("success")
+                    this.setState({errorMessage:true,popMessage:'Successfully registered Welcome to ICAF'})
                     console.log(res);
                     this.setState({
                         title: '',
@@ -84,10 +87,10 @@ class ResearcherRegistration extends React.Component{
 
                 })
                 .catch(e => {
-                    alert(e.response.data.error)
+                    this.setState({errorMessage:true,popMessage:e.response.data.error})
                 });
         }else{
-            alert('password didnt match') //change to model
+            this.setState({errorMessage:true,popMessage:'Password and Confirm Password did not match '})
         }
 
 
@@ -202,6 +205,12 @@ class ResearcherRegistration extends React.Component{
                         </form>
                     </div>
                 </div>
+                <Popup
+
+                    description = {this.state.popMessage}
+                    show={this.state.errorMessage}
+                    onHide={() => this.setState({errorMessage: false})}
+                />
             </div>
         )
     }

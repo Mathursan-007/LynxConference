@@ -5,6 +5,7 @@ import Request from './Request'
 import 'react-bootstrap'
 
 
+
 class Requests extends React.Component{
 
     constructor(props) {
@@ -33,11 +34,11 @@ class Requests extends React.Component{
 
     render() {
         return(
-            <div  className="container" style={{marginTop: "150px"}}>
-                <div className="table-responsive card border-primary rounded-0">
-                   <table className="table table-bordered table-condensed tablebody text-center">
-                       <thead className={"tablehead"}>
-                       <tr>
+            <div className="container" style={{marginTop: "120px"}}>
+                <div className="table-responsive">
+                   <table className="table table-hover table-dark table-condensed tablebody text-center">
+                       <thead style={{position:'sticky',top:0}} className={"tablehead"}>
+                       <tr >
                            <th scope="col">No</th>
                            <th scope="col">Type</th>
                            <th scope="col">Status</th>

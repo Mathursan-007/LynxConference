@@ -83,7 +83,8 @@ class AddCallForPaper extends Component {
                                 type="submit"
                                 value={this.state.buttonText}
                                 className="btn btn-info btn-block rounded-0 py-2"
-                                disabled={this.state.buttonState}/>
+                                disabled={this.state.buttonState}
+                                />
                         </div>
                     </div>
 

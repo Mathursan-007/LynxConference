@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Redirect, Route, Switch} from 'react-router-dom'
 import '../../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
@@ -85,10 +85,9 @@ class PresenterDashBoard extends React.Component{
                     </Link>
                 </div>
                 <div className={"sidebar"}>
-
-                    <Link to={"/presenter/uploadProposal"}>Proposal Submissions</Link>
-                    <Link to={"/presenter/viewWorkshop"}>View Workshop</Link>
-                    <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
+                    <Link to={"/presenter/uploadProposal"}><i className="fa fa-cloud-upload  mr-2"></i>Proposal Submissions</Link>
+                    <Link to={"/presenter/notifications"}><span><i className="fa fa-bell mr-2" aria-hidden="true"></i></span>Notifications</Link>
+                    <Link to={"/login"} onClick={this.doLogout}><i className="fa fa-sign-out mr-2"></i>Logout</Link>
                 </div>
 
                 <div className={"content"}>
@@ -100,6 +99,7 @@ class PresenterDashBoard extends React.Component{
                         <Route path="/presenter/notifications">
                             <WorkshopNotifications workshopUploads={this.state.workshopUploads} key={this.state.workshopUploads._id}/>
                         </Route>
+                        <Redirect to={"/presenter/uploadProposal"}/>
                     </Switch>
                 </div>
             </div>

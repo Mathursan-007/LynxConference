@@ -19,7 +19,7 @@ class UploadPaper extends React.Component{
             progress:false,
             buttonText:'Submit',
             buttonState: false,
-            color:'#f7bdbd'   //color change
+            color:'#f7bdbd'
 
         }
     }
@@ -53,44 +53,49 @@ class UploadPaper extends React.Component{
         this.setState({paper: e.target.files[0]});
     }
 
-    handleSubmit=(e)=>{
+    handleSubmit=(e)=> {
 
         e.preventDefault();
 
-        const formData = new FormData();
+        if (this.state.stacks.length != 0) {
 
-        formData.append('name', this.state.name);
-        formData.append('email', this.state.email);
-        formData.append('phoneNumber', this.state.phoneNumber);
-        formData.append('paper', this.state.paper);
-        formData.append('stacks', this.state.stacks);
+            const formData = new FormData();
 
-        this.setState({
-            progress: true
-        })
+            formData.append('name', this.state.name);
+            formData.append('email', this.state.email);
+            formData.append('phoneNumber', this.state.phoneNumber);
+            formData.append('paper', this.state.paper);
+            formData.append('stacks', this.state.stacks);
 
-        axios.post('http://localhost:5000/user/addResearcherUploads', formData,{
-            headers:{
-                Authorization:localStorage.getItem("token")
-            }
-        })
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    name: '',
-                    email: '',
-                    phoneNumber: '',
-                    paper: '',
-                    stacks:[],
-                    progress:false,
-                    buttonState: true,
-                    buttonText: 'Already submitted'
-                })
+            this.setState({
+                progress: true
             })
-            .catch(err => {
-                console.log(err);
-            });
 
+            axios.post('http://localhost:5000/user/addResearcherUploads', formData, {
+                headers: {
+                    Authorization: localStorage.getItem("token")
+                }
+            })
+                .then(res => {
+                    console.log(res);
+                    this.setState({
+                        name: '',
+                        email: '',
+                        phoneNumber: '',
+                        paper: '',
+                        stacks: [],
+                        progress: false,
+                        buttonState: true,
+                        buttonText: 'Already submitted'
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        }else{
+            alert('select stacks')
+        }
     }
 
     addStack=(e)=>{
@@ -135,7 +140,7 @@ class UploadPaper extends React.Component{
                                                             <div className="col-lg-12 form-group">
                                                                 <input type="number" name="phoneNumber" value={this.state.phoneNumber} onChange={this.handleInput}  placeholder="Your Phone Number" required/>
                                                             </div>
-                                                            <div>
+                                                            <div className="col-lg-12 form-group">
                                                                 Stacks Used:<br></br>
                                                                 <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="Java" onInput={this.addStack} />Java</label></div>
                                                                 <div className="form-check-inline"><label className="form-check-label"><input type="checkbox" className="form-check-input" value="Python" onInput={this.addStack}/>Python</label></div>
@@ -175,7 +180,7 @@ class UploadPaper extends React.Component{
                                                                     className="cmn-btn"
                                                                     value={this.state.buttonText}
                                                                     disabled={this.state.buttonState}
-                                                                    Style={{backgroundColor:this.state.color}}
+                                                                    style={{backgroundColor:this.state.buttonState ? this.state.color :'red'}}
                                                                 />
                                                             </div>
                                                         </div>

@@ -6,7 +6,7 @@ import ViewTemplates from "./ViewTemplates";
 import ViewConference from "./ViewConference";
 import '../../styles/viewDetails.css';
 import ViewCallForPapers from "./ViewCallForPapers";
-//import ChangeColour from "../functions/ChangeColour";
+import ChangeColour from "../../functions/ChangeColour";
 
 
 class ViewDetails extends React.Component {
@@ -23,19 +23,19 @@ class ViewDetails extends React.Component {
     }
 
     displayDetail = () => {
-        // if(this.state.detail == 'keynote') {
-        //     return <ViewKeynoteSpeakers statusColor = {ChangeColour} />
-        // } else if(this.state.detail == 'workshop') {
-        //     return <ViewWorkshops statusColor = {ChangeColour} />
-        // } else if(this.state.detail == 'news') {
-        //     return <ViewNews statusColor = {ChangeColour} />
-        // } else if(this.state.detail == 'template') {
-        //     return <ViewTemplates statusColor = {ChangeColour} />
-        // } else if(this.state.detail == 'conference') {
-        //     return <ViewConference statusColor = {ChangeColour} />
-        // } else if(this.state.detail == 'callForPaper') {
-        //     return <ViewCallForPapers statusColor = {ChangeColour} />
-        // }
+        if(this.state.detail == 'keynote') {
+            return <ViewKeynoteSpeakers statusColor = {ChangeColour} />
+        } else if(this.state.detail == 'workshop') {
+            return <ViewWorkshops statusColor = {ChangeColour} />
+        } else if(this.state.detail == 'news') {
+            return <ViewNews statusColor = {ChangeColour} />
+        } else if(this.state.detail == 'template') {
+            return <ViewTemplates statusColor = {ChangeColour} />
+        } else if(this.state.detail == 'conference') {
+            return <ViewConference statusColor = {ChangeColour} />
+        } else if(this.state.detail == 'callForPaper') {
+            return <ViewCallForPapers statusColor = {ChangeColour} />
+        }
     }
 
     statusColor = status => {

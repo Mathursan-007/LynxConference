@@ -40,11 +40,11 @@ class AdminDashboard extends React.Component{
         return(
             <div>
                 <div className={"sidebar"}>
-                        <Link to={"/admin/analytics"}>Analytics</Link>
-                        <Link to={"/admin/requests"}>Page Edit Requests</Link>
-                        <Link to={"/admin/logs"}>Activity Log</Link>
-                        <Link to={"/admin/attendees"}>Attendees</Link>
-                        <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
+                        <Link to={"/admin/analytics"}><i className="fa fa-bar-chart mr-2"></i>Analytics</Link>
+                        <Link to={"/admin/requests"}><i className="fa fa-bars mr-2"></i>Page Edit Requests</Link>
+                        <Link to={"/admin/logs"}><i className="fa fa-address-book mr-2"></i>Activity Log</Link>
+                        <Link to={"/admin/attendees"}><i className="fa fa-users mr-2"></i>Attendees</Link>
+                        <Link to={"/login"} onClick={this.doLogout}><i className="fa fa-sign-out mr-2"></i>Logout</Link>
                 </div>
                 <div className={"content"}>
                     <Switch>

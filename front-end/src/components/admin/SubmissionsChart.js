@@ -73,7 +73,70 @@ class SubmissionsChart extends React.Component{
 
         const options={
 
-            maintainAspectRatio:false
+            maintainAspectRatio:false,
+            animations: {
+                tension: {
+                    easing: 'linear',
+                    from: 1,
+                    to: 0
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Number of Submission over last 5 days',
+                    color:'#fff',
+                    font:{
+                        size:18
+                    }
+                },
+                legend: {
+                    labels: {
+                        color:'#fff'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Days',
+                        color: '#fff',
+                        font: {
+                            family: 'Times',
+                            size: 20,
+                            weight: 'bold',
+                            lineHeight: 1.2,
+                        },
+                        padding: {top: 20, left: 0, right: 0, bottom: 0}
+                    },
+                    ticks:{
+                        color:'#fff',
+                    }
+                }, y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Number of Submissions',
+                        color: '#fff',
+                        font: {
+                            family: 'Times',
+                            size: 20,
+                            style: 'bold',
+                            lineHeight: 1.2
+                        },
+                        padding: {top: 20, left: 0, right: 0, bottom: 0}
+                    },
+                    ticks:{
+                      color:'#fff'
+                    }
+                }
+
+
+            },
+            responsive: true
+
 
         }
 
@@ -168,16 +231,17 @@ class SubmissionsChart extends React.Component{
                     ],
                     borderColor:'rgba(12,157,237,0.6)'
                 }
-            ],
+            ]
+    }
 
-        }
+
 
 
 
         return(
 
 
-            <div className="card back col-md-6 mt-5 ml-2 mr-2"  style={{height:"80vh",maxWidth:"80vh"}}>
+            <div className="card col-lg-6 mt-5 ml-1 mr-2"  style={{height:"80vh",maxWidth:"80vh",backgroundColor:'#0b0b8a'}}>
                 <Line options={options} data={data}/>
             </div>
 

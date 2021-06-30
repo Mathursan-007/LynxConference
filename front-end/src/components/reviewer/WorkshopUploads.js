@@ -38,11 +38,13 @@ export default class WorkshopUploads extends React.Component {
     render() {
 
         return (
-            <div class="rev-table_container">
-                <table class="rev-table">
-                    <thead>
+            <div className="container" style={{marginTop: "120px"}}>
+                <div className="table-responsive border-dark">
+                    <table className="table table-hover table-dark table-condensed tablebody text-center">
+
+                        <thead style={{position:'sticky',top:0}} className={"tablehead"}>
                     <tr class="rev-tr">
-                        <th class="rev-th"></th>
+                        <th class="rev-th">No</th>
                         <th class="rev-th">Email</th>
                         <th class="rev-th">Phone No.</th>
                         <th class="rev-th">Status</th>
@@ -56,7 +58,8 @@ export default class WorkshopUploads extends React.Component {
                         );
                     })}
                     </tbody>
-                </table>
+                 </table>
+                </div>
             </div>
         )
     }

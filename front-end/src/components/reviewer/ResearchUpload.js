@@ -4,6 +4,8 @@ import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import '../../styles/ReviewerResearchUploads.css';
 import axios from "axios";
+import Popup from "../PopUp"
+import swal from "sweetalert";
 
 export default class ResearchUpload extends React.Component {
 
@@ -13,7 +15,9 @@ export default class ResearchUpload extends React.Component {
         this.state={
             status: this.props.upload.status,
             show:false,
-            reviewerID: this.props.upload.reviewerID
+            reviewerID: this.props.upload.reviewerID,
+            errorMessage:false,
+            popMessage:''
         }
     }
 
@@ -22,12 +26,13 @@ export default class ResearchUpload extends React.Component {
         axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,reviewerID:this.state.reviewerID,
                                     email:this.props.upload.details.email,type:"research"},{
              headers:{
-                 Authorization:sessionStorage.getItem("token")
+                 Authorization:localStorage.getItem("token")
              }
         } )
             .then(response => {
 
                 this.setState({status: msg,show:false});
+                swal("Successfully " + this.state.status + " Submission!");
 
             })
             .catch(err => {
@@ -35,26 +40,36 @@ export default class ResearchUpload extends React.Component {
             })
     }
 
-    handleInput=(event)=>{
-        this.setState({reviewerID: event.target.value});
-    }
+    clickEvent=()=>{
 
-    clickEvent=(status, reviewerID)=>{
-
-        const str = reviewerID + "";
-        const length = str.length;
-        console.log("ID: " , length);
-       // const length = reviewerID+"".toString().length;
-
-
-        if( (status=="approved" || status=="rejected" || length<6) ) {
+        if(this.state.status=="approved"||this.state.status=="rejected"){
             return true;
-
-        }else if( status=="pending" ) {
+        }else if(this.state.status=="pending"){
             return false;
         }
 
     }
+
+    getButton(status) {
+        if(status === "approved") {
+            return (
+                <button className="rev-btn-status-approve">Approved</button>
+            )
+        }
+        else if (status === "rejected") {
+            return (
+                <button className="rev-btn-status-reject">Rejected</button>
+            )
+        }
+        else {
+            return (
+                <button className="rev-btn-status-pending">Pending</button>
+            )
+        }
+    }
+
+
+
 
     showView=(url)=>{
 
@@ -65,7 +80,6 @@ export default class ResearchUpload extends React.Component {
                     <ModalTitle>
                         {this.props.upload.title}
                     </ModalTitle>
-                    <input type="text" name="reviewerID" placeholder="Reviewer, Please enter your ID" onChange={this.clickEvent(this.state.status, this.state.reviewerID)} />
                 </ModalHeader>
                 <ModalBody>
                     <p>Researcher Name : {this.props.upload.details.name}</p>
@@ -75,12 +89,12 @@ export default class ResearchUpload extends React.Component {
                                     value={this.state.reviewerID} onChange={this.handleInput} /> </p>
                 </ModalBody>
                 <Modal.Footer>
-                    <a href={url}><Button className="btn-dark">View Research Paper</Button></a>
-                    <Button className={"rev-btn-approve"} onClick={()=>this.changeStatus(this.props.upload._id, "approved")}
-                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</Button>
-                    <Button className={"rev-btn-reject"} onClick={()=>this.changeStatus(this.props.upload._id, "rejected")}
-                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</Button>
-                    <Button onClick={()=>this.setState({show:false})}>Close</Button>
+                    <a href={url}><button className="rev-btn-url">View Research Paper</button></a>
+                    <button className="rev-btn-approve" onClick={()=>this.changeStatus(this.props.upload._id, "approved")}
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</button>
+                    <button className="rev-btn-reject" onClick={()=>this.changeStatus(this.props.upload._id, "rejected")}
+                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</button>
+                    <Button className="rev-btn-close" onClick={()=>this.setState({show:false})}>Close</Button>
                 </Modal.Footer>
             </Modal>
 
@@ -102,11 +116,11 @@ export default class ResearchUpload extends React.Component {
                 <td className="rev-td">{upload.details.email}</td>
                 <td className="rev-td">{upload.details.phoneNumber}</td>
                 <td className="rev-td">{upload.stacks}</td>
-                <td className="rev-td">{this.state.status}</td>
+                <td className="rev-td">{this.getButton(this.state.status)}</td>
 
                 {/*{this.props.upload.status=="approved" ?*/}
                 {/*    <td className="rev-td"><button>View</button></td> :*/}
-                    <td className="rev-td"><button className="rev-btn-primary"
+                    <td className="rev-td"><button className="rev-btn-view"
                                                onClick={()=>this.setState({show:true})}>View</button></td>
                 {/* }*/}
                 {this.showView(upload.details.paper)}

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Redirect, Route, Switch} from "react-router-dom";
 import ResearchUploads from "./ResearchUploads";
 //import '../../styles/dashboard.css'
 import 'bootstrap/dist/css/bootstrap.css';
@@ -39,9 +39,9 @@ export default class ReviewerDashboard extends React.Component {
         return(
             <div>
                 <div className={"sidebar"}>
-                    <Link to={"/reviewer/researchUploads"}>Research Papers</Link>
-                    <Link to={"/reviewer/workshopUploads"}>Workshop Proposals</Link>
-                    <Link to={"/login"} onClick={this.doLogout}>Logout</Link>
+                    <Link to={"/reviewer/researchUploads"}><i className="fa fa-window-restore mr-2"></i>Research Papers</Link>
+                    <Link to={"/reviewer/workshopUploads"}><i className="fa fa-sign-out mr-2"></i>Workshop Proposals</Link>
+                    <Link to={"/login"} onClick={this.doLogout}><i className="fa fa-sign-out mr-2"></i>Logout</Link>
                 </div>
                 <div className={"content"}>
                     <Switch>
@@ -51,6 +51,7 @@ export default class ReviewerDashboard extends React.Component {
                         <Route path={"/reviewer/workshopUploads"}>
                             <WorkshopUploads />
                         </Route>
+                        <Redirect to={"/reviewer/researchUploads"}/>
                     </Switch>
                 </div>
             </div>

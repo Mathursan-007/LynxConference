@@ -4,6 +4,9 @@ import {Button, Modal, ModalBody, ModalTitle} from "react-bootstrap";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import '../../styles/ReviewerResearchUploads.css';
 import axios from "axios";
+import swal from 'sweetalert'
+
+
 
 export default class WorkshopUpload extends React.Component {
 
@@ -19,21 +22,24 @@ export default class WorkshopUpload extends React.Component {
 
 
     changeStatus=(_id, msg) => {
-
-        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,email:this.props.upload.details.email,type:"workshop"},{
+        // console.log("em: ", this.props)
+        axios.patch('http://localhost:5000/reviewer/upload/' + _id, {status:msg,reviewerID:this.state.reviewerID,
+            email:this.props.workshopUpload.details.email,type:"workshop"},{
             headers:{
-                Authorization:sessionStorage.getItem("token")
+                Authorization:localStorage.getItem("token")
             }
         } )
             .then(response => {
-                this.setState({status: msg});
-                this.setState({show:false});
+                console.log("res: ", response);
+                this.setState({status: msg,show:false});
+                swal("Successfully " + this.state.status + " Submission!");
 
             })
             .catch(err => {
                 console.log(err);
             })
     }
+
 
     handleInput=(event)=>{
         this.setState({reviewerID: event.target.value});
@@ -68,9 +74,6 @@ export default class WorkshopUpload extends React.Component {
                     <ModalTitle>
                         {this.props.workshopUpload.title}
                     </ModalTitle>
-
-                    <input type="text" name="reviewerID" placeholder="Reviewer, Please enter your ID" onChange={this.clickEvent(this.state.status, this.state.reviewerID)} />
-
                 </ModalHeader>
                 <ModalBody>
                     <p>Presenter Name : {this.props.workshopUpload.details.name}</p>
@@ -81,21 +84,42 @@ export default class WorkshopUpload extends React.Component {
                                             value={this.state.reviewerID} onChange={this.handleInput} /> </p>
                 </ModalBody>
                 <Modal.Footer>
-                    <a href={url}><Button className="btn-dark">View Workshop Proposal</Button></a>
+                    <Modal.Footer>
+                        <a href={url}><Button className="rev-btn-url">View Workshop Proposal</Button></a>
 
-                    <Button className={"btn-success"} onClick={()=>this.changeStatus(this.props.workshopUpload._id, "approved")}
-                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</Button>
+                        <button className="rev-btn-approve" onClick={()=>this.changeStatus(this.props.workshopUpload._id, "approved")}
+                                disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Approve</button>
 
-                    <Button className={"btn-danger"} onClick={()=>this.changeStatus(this.props.workshopUpload._id, "rejected")}
-                            disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</Button>
+                        <button className="rev-btn-reject" onClick={()=>this.changeStatus(this.props.workshopUpload._id, "rejected")}
+                                disabled={this.clickEvent(this.state.status, this.state.reviewerID)}>Reject</button>
 
-                    <Button onClick={()=>this.setState({show:false})}>Close</Button>
+                        <Button className="rev-btn-close" onClick={()=>this.setState({show:false})}>Close</Button>
+                    </Modal.Footer>
                 </Modal.Footer>
             </Modal>
 
         )
 
     }
+
+    getButton(status) {
+        if(status === "approved") {
+            return (
+                <button className="rev-btn-status-approve">Approved</button>
+            )
+        }
+        else if (status === "rejected") {
+            return (
+                <button className="rev-btn-status-reject">Rejected</button>
+            )
+        }
+        else {
+            return (
+                <button className="rev-btn-status-pending">Pending</button>
+            )
+        }
+    }
+
 
     render() {
         const {workshopUpload} = this.props;
@@ -108,10 +132,11 @@ export default class WorkshopUpload extends React.Component {
 
                 <td class="rev-td">{workshopUpload.details.email}</td>
                 <td class="rev-td">{workshopUpload.details.phoneNumber}</td>
-                <td class="rev-td">{this.state.status}</td>
+                <td className="rev-td">{this.getButton(this.state.status)}</td>
+
 
                 <td className="rev-td">
-                    <button className="rev-btn-primary"
+                    <button className="rev-btn-view"
                             onClick={() => this.setState({show: true})}>View
                     </button>
                 </td>
