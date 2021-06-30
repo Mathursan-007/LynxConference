@@ -22,9 +22,10 @@ const getUploadsRequestByEmail = async (email, type) => {
 }
 
 // Updating the status of Research Paper and Workshop Uploads
-const updateUploadStatus = async (id, status) => {
-    return await upload.updateOne({"_id":ObjectID(id)}, {$set: {status:status}})
+const updateUploadStatus = async (id, status, reviewerID) => {
+    return await upload.updateOne({"_id":ObjectID(id)}, {$set: {status:status, reviewerID:reviewerID}})
 }
+
 
 // Updating payment Status of research paper submissions once user makes the payment
 const updatePaymentStatus = async (id, status) => {
