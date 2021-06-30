@@ -14,9 +14,10 @@ const getUploadsByEmail = async (email, type) => {
 
 
 // Updating the status of research paper and workshop proposal submissions
-const updateStatus = async (id, status) => {
-    return await updateUploadStatus(id, status);
+const updateStatus = async (id, status, reviewerID) => {
+    return await updateUploadStatus(id, status, reviewerID);
 }
+
 
 const updatePayment = async (id, status) => {
     return await updatePaymentStatus(id, status);
